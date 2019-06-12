@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.newchar.devnews.http.MURL;
+import com.newchar.devnews.web.WebViewActivity;
 
 import java.io.IOException;
 
@@ -25,39 +26,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OkHttpClient appHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(MURL.OSC_URL + "/action/openapi/token" + "/" +"?" +
-                        "client_id=cXe8oxW5SJSuT02qdmjh&" +
-                        "client_secret=63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE&" +
-                        "grant_type=refresh_token&" +
-                        "redirect_uri=about:blank&" +
-                        "code=\"\"&" +
-                        "refresh_token=\"\"&" +
-                        "dataType=json&"
-                ).build();
-
-        appHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final ResponseBody responseBody = response.body();
-                    if (responseBody != null) {
-                        final String httpResult = responseBody.string();
-                        System.out.println(httpResult);
-                        System.out.println("nfkdflkjdklfjlkds");
-
-                    } else {
-                        onFailure(call, new IOException("laji"));
-                    }
-                } else {
-                    System.out.println("失败了" + response.code() + "\n"+ response.body().string());
-                }
-            }
-        });
+        WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+//        OkHttpClient appHttpClient = new OkHttpClient();
+//        Request request = new Request.Builder()
+//                .url(MURL.getOSCLoginAUthUrl()).build();
+//
+//        appHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//            }
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+//                if (response.isSuccessful()) {
+//                    final ResponseBody responseBody = response.body();
+//                    if (responseBody != null) {
+//                        final String httpResult = responseBody.string();
+//                        System.out.println(httpResult);
+//                        System.out.println("nfkdflkjdklfjlkds");
+//
+//                    } else {
+//                        onFailure(call, new IOException("laji"));
+//                    }
+//                } else {
+//                    System.out.println("失败了" + response.code() + "\n"+ response.body().string());
+//                }
+//            }
+//        });
 
     }
 
