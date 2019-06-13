@@ -121,11 +121,18 @@ public class WebViewActivity extends AppCompatActivity {
             } else {
                 overrideUrl = request.toString();
             }
+            collectOAuthLoginCode(overrideUrl);
             if (isShouldOverrideUrl(overrideUrl)) {
                 view.loadUrl(overrideUrl);
                 return true;
             }
             return super.shouldOverrideUrlLoading(view, request);
+        }
+
+        private void collectOAuthLoginCode(String url) {
+            if (url.startsWith("about:blank")) {
+
+            }
         }
 
         /**

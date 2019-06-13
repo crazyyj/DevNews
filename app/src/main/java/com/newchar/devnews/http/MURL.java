@@ -40,4 +40,17 @@ public class MURL {
         return getUrl.toString();
     }
 
+    /**
+     *
+     * @param url   链接
+     * @return      链接拆分出来的参数
+     */
+    public static Map<String, String> obtainGetUrlParams(String url) {
+        Map<String, String> paramsMap = new HashMap<>();
+        if (url != null && url.startsWith("?")) {
+
+        }
+        return paramsMap;
+    }
+
 }
