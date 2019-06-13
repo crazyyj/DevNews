@@ -3,16 +3,18 @@ package com.newchar.devnews.web;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
+import android.text.TextUtils;
 import android.view.ViewParent;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +24,6 @@ import com.newchar.devnews.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
 
 /**
  * @author wenliqiang
@@ -37,7 +38,7 @@ public class WebViewActivity extends AppCompatActivity {
     private WebView mWebView;
 
     /**
-     *  当前页面的浏览的url
+     * 当前页面的浏览的url
      */
     private String url;
 
@@ -93,11 +94,11 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private WebViewClient createWebViewClient() {
-        return new NewCharWebViewClient();
+        return mWebViewClient;
     }
 
     private WebChromeClient createWebChromeClient() {
-        return new NewCharWebChromeClient();
+        return mWebChromeClient;
     }
 
     private void inflateWebView() {
@@ -109,6 +110,44 @@ public class WebViewActivity extends AppCompatActivity {
             flWebViewContainer.addView(mWebView);
         }
     }
+
+    private final WebViewClient mWebViewClient = new WebViewClient() {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String overrideUrl;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                overrideUrl = request.getUrl().toString();
+            } else {
+                overrideUrl = request.toString();
+            }
+            if (isShouldOverrideUrl(overrideUrl)) {
+                view.loadUrl(overrideUrl);
+                return true;
+            }
+            return super.shouldOverrideUrlLoading(view, request);
+        }
+
+        /**
+         * 是否允许覆盖当前页面链接，请求
+         * @param overrideUrl   覆盖的链接
+         * @return true 允许，false 不允许
+         */
+        private boolean isShouldOverrideUrl(String overrideUrl) {
+            return !TextUtils.isEmpty(overrideUrl) && !overrideUrl.startsWith("about:blank");
+        }
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//        super.onReceivedSslError(view, handler, error);
+            handler.proceed();
+        }
+
+    };
+
+    private final WebChromeClient mWebChromeClient = new WebChromeClient() {
+
+    };
 
     @Override
     protected void onResume() {
