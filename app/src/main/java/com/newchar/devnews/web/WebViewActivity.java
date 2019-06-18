@@ -4,15 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +20,6 @@ import com.newchar.devnews.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
 
 /**
  * @author wenliqiang
@@ -37,7 +34,7 @@ public class WebViewActivity extends AppCompatActivity {
     private WebView mWebView;
 
     /**
-     *  当前页面的浏览的url
+     * 当前页面的浏览的url
      */
     private String url;
 
@@ -143,11 +140,13 @@ public class WebViewActivity extends AppCompatActivity {
 
     private void destroyWebView() {
         if (mWebView != null) {
-            ViewParent parentView = mWebView.getParent();
-            if (parentView instanceof FrameLayout) {
-                ((FrameLayout) parentView).removeAllViews();
-            }
+            mWebView.stopLoading();                          //停止加载
+            mWebView.clearCache(true);        //清除缓存
+            mWebView.clearHistory();                        //清除历史
+            mWebView.removeAllViews();                      //移除webview上子view
             mWebView.destroy();
+            ViewParent parentView = mWebView.getParent();
+            ((ViewGroup) parentView).removeAllViews();
             mWebView = null;
         }
     }
