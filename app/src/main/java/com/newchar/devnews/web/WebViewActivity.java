@@ -173,13 +173,19 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
+    private boolean webViewBackPressed() {
+        boolean isCan = mWebView != null && mWebView.canGoBack();
+        if (isCan) {
+            mWebView.goBack();
+        }
+        return isCan;
+    }
+
     @Override
     public void onBackPressed() {
-        if (mWebView != null && mWebView.canGoBack()) {
-            mWebView.goBack();
-            return;
+        if (!webViewBackPressed()) {
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
     @Override
