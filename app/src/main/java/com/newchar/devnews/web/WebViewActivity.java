@@ -199,7 +199,7 @@ public class WebViewActivity extends AppCompatActivity {
             mWebView.stopLoading();                          //停止加载
             mWebView.clearCache(true);        //清除缓存
             mWebView.clearHistory();                        //清除历史
-            mWebView.removeAllViews();                      //移除webview上子view
+//            mWebView.removeAllViews();                      //移除webview上子view
             mWebView.destroy();
             ViewParent parentView = mWebView.getParent();
             ((ViewGroup) parentView).removeAllViews();
