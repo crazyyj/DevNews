@@ -88,7 +88,7 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private WebView createWebView() {
-        WebView webView = new WebView(getApplicationContext());
+        WebView webView = WebViewFactory.getInstance().getWebView(getApplicationContext());
         webView.setWebChromeClient(createWebChromeClient());
         webView.setWebViewClient(createWebViewClient());
         return webView;
