@@ -33,7 +33,6 @@ public class ClickEventCompat implements IClickEventCompat {
     private void interceptClickEvent(View view) {
         if (!clickEventHandler.hasMessages(MSG_CLICK_ING) && !onInterceptClickEvent(view)) {
             clickCompat(view);
-
             clickEventHandler.sendMessageDelayed(clickEventHandler.obtainMessage(MSG_CLICK_ING, view.hashCode()), clickInterval);
         }
     }

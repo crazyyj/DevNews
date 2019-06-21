@@ -8,14 +8,8 @@ import android.view.View;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public class ViewEvent implements IViewEvent {
+public interface IViewEvent {
 
-
-
-    @Override
-    public boolean execute(View view) {
-        return false;
-    }
-
+    boolean execute(View view);
 
 }
