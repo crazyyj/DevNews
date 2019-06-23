@@ -18,12 +18,16 @@ public interface Way {
      */
     boolean isShouldExecute(View view);
 
+
+
     /**
      * 执行事件
      *
      * @param view 事件View
      * @return 是否需要结尾函数
      */
-    boolean execute(View view);
+    boolean onExecute(View view);
+
+
 
 }

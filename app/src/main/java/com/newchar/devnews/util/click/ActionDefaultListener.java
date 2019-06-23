@@ -11,23 +11,6 @@ import android.view.View;
  */
 public class ActionDefaultListener implements ActionListener {
 
-    private final static int clickIntervalDefault = 800;
-    private int clickInterval = clickIntervalDefault;
-
-    private static final int MSG_CLICK_ING = 1;
-    private Handler clickEventHandler = new Handler();
-
-    public void setClickInterval(int clickInterval) {
-        this.clickInterval = clickInterval;
-    }
-
-    public void onViewClick(View view) {
-        if (!clickEventHandler.hasMessages(MSG_CLICK_ING) && !onActionBefore(view)) {
-            onAction(view);
-            clickEventHandler.sendMessageDelayed(clickEventHandler.obtainMessage(MSG_CLICK_ING, view.hashCode()), clickInterval);
-        }
-    }
-
     @Override
     public boolean onActionBefore(View view) {
 

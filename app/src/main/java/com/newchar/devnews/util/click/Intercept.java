@@ -11,11 +11,6 @@ import android.view.View;
 public interface Intercept {
 
     /**
-     * 不允许使用默认拦截
-     */
-    int DefaultInterceptDISEnable = 0;
-
-    /**
      * 默认函数内拦截
      */
     boolean onDefaultIntercept(View target);
@@ -31,6 +26,8 @@ public interface Intercept {
     /**
      * 用户拦截
      */
-    void onUserIntercept(View view);
+    boolean onUserIntercept(View view);
+
+    void destory();
 
 }

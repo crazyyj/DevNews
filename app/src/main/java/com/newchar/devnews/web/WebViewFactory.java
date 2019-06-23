@@ -1,12 +1,10 @@
 package com.newchar.devnews.web;
 
 import android.content.Context;
-import android.content.MutableContextWrapper;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.webkit.WebView;
 
-import java.lang.ref.WeakReference;
 import java.util.Stack;
 
 /**
@@ -17,12 +15,13 @@ import java.util.Stack;
  */
 public class WebViewFactory {
 
-    private static final int CACHED_WEBVIEW_MAX_NUM = 3;
+    private static final int CACHED_WEB_VIEW_MAX_NUM = 3;
 
     /**
      * 全新未用的WebView栈
      */
     private Stack<WebView> mWebViewPreStack = new Stack<>();
+
     /**
      * App
      */
@@ -59,7 +58,7 @@ public class WebViewFactory {
         @Override
         public boolean queueIdle() {
             mWebViewPreStack.push(create(appContext));
-            return mWebViewPreStack.size() > CACHED_WEBVIEW_MAX_NUM;
+            return mWebViewPreStack.size() > CACHED_WEB_VIEW_MAX_NUM;
         }
     };
 

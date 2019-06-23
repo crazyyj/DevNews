@@ -18,7 +18,7 @@
             android:name="oschina_private_key"
             android:value="63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ClickTestDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".web.WebViewActivity" />
+        <!--<activity android:name=".ClickTestDemoActivity" />-->
 
 
     </application>

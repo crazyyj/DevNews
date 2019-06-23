@@ -5,38 +5,81 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.newchar.devnews.util.CommonUtils;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * @author wenliqiang wenliqiang@100tal.com
  * date            2019-06-21
- * @since 当前版本描述，
+ * @since 这是，
  * @since 迭代版本描述
  */
 public abstract class BaseIntercept implements Intercept {
 
-    private int Default_Intercept_TIME = 800;
+    /**
+     * 默认间隔事件
+     */
+    private static final int common_click_interval = 1200;
+
+    /**
+     * 构造传入的通用间隔事件
+     */
+    private int click_interval;
+
+    /**
+     * 存储 target.hashCode() + 2 作为Key，
+     * ，value 存储 指定View 更改的间隔时间
+     */
     private Map<Integer, Integer> enableMap = new LinkedHashMap<>();
 
     private Handler clickEventHandler = new Handler();
 
-    private static final int MSG_CLICK_ING = 1;
+    public BaseIntercept(int interval) {
+        super();
+        click_interval = interval;
+    }
+
+    public BaseIntercept() {
+        super();
+        click_interval = common_click_interval;
+    }
+
     @Override
     public boolean onDefaultIntercept(@NonNull View target) {
-        Integer interceptTag = enableMap.get(target.hashCode());
-        if (interceptTag != null && interceptTag > Intercept.DefaultInterceptDISEnable) {
-            if (!clickEventHandler.hasMessages(MSG_CLICK_ING)) {
-                clickEventHandler.sendEmptyMessageDelayed(MSG_CLICK_ING, interceptTag);
-            }
+//        if (target == null) {
+//            return true;
+//        }
+        if (!clickEventHandler.hasMessages(target.hashCode() + 2)) {
+            clickEventHandler.sendEmptyMessageDelayed(target.hashCode() + 2, getViewClickInterval(target));
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
     public final void setDefaultInterceptEnable(View tag, int enable) {
-        enableMap.put(tag.hashCode(), enable);
+        enableMap.put(tag.hashCode() + 2, enable);
     }
 
+    /*
+     * 获取当前触发事件的View 在其中所
+     * @param view
+     * @return
+     */
+    private Integer getViewClickInterval(View view) {
+        Integer interceptTag = enableMap.get(view.hashCode() + 1);
+        if (interceptTag == null) {
+            return click_interval;
+        } else {
+            return interceptTag;
+        }
+    }
 
+    @Override
+    public void destory() {
+        enableMap.clear();
+        clickEventHandler.removeCallbacksAndMessages(null);
+    }
 }

@@ -27,31 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
-//        OkHttpClient appHttpClient = new OkHttpClient();
-//        Request request = new Request.Builder()
-//                .url(MURL.getOSCLoginAUthUrl()).build();
-//
-//        appHttpClient.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//            }
-//            @Override
-//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-//                if (response.isSuccessful()) {
-//                    final ResponseBody responseBody = response.body();
-//                    if (responseBody != null) {
-//                        final String httpResult = responseBody.string();
-//                        System.out.println(httpResult);
-//                        System.out.println("nfkdflkjdklfjlkds");
-//
-//                    } else {
-//                        onFailure(call, new IOException("laji"));
-//                    }
-//                } else {
-//                    System.out.println("失败了" + response.code() + "\n"+ response.body().string());
-//                }
-//            }
-//        });
 
     }
 
