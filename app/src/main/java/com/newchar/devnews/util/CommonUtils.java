@@ -1,6 +1,5 @@
 package com.newchar.devnews.util;
 
-import java.util.Objects;
 
 /**
  * @author wenliqiang
@@ -12,6 +11,19 @@ public class CommonUtils {
 
     public static boolean isNull(Object object) {
         return object == ConstantField.NULL;
+    }
+
+    public static void main(String[] a) {
+        User user = new User();
+        boolean aNull = isNull(user);
+
+        System.out.println(aNull);
+    }
+
+    static class User{
+
+        public User() {
+        }
     }
 
 }

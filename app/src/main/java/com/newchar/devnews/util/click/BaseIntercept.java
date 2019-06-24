@@ -78,7 +78,7 @@ public abstract class BaseIntercept implements Intercept {
     }
 
     @Override
-    public void destory() {
+    public void destroy() {
         enableMap.clear();
         clickEventHandler.removeCallbacksAndMessages(null);
     }

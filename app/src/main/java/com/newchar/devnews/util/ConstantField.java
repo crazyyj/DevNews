@@ -11,7 +11,7 @@ public interface ConstantField {
     /**
      * 换行符
      */
-    String _R_N = System.getProperty("");
+    String _R_N = System.getProperty("line.separator");
 
     /**
      * 空对象

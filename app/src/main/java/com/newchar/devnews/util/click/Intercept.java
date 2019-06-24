@@ -28,6 +28,9 @@ public interface Intercept {
      */
     boolean onUserIntercept(View view);
 
-    void destory();
+    /**
+     * 销毁拦截器内资源
+     */
+    void destroy();
 
 }

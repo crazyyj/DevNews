@@ -2,6 +2,8 @@ package com.newchar.devnews.util.click;
 
 import android.view.View;
 
+import com.newchar.devnews.util.CommonUtils;
+
 /**
  * @author wenliqiang wenliqiang@100tal.com
  * date            2019-06-20
@@ -42,14 +44,14 @@ public class ViewEvent {
      */
     public void clickCompat(View view) {
         if (!mIntercept.onDefaultIntercept(view) && !mIntercept.onUserIntercept(view)) {
-            if (mActionListener != null) {
+            if (!CommonUtils.isNull(mActionListener)) {
                 mActionListener.onAction(view);
             }
         }
     }
 
     public void destroy() {
-        mIntercept.destory();
+        mIntercept.destroy();
     }
 
 }
