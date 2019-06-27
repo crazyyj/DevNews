@@ -22,9 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.newchar.devnews.R;
+import com.newchar.devnews.http.MURL;
+import com.newchar.devnews.http.OKHttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wenliqiang
@@ -124,7 +128,7 @@ public class WebViewActivity extends AppCompatActivity {
             }
             collectOAuthLoginCode(overrideUrl);
             if (isShouldOverrideUrl(overrideUrl)) {
-                view.loadUrl(overrideUrl);
+                loadWebUrl(overrideUrl);
                 return true;
             }
             return super.shouldOverrideUrlLoading(view, request);
@@ -132,7 +136,17 @@ public class WebViewActivity extends AppCompatActivity {
 
         private void collectOAuthLoginCode(String url) {
             if (url.startsWith("about:blank")) {
-
+                final String[] split = url.split("\\?");
+                final String[] split2 = split[1].split("&");
+                final String[] split1 = split2[0].split("=");
+                Map<String, String> par = new HashMap<>();
+                par.put("client_id", "cXe8oxW5SJSuT02qdmjh");
+                par.put("client_secret", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE");
+                par.put("grant_type", "authorization_code");
+                par.put("redirect_uri", "about:blank");
+                par.put("code", split1[1]);
+                par.put("dataType", "json");
+                OKHttpUtils.post(MURL.OSC_URL + "/action/openapi/token",par);
             }
         }
 

@@ -1,4 +1,4 @@
-package com.newchar.devnews.util;
+package com.newchar.devnews.util.constant;
 
 /**
  * @author wenliqiang

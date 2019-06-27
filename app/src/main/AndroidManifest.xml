@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,16 +19,19 @@
             android:name="oschina_private_key"
             android:value="63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE" />
 
-        <activity android:name=".ClickTestDemoActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".web.WebViewActivity" />
-        <!--<activity android:name=".ClickTestDemoActivity" />-->
 
+        <activity
+            android:name=".web.WebViewActivity"
+            android:configChanges="orientation|keyboardHidden" />
 
     </application>
 
