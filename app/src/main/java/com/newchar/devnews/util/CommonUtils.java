@@ -1,6 +1,6 @@
 package com.newchar.devnews.util;
 
-import com.newchar.devnews.util.constant.ConstantField;
+import java.util.Objects;
 
 /**
  * @author wenliqiang
