@@ -22,13 +22,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.newchar.devnews.R;
+import com.newchar.devnews.http.HttpRequest;
+import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.MURL;
 import com.newchar.devnews.http.OKHttpUtils;
+import com.newchar.devnews.http.entry.OSCLoginCodeToken;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * @author wenliqiang
@@ -126,7 +134,11 @@ public class WebViewActivity extends AppCompatActivity {
             } else {
                 overrideUrl = request.toString();
             }
-            collectOAuthLoginCode(overrideUrl);
+            final String code = collectOAuthLoginCode(overrideUrl);
+            if (!TextUtils.isEmpty(code)) {
+                finish();
+                return true;
+            }
             if (isShouldOverrideUrl(overrideUrl)) {
                 loadWebUrl(overrideUrl);
                 return true;
@@ -134,20 +146,34 @@ public class WebViewActivity extends AppCompatActivity {
             return super.shouldOverrideUrlLoading(view, request);
         }
 
-        private void collectOAuthLoginCode(String url) {
+        private String collectOAuthLoginCode(String url) {
             if (url.startsWith("about:blank")) {
                 final String[] split = url.split("\\?");
                 final String[] split2 = split[1].split("&");
                 final String[] split1 = split2[0].split("=");
-                Map<String, String> par = new HashMap<>();
+                final Map<String, String> par = new HashMap<>();
                 par.put("client_id", "cXe8oxW5SJSuT02qdmjh");
                 par.put("client_secret", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE");
                 par.put("grant_type", "authorization_code");
                 par.put("redirect_uri", "about:blank");
                 par.put("code", split1[1]);
                 par.put("dataType", "json");
-                OKHttpUtils.post(MURL.OSC_URL + "/action/openapi/token",par);
+                HttpRequest.requestLoginCode(par, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.body() != null) {
+                            final OSCLoginCodeToken parse = JsonCompat.parse(OSCLoginCodeToken.class, response.body().string());
+                        }
+                    }
+                });
+                return split1[1];
             }
+            return "";
         }
 
         /**
