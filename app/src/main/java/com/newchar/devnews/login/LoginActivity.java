@@ -16,9 +16,18 @@ import com.newchar.devnews.base.BaseActivity;
 public class LoginActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected void initWidgets() {
+
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_login;
     }
 
 }

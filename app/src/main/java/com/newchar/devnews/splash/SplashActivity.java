@@ -1,4 +1,4 @@
-package com.newchar.devnews.Splash;
+package com.newchar.devnews.splash;
 
 import android.os.Bundle;
 
@@ -24,6 +24,21 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+    }
+
+    @Override
+    protected void initWidgets() {
+
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return 0;
     }
 
     @OnClick(R.id.btnClickGoMain)

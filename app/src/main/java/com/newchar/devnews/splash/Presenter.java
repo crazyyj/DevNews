@@ -1,4 +1,4 @@
-package com.newchar.devnews.Splash;
+package com.newchar.devnews.splash;
 
 import com.newchar.devnews.base.IBasePresenter;
 
