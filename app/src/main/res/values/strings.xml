@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">DevNews</string>
 
+    <string name="title_activity_login">登录</string>
+
     <string name="click_test">测试点击</string>
 </resources>
