@@ -22,18 +22,16 @@ public class App extends Application {
         NavRouter.initialization(App.this);
         super.onCreate();
         Looper.myQueue().addIdleHandler(mAppInitHandler);
+
     }
 
 
     /**
      * 可以延迟加载的三方
      */
-    private final MessageQueue.IdleHandler mAppInitHandler = new MessageQueue.IdleHandler() {
-        @Override
-        public boolean queueIdle() {
+    private final MessageQueue.IdleHandler mAppInitHandler = () -> {
 
-            return false;
-        }
+        return false;
     };
 
 }

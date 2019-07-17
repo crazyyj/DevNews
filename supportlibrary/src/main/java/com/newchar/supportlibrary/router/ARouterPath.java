@@ -3,7 +3,7 @@ package com.newchar.supportlibrary.router;
 /**
  * @author wenliqiang@100tal.com
  * date            2019-07-16
- * @since 当前版本描述，
+ * @since ARouter 类注解，path 定义类
  * @since 迭代版本描述
  */
 public interface ARouterPath {
