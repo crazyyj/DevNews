@@ -36,4 +36,6 @@ public class SplashActivity extends BaseActivity {
         RouterExecute.goMainActivity();
     }
 
+
+
 }

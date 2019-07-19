@@ -46,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         handlerIntent(intent, null);
+        setIntent(intent);
     }
 
     /**
