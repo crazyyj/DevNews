@@ -1,7 +1,7 @@
 package com.newchar.devnews.web;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -22,21 +23,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.newchar.devnews.R;
-import com.newchar.devnews.http.HttpRequest;
-import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.MURL;
-import com.newchar.devnews.http.OKHttpUtils;
-import com.newchar.devnews.http.entry.OSCLoginCodeToken;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * @author wenliqiang
@@ -47,7 +37,9 @@ import okhttp3.Response;
 public class WebViewActivity extends AppCompatActivity {
 
     public static final String URL = "url";
+    public static final int REQUEST_CODE = 101;
 
+    public static final int RESULT_CODE_FOR_OSC_LOGIN = 201;
     private WebView mWebView;
 
     /**
@@ -55,10 +47,10 @@ public class WebViewActivity extends AppCompatActivity {
      */
     private String url;
 
-    public static void actionLaunch(Context context, String url) {
+    public static void actionLaunch(Activity context, String url) {
         Intent intent = new Intent(context.getApplicationContext(), WebViewActivity.class);
         intent.putExtra(URL, url);
-        ActivityCompat.startActivity(context, intent, null);
+        ActivityCompat.startActivityForResult(context, intent, REQUEST_CODE, null);
     }
 
     private void handleReceiveData(Intent intent) {
@@ -91,12 +83,12 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
         webSettings.setDomStorageEnabled(true);//设置适应Html5 //重点是这个设置
         webSettings.setBlockNetworkImage(false);
-        webSettings.setDisplayZoomControls(false);
+        webSettings.setDisplayZoomControls(true);
+        webSettings.setSupportZoom(true);
 
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
 //        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
     }
 
     private WebView createWebView() {
@@ -134,8 +126,11 @@ public class WebViewActivity extends AppCompatActivity {
             } else {
                 overrideUrl = request.toString();
             }
-            final String code = collectOAuthLoginCode(overrideUrl);
-            if (!TextUtils.isEmpty(code)) {
+            if (isOSCLoginCallbackUrl(overrideUrl)) {
+                final String code = collectOAuthLoginCode(overrideUrl);
+                Intent intent = new Intent();
+                intent.putExtra("oscLoginCode", code);
+                setResult(WebViewActivity.RESULT_CODE_FOR_OSC_LOGIN, intent);
                 finish();
                 return true;
             }
@@ -146,34 +141,12 @@ public class WebViewActivity extends AppCompatActivity {
             return super.shouldOverrideUrlLoading(view, request);
         }
 
+        private boolean isOSCLoginCallbackUrl(String url) {
+            return URLUtil.isAboutUrl(url);
+        }
+
         private String collectOAuthLoginCode(String url) {
-            if (url.startsWith("about:blank")) {
-                final String[] split = url.split("\\?");
-                final String[] split2 = split[1].split("&");
-                final String[] split1 = split2[0].split("=");
-                final Map<String, String> par = new HashMap<>();
-                par.put("client_id", "cXe8oxW5SJSuT02qdmjh");
-                par.put("client_secret", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE");
-                par.put("grant_type", "authorization_code");
-                par.put("redirect_uri", "about:blank");
-                par.put("code", split1[1]);
-                par.put("dataType", "json");
-                HttpRequest.requestLoginCode(par, new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        if (response.body() != null) {
-                            final OSCLoginCodeToken parse = JsonCompat.parse(OSCLoginCodeToken.class, response.body().string());
-                        }
-                    }
-                });
-                return split1[1];
-            }
-            return "";
+            return MURL.obtainGetUrlParams(url).get("code");
         }
 
         /**

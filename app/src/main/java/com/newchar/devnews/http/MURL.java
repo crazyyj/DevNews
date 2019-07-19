@@ -1,5 +1,7 @@
 package com.newchar.devnews.http;
 
+import com.newchar.devnews.util.constant.ConstantField;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,16 +43,38 @@ public class MURL {
     }
 
     /**
-     *
      * @param url   链接
      * @return      链接拆分出来的参数
      */
     public static Map<String, String> obtainGetUrlParams(String url) {
         Map<String, String> paramsMap = new HashMap<>();
-        if (url != null && url.startsWith("?")) {
-
+        if (url == null) {
+            return paramsMap;
+        }
+        if (getNonEdgeString(url, "?")) {
+            String[] addressAndParams = url.split("\\?", 2);
+            String[] getParams = addressAndParams[1].split("&");
+            for (int i = 0; i < getParams.length; i++) {
+                String[] key_value = getParams[i].split("=",2);
+                if (key_value.length > 1) {
+                    paramsMap.put(key_value[0], key_value[1]);
+                } else {
+                    paramsMap.put(key_value[0], null);
+                }
+            }
         }
         return paramsMap;
     }
+
+
+    public static boolean getNonEdgeString(String fullText, String tag) {
+        if (fullText == null || tag == null) {
+            return false;
+        }
+        int index = fullText.indexOf(tag);
+        return index > 0 && fullText.length() - 1 > index;
+    }
+
+
 
 }

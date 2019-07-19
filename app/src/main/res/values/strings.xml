@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">DevNews</string>
-
+    <!-- 登录模块 -->
     <string name="title_activity_login">登录</string>
+    <string name="type_login_osc">OSC登录</string>
+    <string name="type_login_jj">掘金登录</string>
 
     <string name="click_test">测试点击</string>
 </resources>

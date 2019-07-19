@@ -24,7 +24,6 @@ public interface Login {
 
     @IntDef({Login.Channle.OSC, Login.Channle.JUEJIN})
     @Retention(RetentionPolicy.SOURCE)
-    @Target(value = ElementType.FIELD)
     @interface LoginChannle {
     }
 

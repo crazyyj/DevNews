@@ -15,6 +15,11 @@ public class RouterExecute {
                 .navigation();
     }
 
+    public static void goLoginActivity() {
+        ARouter.getInstance().build(ARouterPath.ACTIVITY_LOGIN)
+                .navigation();
+    }
+
 
 
 }

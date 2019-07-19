@@ -8,8 +8,10 @@ package com.newchar.supportlibrary.router;
  */
 public interface ARouterPath {
 
-    String ACTIVITY_SPLASH = "/core/splash";
+    String ACTIVITY_SPLASH = "/common/splash";
 
-    String ACTIVITY_MAIN = "/core/main";
+    String ACTIVITY_MAIN = "/common/main";
+
+    String ACTIVITY_LOGIN = "/common/login";
 
 }
