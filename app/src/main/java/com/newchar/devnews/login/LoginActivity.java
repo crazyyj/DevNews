@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         if (requestCode == WebViewActivity.REQUEST_CODE && resultCode == WebViewActivity.RESULT_CODE_FOR_OSC_LOGIN) {
-            String oscLoginCode = data.getStringExtra("code");
+            String oscLoginCode = data.getStringExtra("oscLoginCode");
             if (TextUtils.isEmpty(oscLoginCode)) {
                 return;
             }
