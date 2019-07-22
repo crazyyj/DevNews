@@ -1,6 +1,7 @@
 package com.newchar.devnews.splash;
 
 import com.newchar.devnews.base.IBasePresenter;
+import com.newchar.devnews.base.IBaseView;
 
 /**
  * @author wenliqiang@100tal.com
@@ -11,5 +12,8 @@ import com.newchar.devnews.base.IBasePresenter;
 public class Presenter implements IBasePresenter {
 
 
-
+    @Override
+    public IBaseView getView() {
+        return null;
+    }
 }

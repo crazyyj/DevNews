@@ -6,8 +6,8 @@ package com.newchar.devnews.base;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public interface IBasePresenter {
+public interface IBasePresenter<V extends IBaseView> {
 
-
+    V getView();
 
 }

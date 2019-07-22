@@ -35,6 +35,9 @@ public class OKHttpUtils {
     public static void post(String url, Map<String, String> parmar, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         for (String key : parmar.keySet()) {
+            if (key == null || parmar.get(key) == null) {
+                continue;
+            }
             builder.add(key, parmar.get(key));
         }
         okClient.newCall(new Request.Builder().url(url).post(builder.build()).build()).enqueue(callback);

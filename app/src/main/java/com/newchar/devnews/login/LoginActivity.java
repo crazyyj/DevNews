@@ -1,7 +1,9 @@
 package com.newchar.devnews.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.newchar.devnews.MainActivity;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.HttpRequest;
@@ -19,7 +22,11 @@ import com.newchar.devnews.http.MURL;
 import com.newchar.devnews.http.entry.OSCLoginCodeToken;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.devnews.web.WebViewActivity;
+import com.newchar.supportlibrary.constant.Login;
+import com.newchar.supportlibrary.db.DBHelper;
+import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
+import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,7 +45,7 @@ import okhttp3.Response;
  * @since 迭代版本描述
  */
 @Route(path = ARouterPath.ACTIVITY_LOGIN)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginView{
 
     @BindView(R.id.llLoginTypeContainer)
     LinearLayoutCompat llLoginTypeContainer;
@@ -46,6 +53,7 @@ public class LoginActivity extends BaseActivity {
     AppCompatTextView tvOSCLoginAction;
 
     private BottomSheetBehavior<LinearLayoutCompat> bottomSheetBehavior;
+    private Presenter<LoginView> presenter;
 
     @Override
     protected void initWidgets() {
@@ -54,7 +62,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+        presenter = new Presenter();
+        presenter.attchView(this);
     }
 
     @Override
@@ -80,7 +89,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void action_LoginOSC(){
-        WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
+        if (lastLoginRecord == null) {
+            WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+            return;
+        }
+        presenter.refushOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
     }
 
     /**
@@ -109,28 +123,33 @@ public class LoginActivity extends BaseActivity {
             if (TextUtils.isEmpty(oscLoginCode)) {
                 return;
             }
-            final Map<String, String> par = new HashMap<>();
-            par.put("client_id", "cXe8oxW5SJSuT02qdmjh");
-            par.put("client_secret", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE");
-            par.put("grant_type", "authorization_code");
-            par.put("redirect_uri", "about:blank");
-            par.put("code", oscLoginCode);
-            par.put("dataType", OSCField.DataType.JSON);
-            HttpRequest.requestLoginCode(par, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (response.body() != null) {
-                        final OSCLoginCodeToken parse = JsonCompat.parse(OSCLoginCodeToken.class, response.body().string());
-
-                    }
-                }
-            });
+            presenter.refushOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", oscLoginCode);
         }
+    }
+
+    @Override
+    public void onPageLoading() {
+
+    }
+
+    @Override
+    public void onPageError() {
+
+    }
+
+    @Override
+    public Context obtainContext() {
+        return this;
+    }
+
+    @Override
+    public void onOSCLoginSuccess(OSCLoginCodeToken osc) {
+        DBHelper.getInstance(getApplicationContext()).saveLoginRecord(new LoginRecord(System.currentTimeMillis(), System.currentTimeMillis(), Login.Channel.OSC, osc.getAccess_token()));
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 
 }

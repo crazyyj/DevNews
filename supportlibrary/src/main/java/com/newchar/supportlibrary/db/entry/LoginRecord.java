@@ -4,6 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
 
 /**
  * @author wenliqiang@100tal.com
@@ -11,14 +12,14 @@ import org.greenrobot.greendao.annotation.Generated;
  * @since 数据库中，每次登录成功记录一次登录
  * @since 迭代版本描述
  */
-@Entity(indexes = {@Index(value = "loginTime, loginTime DESC", unique = true)})
+@Entity
 public class LoginRecord {
 
     /**
      * 自增id，主键
      */
     @Id(autoincrement = true)
-    private long id;
+    private Long _id;
 
     /**
      * 登录时间
@@ -30,23 +31,38 @@ public class LoginRecord {
      */
     private String loginChannel;
 
-    @Generated(hash = 1466375303)
-    public LoginRecord(long id, long loginTime, String loginChannel) {
-        this.id = id;
+    /**
+     * osc 的 token
+     */
+    private String desc;
+
+    @Keep
+    @Generated(hash = 631271324)
+    public LoginRecord(long _id, long loginTime, String loginChannel, String desc) {
+        this._id = _id;
         this.loginTime = loginTime;
         this.loginChannel = loginChannel;
+        this.desc = desc;
     }
 
     @Generated(hash = 601420123)
     public LoginRecord() {
     }
 
+    @Generated(hash = 1240320489)
+    public LoginRecord(Long _id, long loginTime, String loginChannel, String desc) {
+        this._id = _id;
+        this.loginTime = loginTime;
+        this.loginChannel = loginChannel;
+        this.desc = desc;
+    }
+
     public long getId() {
-        return this.id;
+        return this._id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this._id = id;
     }
 
     public long getLoginTime() {
@@ -63,6 +79,22 @@ public class LoginRecord {
 
     public void setLoginChannel(String loginChannel) {
         this.loginChannel = loginChannel;
+    }
+
+    public String getDesc() {
+        return this.desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public Long get_id() {
+        return this._id;
+    }
+
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
 }

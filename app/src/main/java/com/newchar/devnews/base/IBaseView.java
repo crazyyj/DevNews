@@ -1,5 +1,7 @@
 package com.newchar.devnews.base;
 
+import android.content.Context;
+
 /**
  * @author wenliqiang@100tal.com
  * date            2019-07-16
@@ -17,5 +19,12 @@ public interface IBaseView {
      * 页面加载出错
      */
     void onPageError();
+
+    /**
+     * 拿到页面的 Context 对象
+     *
+     * @return Context
+     */
+    Context obtainContext();
 
 }

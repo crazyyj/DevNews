@@ -17,6 +17,5 @@ public interface ConstantField {
      * 空对象
      */
     Object NULL = null;
-    String STRING_NULL = null;
 
 }

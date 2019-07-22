@@ -24,9 +24,10 @@ public class LoginRecordDao extends AbstractDao<LoginRecord, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property _id = new Property(0, Long.class, "_id", true, "_id");
         public final static Property LoginTime = new Property(1, long.class, "loginTime", false, "LOGIN_TIME");
         public final static Property LoginChannel = new Property(2, String.class, "loginChannel", false, "LOGIN_CHANNEL");
+        public final static Property Desc = new Property(3, String.class, "desc", false, "DESC");
     }
 
 
@@ -42,12 +43,10 @@ public class LoginRecordDao extends AbstractDao<LoginRecord, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"LOGIN_RECORD\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: _id
                 "\"LOGIN_TIME\" INTEGER NOT NULL ," + // 1: loginTime
-                "\"LOGIN_CHANNEL\" TEXT);"); // 2: loginChannel
-        // Add Indexes
-        db.execSQL("CREATE UNIQUE INDEX " + constraint + "IDX_LOGIN_RECORD_LOGIN_TIME_LOGIN_TIME_DESC ON \"LOGIN_RECORD\"" +
-                " (\"LOGIN_TIME\" ASC,\"LOGIN_TIME\" DESC);");
+                "\"LOGIN_CHANNEL\" TEXT," + // 2: loginChannel
+                "\"DESC\" TEXT);"); // 3: desc
     }
 
     /** Drops the underlying database table. */
@@ -59,59 +58,79 @@ public class LoginRecordDao extends AbstractDao<LoginRecord, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, LoginRecord entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long _id = entity.get_id();
+        if (_id != null) {
+            stmt.bindLong(1, _id);
+        }
         stmt.bindLong(2, entity.getLoginTime());
  
         String loginChannel = entity.getLoginChannel();
         if (loginChannel != null) {
             stmt.bindString(3, loginChannel);
+        }
+ 
+        String desc = entity.getDesc();
+        if (desc != null) {
+            stmt.bindString(4, desc);
         }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, LoginRecord entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long _id = entity.get_id();
+        if (_id != null) {
+            stmt.bindLong(1, _id);
+        }
         stmt.bindLong(2, entity.getLoginTime());
  
         String loginChannel = entity.getLoginChannel();
         if (loginChannel != null) {
             stmt.bindString(3, loginChannel);
         }
+ 
+        String desc = entity.getDesc();
+        if (desc != null) {
+            stmt.bindString(4, desc);
+        }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public LoginRecord readEntity(Cursor cursor, int offset) {
         LoginRecord entity = new LoginRecord( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // _id
             cursor.getLong(offset + 1), // loginTime
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // loginChannel
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // loginChannel
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // desc
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, LoginRecord entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.set_id(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setLoginTime(cursor.getLong(offset + 1));
         entity.setLoginChannel(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDesc(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(LoginRecord entity, long rowId) {
-        entity.setId(rowId);
+        entity.set_id(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(LoginRecord entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.get_id();
         } else {
             return null;
         }
@@ -119,7 +138,7 @@ public class LoginRecordDao extends AbstractDao<LoginRecord, Long> {
 
     @Override
     public boolean hasKey(LoginRecord entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.get_id() != null;
     }
 
     @Override

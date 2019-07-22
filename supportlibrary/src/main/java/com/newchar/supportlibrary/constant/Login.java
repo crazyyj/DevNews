@@ -1,11 +1,9 @@
 package com.newchar.supportlibrary.constant;
 
-import androidx.annotation.IntDef;
+import androidx.annotation.StringDef;
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
  * @author wenliqiang@100tal.com
@@ -15,16 +13,17 @@ import java.lang.annotation.Target;
  */
 public interface Login {
 
-    interface Channle{
+    interface Channel {
 
-        int OSC = 1;
+        String OSC = "osChina";
 
-        int JUEJIN = 2;
+        String JUEJIN = "jueJin";
+
     }
 
-    @IntDef({Login.Channle.OSC, Login.Channle.JUEJIN})
+    @StringDef({Channel.OSC, Channel.JUEJIN})
     @Retention(RetentionPolicy.SOURCE)
-    @interface LoginChannle {
+    @interface LoginChannel {
     }
 
 }
