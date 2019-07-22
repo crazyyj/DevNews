@@ -11,11 +11,11 @@ public interface LazyListener {
     /**
      * 可见的
      */
-    void onLazyVisible();
+    void onPageVisible();
 
     /**
      * 不可见的
      */
-    void onLazyInvisible();
+    void onPageInvisible();
 
 }
