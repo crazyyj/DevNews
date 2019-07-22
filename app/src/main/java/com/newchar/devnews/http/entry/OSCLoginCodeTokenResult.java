@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * @since 当前版本，（以及描述）
  * @since 迭代版本，（以及描述）
  */
-public class OSCLoginCodeToken implements Parcelable {
+public class OSCLoginCodeTokenResult implements Parcelable {
 
     private int uid;
 
@@ -21,10 +21,10 @@ public class OSCLoginCodeToken implements Parcelable {
 
     private String refresh_token;
 
-    public OSCLoginCodeToken() {
+    public OSCLoginCodeTokenResult() {
     }
 
-    protected OSCLoginCodeToken(Parcel in) {
+    protected OSCLoginCodeTokenResult(Parcel in) {
         uid = in.readInt();
         expires_in = in.readInt();
         token_type = in.readString();
@@ -74,7 +74,7 @@ public class OSCLoginCodeToken implements Parcelable {
 
     @Override
     public String toString() {
-        return "OSCLoginCodeToken{" +
+        return "OSCLoginCodeTokenResult{" +
                 "uid=" + uid +
                 ", expires_in=" + expires_in +
                 ", token_type='" + token_type + '\'' +
@@ -97,15 +97,15 @@ public class OSCLoginCodeToken implements Parcelable {
         dest.writeString(refresh_token);
     }
 
-    public static final Creator<OSCLoginCodeToken> CREATOR = new Creator<OSCLoginCodeToken>() {
+    public static final Creator<OSCLoginCodeTokenResult> CREATOR = new Creator<OSCLoginCodeTokenResult>() {
         @Override
-        public OSCLoginCodeToken createFromParcel(Parcel in) {
-            return new OSCLoginCodeToken(in);
+        public OSCLoginCodeTokenResult createFromParcel(Parcel in) {
+            return new OSCLoginCodeTokenResult(in);
         }
 
         @Override
-        public OSCLoginCodeToken[] newArray(int size) {
-            return new OSCLoginCodeToken[size];
+        public OSCLoginCodeTokenResult[] newArray(int size) {
+            return new OSCLoginCodeTokenResult[size];
         }
     };
 

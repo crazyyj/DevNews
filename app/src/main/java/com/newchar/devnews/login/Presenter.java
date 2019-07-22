@@ -1,12 +1,16 @@
 package com.newchar.devnews.login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.newchar.devnews.base.IBasePresenter;
 import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.OSCLoginCodeToken;
+import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
+import com.newchar.devnews.http.entry.OSCUserInfoResult;
 import com.newchar.devnews.util.constant.OSCField;
 
 import java.io.IOException;
@@ -46,7 +50,7 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
         par.put("grant_type", grant_type);
         par.put("redirect_uri", "about:blank");
         par.put("client_secret", client_secret);
-        par.put("dataType", OSCField.DataType.JSON);
+        par.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         HttpRequest.requestLoginCode(par, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -55,7 +59,7 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.body() != null) {
-                    final OSCLoginCodeToken parse = JsonCompat.parse(OSCLoginCodeToken.class, response.body().string());
+                    final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, response.body().string());
                     getView().onOSCLoginSuccess(parse);
                 }
             }
@@ -67,4 +71,25 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
         return mView;
     }
 
+    public void requestOSCUserInfo(String access_token) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(OSCField.Params.ACCESS_TOKEN, access_token);
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        HttpRequest.requestOSCUser(params, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response != null && response.isSuccessful() && response.body() != null) {
+                    OSCUserInfoResult userInfo = JsonCompat.parse(OSCUserInfoResult.class, response.body().string());
+                    getView().onRequestOSCUserSuccess(userInfo);
+                } else {
+                    Activity context = (Activity) getView().obtainContext();
+                    context.runOnUiThread(() -> Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
+    }
 }

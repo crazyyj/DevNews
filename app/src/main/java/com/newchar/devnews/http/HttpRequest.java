@@ -17,4 +17,8 @@ public class HttpRequest {
         OKHttpUtils.post(MURL.OSC_URL + "/action/openapi/token", params, callback);
     }
 
+    public static void requestOSCUser(Map<String, String> params, Callback callback) {
+        OKHttpUtils.post(MURL.OSC_URL + "/action/openapi/user", params, callback);
+    }
+
 }

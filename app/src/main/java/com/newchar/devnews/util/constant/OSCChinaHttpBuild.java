@@ -22,7 +22,7 @@ public class OSCChinaHttpBuild {
 
         {
             params.put(OSCField.Params.ACCESS_TOKEN, "");
-            params.put(OSCField.Params.DATATYPE, OSCField.DataType.JSON);
+            params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         }
 
         public Build(String address) {

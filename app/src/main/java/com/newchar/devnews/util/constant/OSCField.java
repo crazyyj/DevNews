@@ -32,7 +32,7 @@ public interface OSCField {
 
         String FRIEND_NAME = "friend_name";
 
-        String DATATYPE = "dataType";
+        String DATA_TYPE = "dataType";
 
     }
 

@@ -3,7 +3,6 @@ package com.newchar.devnews.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -16,27 +15,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newchar.devnews.MainActivity;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.http.HttpRequest;
-import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.MURL;
-import com.newchar.devnews.http.entry.OSCLoginCodeToken;
-import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
+import com.newchar.devnews.http.entry.OSCUserInfoResult;
 import com.newchar.devnews.web.WebViewActivity;
 import com.newchar.supportlibrary.constant.Login;
 import com.newchar.supportlibrary.db.DBHelper;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
-import com.newchar.supportlibrary.router.RouterExecute;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * @author wenliqiang@100tal.com
@@ -143,13 +132,21 @@ public class LoginActivity extends BaseActivity implements LoginView{
     }
 
     @Override
-    public void onOSCLoginSuccess(OSCLoginCodeToken osc) {
+    public void onOSCLoginSuccess(OSCLoginCodeTokenResult osc) {
         DBHelper.getInstance(getApplicationContext()).saveLoginRecord(new LoginRecord(System.currentTimeMillis(), System.currentTimeMillis(), Login.Channel.OSC, osc.getAccess_token()));
 
+
+        presenter.requestOSCUserInfo(osc.getAccess_token());
+
+
+
+    }
+
+    @Override
+    public void onRequestOSCUserSuccess(OSCUserInfoResult userInfo) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
     }
 
 }
