@@ -36,15 +36,6 @@ public class LoginRecord {
      */
     private String desc;
 
-    @Keep
-    @Generated(hash = 631271324)
-    public LoginRecord(long _id, long loginTime, String loginChannel, String desc) {
-        this._id = _id;
-        this.loginTime = loginTime;
-        this.loginChannel = loginChannel;
-        this.desc = desc;
-    }
-
     @Generated(hash = 601420123)
     public LoginRecord() {
     }

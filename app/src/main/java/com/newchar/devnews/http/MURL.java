@@ -1,7 +1,5 @@
 package com.newchar.devnews.http;
 
-import com.newchar.devnews.util.constant.ConstantField;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +22,10 @@ public class MURL {
     }
 
     public static String getOSCLoginAUthUrl() {
-        return OSC_URL + "/action/oauth2/authorize" + buildGetUrl(OSCAUthUrl);
+        return OSC_URL + "/action/oauth2/authorize" + buildGetParamText(OSCAUthUrl);
     }
 
-    private static String buildGetUrl(Map<String, String> params) {
+    private static String buildGetParamText(Map<String, String> params) {
         StringBuilder getUrl = new StringBuilder("?");
         if (params != null) {
             for (String key : params.keySet()) {
@@ -43,8 +41,8 @@ public class MURL {
     }
 
     /**
-     * @param url   链接
-     * @return      链接拆分出来的参数
+     * @param url 链接
+     * @return 链接拆分出来的参数
      */
     public static Map<String, String> obtainGetUrlParams(String url) {
         Map<String, String> paramsMap = new HashMap<>();
@@ -55,7 +53,7 @@ public class MURL {
             String[] addressAndParams = url.split("\\?", 2);
             String[] getParams = addressAndParams[1].split("&");
             for (int i = 0; i < getParams.length; i++) {
-                String[] key_value = getParams[i].split("=",2);
+                String[] key_value = getParams[i].split("=", 2);
                 if (key_value.length > 1) {
                     paramsMap.put(key_value[0], key_value[1]);
                 } else {
@@ -66,7 +64,13 @@ public class MURL {
         return paramsMap;
     }
 
-
+    /**
+     * tag 是否在 fullText 的边缘
+     *
+     * @param fullText 全量字符串
+     * @param tag      需要被匹配的自负
+     * @return true 是在边缘
+     */
     public static boolean getNonEdgeString(String fullText, String tag) {
         if (fullText == null || tag == null) {
             return false;
@@ -74,7 +78,6 @@ public class MURL {
         int index = fullText.indexOf(tag);
         return index > 0 && fullText.length() - 1 > index;
     }
-
 
 
 }

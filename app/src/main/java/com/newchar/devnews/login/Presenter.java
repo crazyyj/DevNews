@@ -9,6 +9,7 @@ import com.newchar.devnews.base.IBasePresenter;
 import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
+import com.newchar.devnews.http.entry.OSCHttpError;
 import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.OSCUserInfoResult;
 import com.newchar.devnews.util.constant.OSCField;
@@ -35,20 +36,21 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
 
     }
 
-    public void attchView(V view) {
+    public void attachView(V view) {
         mView = (LoginView) view;
     }
 
-    public void refushOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {
+    public void refreshOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {
         final Map<String, String> par = new HashMap<>();
-        if (TextUtils.equals("authorization_code", grant_type) && !TextUtils.isEmpty(oscLoginCode)) {
+//        if (TextUtils.equals("authorization_code", grant_type) && !TextUtils.isEmpty(oscLoginCode)) {
             par.put("code", oscLoginCode);
-        } else {
-            par.put("refresh_token", oscLoginCode);
-        }
+//        } else {
+//            par.put("refresh_token", oscLoginCode);
+//        }
         par.put("client_id", client_id);
         par.put("grant_type", grant_type);
         par.put("redirect_uri", "about:blank");
+        par.put("callback", "about:blank");
         par.put("client_secret", client_secret);
         par.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         HttpRequest.requestLoginCode(par, new Callback() {
@@ -58,9 +60,16 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.body() != null) {
+                if (response.body() == null) {
+                    return;
+                }
+                if ( response.isSuccessful()) {
                     final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, response.body().string());
                     getView().onOSCLoginSuccess(parse);
+                } else {
+                    final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, response.body().string());
+                    Activity context = (Activity) getView().obtainContext();
+                    context.runOnUiThread(() -> Toast.makeText(context, parse.error_description, Toast.LENGTH_SHORT).show());
                 }
             }
         });

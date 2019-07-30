@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -34,7 +35,7 @@ import butterknife.OnClick;
  * @since 迭代版本描述
  */
 @Route(path = ARouterPath.ACTIVITY_LOGIN)
-public class LoginActivity extends BaseActivity implements LoginView{
+public class LoginActivity extends BaseActivity implements LoginView {
 
     @BindView(R.id.llLoginTypeContainer)
     LinearLayoutCompat llLoginTypeContainer;
@@ -52,7 +53,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
     @Override
     protected void initData(Bundle savedInstanceState) {
         presenter = new Presenter();
-        presenter.attchView(this);
+        presenter.attachView(this);
     }
 
     @Override
@@ -77,13 +78,13 @@ public class LoginActivity extends BaseActivity implements LoginView{
         }
     }
 
-    private void action_LoginOSC(){
-        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
-        if (lastLoginRecord == null) {
-            WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
-            return;
-        }
-        presenter.refushOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
+    private void action_LoginOSC() {
+//        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
+//        if (lastLoginRecord == null) {
+        WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+//            return;
+//        }
+//        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
     }
 
     /**
@@ -112,7 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginView{
             if (TextUtils.isEmpty(oscLoginCode)) {
                 return;
             }
-            presenter.refushOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", oscLoginCode);
+            presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "authorization_code", oscLoginCode);
         }
     }
 
@@ -137,7 +138,6 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
 
         presenter.requestOSCUserInfo(osc.getAccess_token());
-
 
 
     }
