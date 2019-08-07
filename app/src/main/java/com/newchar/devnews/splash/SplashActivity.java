@@ -35,9 +35,9 @@ public class SplashActivity extends BaseActivity {
 
     @OnClick(R.id.btnClickGoMain)
     public void onViewClicked() {
-//        RouterExecute.goLoginActivity();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        RouterExecute.goLoginActivity();
+//        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//        startActivity(intent);
     }
 
 

@@ -20,6 +20,8 @@ public class NavRouter {
         ARouter.init(app);
     }
 
-
+    public static void injectActivity(Object activity) {
+        ARouter.getInstance().inject(activity);
+    }
 
 }

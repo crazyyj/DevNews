@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.newchar.devnews.util.CommonUtils;
+import com.newchar.supportlibrary.router.NavRouter;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NavRouter.injectActivity(this);
         int layoutId = getContentViewId();
         setContentView(layoutId);
         initWidgets();
