@@ -1,0 +1,68 @@
+ext {
+
+    android = [
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
+            minSdkVersion    : 16,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "4.7.0",
+    ]
+
+    // App dependencies version
+    libsVersion = [
+            leakcanaryVersion = "1.3.1",
+            daggerVersion = "2.0.2",
+            butterknifeVersion = "10.0.0",
+            supportLibraryVersion = '28.0.0',
+            multiDex = '2.0.0',
+            rxjava = "2.1.3",
+            rxAndroid = "2.0.1",
+            retrofit = "2.3.0",
+
+            okhttp = "3.7.0", // 之前3.5
+            glide = "3.7.0",
+            arouter_api = "1.4.1",
+            arouter_compiler = "1.2.2",
+    ]
+
+    dependencies = [
+            leakcanary_android         : "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion",
+            leakcanary_android_no_op   : "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanaryVersion",
+
+            dagger                     : "com.google.dagger:dagger:$rootProject.daggerVersion",
+            dagger_apt                 : "com.google.dagger:dagger-compiler:$rootProject.daggerVersion",
+
+            butterknife                : "com.jakewharton:butterknife:$rootProject.butterknifeVersion",
+            butterknife_apt            : "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion",
+
+            support_recyclerview_v7    : "androidx.recyclerview:recyclerview:1.0.0",
+            support_appcompat_v7       : "androidx.appcompat:appcompat:1.0.2",
+            support_design             : "com.google.android.material:material:1.0.0",
+
+            //rx
+            rxandroid                  : "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid",
+            rxjava                     : "io.reactivex.rxjava2:rxjava:$rootProject.rxjava",
+            // Retrofit & OkHttp
+            retrofit                   : "com.squareup.retrofit2:retrofit:$rootProject.retrofit",
+            retrofit_converter_gson    : "com.squareup.retrofit2:converter-gson:$rootProject.retrofit",
+            retrofit_adapter_rxjava    : "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit",
+
+            okhttp3                    : "com.squareup.okhttp3:okhttp:$rootProject.okhttp",
+            okhttp3_logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp",
+            // glide
+            glide                      : "com.github.bumptech.glide:glide:$rootProject.glide",
+            glide_https                : "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar",
+            //multiDex
+            multiDex                   : "androidx.multidex:multidex:$rootProject.multiDex",
+            //路由通讯
+            arouter_api                : "com.alibaba:arouter-api:$rootProject.arouter_api",
+            arouter_compiler           : "com.alibaba:arouter-compiler:$rootProject.arouter_compiler",
+            //QQ & WeChat
+            qq_weChat_lib              :'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4',
+            //flexbox
+            flexbox_lib                : "com.google.android:flexbox:1.1.0",
+            android_constraintlayout   : "androidx.constraintlayout:constraintlayout:1.1.3",
+
+    ]
+}

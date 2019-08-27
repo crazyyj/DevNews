@@ -12,7 +12,9 @@ import android.graphics.drawable.GradientDrawable;
 public class ShapeBuilder {
 
     private final GradientDrawable drawable = new GradientDrawable();
-
+    /**
+     * 形状：
+     */
     private int shape;
 
     /**
@@ -21,18 +23,38 @@ public class ShapeBuilder {
     private float mCornerRadius;
 
     private float mLeftTopCornerRadius;
-    private float mLeftBottomCornerRadius;
     private float mRightTopCornerRadius;
+    private float mLeftBottomCornerRadius;
     private float mRightBottomCornerRadius;
     private int width;
     private int height;
 
+    /**
+     * 实心颜色
+     */
     private int solidColor;
 
     private float dashGap;
     private float dashColor;
-    private float dashWidth;
     private float dashGapWidth;
+    private float dashLineWidth;
+
+    private float paddingTop;
+    private float paddingLeft;
+    private float paddingRight;
+    private float paddingBottom;
+
+    /**
+     * GradientDrawable.SWEEP_GRADIENT
+     */
+    private int gType;
+    private float gAngle;
+    private float gCenterX;
+    private float gCenterY;
+    private float gStartColor;
+    private float gCenterColor;
+    private float gEndColor;
+    private float gGradientRadius;
 
     private ShapeBuilder(int shape) {
         this.shape = shape;
@@ -58,6 +80,48 @@ public class ShapeBuilder {
         mCornerRadius = corner;
         return this;
     }
+
+    public ShapeBuilder gradientAngle(float angle) {
+        gAngle = angle;
+        return this;
+    }
+
+    public ShapeBuilder centerColor(float color) {
+        gCenterColor = color;
+        return this;
+    }
+
+
+    public ShapeBuilder gStartColor(float color) {
+        gStartColor = color;
+        return this;
+    }
+
+    public ShapeBuilder gEndColor(float color) {
+        gEndColor = color;
+        return this;
+    }
+
+    public ShapeBuilder gType(int type) {
+        gType = type;
+        return this;
+    }
+
+    public ShapeBuilder gGradientRadius(float radius) {
+        gGradientRadius = radius;
+        return this;
+    }
+
+    public ShapeBuilder gCenterY(float centerY) {
+        gCenterY = centerY;
+        return this;
+    }
+
+    public ShapeBuilder gCenterX(float centerX) {
+        gCenterX = centerX;
+        return this;
+    }
+
     public ShapeBuilder leftBottomCornerRadius(float corner) {
         mLeftBottomCornerRadius = corner;
         return this;
@@ -81,6 +145,26 @@ public class ShapeBuilder {
         return this;
     }
 
+    public ShapeBuilder paddingTop(float padding) {
+        paddingTop = padding;
+        return this;
+    }
+
+    public ShapeBuilder paddingBottom(float padding) {
+        paddingBottom = padding;
+        return this;
+    }
+
+    public ShapeBuilder paddingLeft(float padding) {
+        paddingLeft = padding;
+        return this;
+    }
+
+    public ShapeBuilder paddingRight(float padding) {
+        paddingRight = padding;
+        return this;
+    }
+
     public ShapeBuilder solidColor(int color) {
         solidColor = color;
         return this;
@@ -92,7 +176,7 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder dashWidth(int width) {
-        dashWidth = width;
+        dashLineWidth = width;
         return this;
     }
 
