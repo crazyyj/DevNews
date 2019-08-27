@@ -1,6 +1,7 @@
 package com.newchar.devnews.util;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 
 /**
@@ -35,8 +36,8 @@ public class ShapeBuilder {
     private int solidColor;
 
     private float dashGap;
-    private float dashColor;
-    private float dashGapWidth;
+    private int dashColor;
+    private int dashGapWidth;
     private float dashLineWidth;
 
     private float paddingTop;
@@ -69,6 +70,7 @@ public class ShapeBuilder {
     }
 
     public static ShapeBuilder line() {
+
         return new ShapeBuilder(GradientDrawable.LINE);
     }
 
@@ -126,10 +128,12 @@ public class ShapeBuilder {
         mLeftBottomCornerRadius = corner;
         return this;
     }
+
     public ShapeBuilder leftTopCornerRadius(float corner) {
         mLeftTopCornerRadius = corner;
         return this;
     }
+
     public ShapeBuilder rightTopCornerRadius(float corner) {
         mRightTopCornerRadius = corner;
         return this;
@@ -200,10 +204,24 @@ public class ShapeBuilder {
         return this;
     }
 
-    public GradientDrawable build() {
-        return (GradientDrawable) drawable.mutate();
+    public Drawable build() {
+        drawable.setShape(shape);
+//        drawable.setSize(width, height);
+//        drawable.setGradientRadius(gGradientRadius);
+//        drawable.setStroke(dashGapWidth, dashColor, dashLineWidth,dashGap);
+
+        drawable.setCornerRadii(new float[]{
+                getAvailableCorner(mLeftTopCornerRadius), getAvailableCorner(mLeftTopCornerRadius),
+                getAvailableCorner(mRightTopCornerRadius), getAvailableCorner(mRightTopCornerRadius),
+                getAvailableCorner(mLeftBottomCornerRadius), getAvailableCorner(mLeftBottomCornerRadius),
+                getAvailableCorner(mRightBottomCornerRadius), getAvailableCorner(mRightBottomCornerRadius)
+        });
+        drawable.setColor(solidColor);
+        return drawable.mutate();
     }
 
-
+    private float getAvailableCorner(float corner) {
+        return corner == 0.0f ? mCornerRadius : corner;
+    }
 
 }
