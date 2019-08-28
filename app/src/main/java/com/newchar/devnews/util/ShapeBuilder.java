@@ -27,8 +27,8 @@ public class ShapeBuilder {
     private float mRightTopCornerRadius;
     private float mLeftBottomCornerRadius;
     private float mRightBottomCornerRadius;
-    private int width;
-    private int height;
+    private int width = -1;
+    private int height = -1;
 
     /**
      * 实心颜色
@@ -37,8 +37,8 @@ public class ShapeBuilder {
 
     private float dashGap;
     private int dashColor;
-    private int dashGapWidth;
     private float dashLineWidth;
+    private int dashWidth;
 
     private float paddingTop;
     private float paddingLeft;
@@ -180,12 +180,12 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder dashWidth(int width) {
-        dashLineWidth = width;
+        dashWidth = width;
         return this;
     }
 
-    public ShapeBuilder dashGapWidth(int width) {
-        dashGapWidth = width;
+    public ShapeBuilder dashLineWidth(int width) {
+        dashLineWidth = width;
         return this;
     }
 
@@ -206,7 +206,7 @@ public class ShapeBuilder {
 
     public Drawable build() {
         drawable.setShape(shape);
-//        drawable.setSize(width, height);
+        drawable.setSize(width, height);
 //        drawable.setGradientRadius(gGradientRadius);
 //        drawable.setStroke(dashGapWidth, dashColor, dashLineWidth,dashGap);
 
@@ -217,6 +217,10 @@ public class ShapeBuilder {
                 getAvailableCorner(mRightBottomCornerRadius), getAvailableCorner(mRightBottomCornerRadius)
         });
         drawable.setColor(solidColor);
+
+        if (dashWidth > 0) {
+            drawable.setStroke(dashWidth, dashColor, dashLineWidth, dashGap);
+        }
         return drawable.mutate();
     }
 

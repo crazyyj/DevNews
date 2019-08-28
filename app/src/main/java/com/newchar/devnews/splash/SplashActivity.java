@@ -51,6 +51,10 @@ public class SplashActivity extends BaseActivity {
         final Drawable background = ShapeBuilder.rectangle()
                 .leftBottomCornerRadius(100)
                 .cornerRadius(200)
+                .dashColor(Color.parseColor("#FFFFFF"))
+                .dashGap(100)
+                .dashLineWidth(10)
+                .dashWidth(5)
                 .solidColor(Color.parseColor("#FF0034"))
                 .build();
         btnClickGoMain.setBackgroundDrawable(background);

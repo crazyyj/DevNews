@@ -2,19 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnClickGoMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="背景调试"
+        android:text="代码背景调试"
         android:textSize="50sp"
         android:textStyle="bold" />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimator"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnClickGoMain1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xml背景调试"
+        android:background="@drawable/aaa"
+        android:textSize="50sp"
+
+        android:textStyle="bold" />
+
 
 </LinearLayout>
