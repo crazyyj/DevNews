@@ -53,7 +53,7 @@ public class ShapeBuilder {
      * GradientDrawable.SWEEP_GRADIENT
      */
     private int gType = GradientDrawable.LINEAR_GRADIENT;
-    private float gAngle;
+    private int gAngle;
     private float gCenterX = 0.5f;
     private float gCenterY = 0.5f;
 
@@ -87,7 +87,7 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder gradientAngle(float angle) {
+    public ShapeBuilder gradientAngle(int angle) {
         gAngle = angle;
         return this;
     }
@@ -232,22 +232,42 @@ public class ShapeBuilder {
         }
         drawable.setGradientType(gType);
         drawable.setGradientRadius(gGradientRadius);
-
+        drawable.setOrientation(_setgAngle(gAngle));
         if (gCenterX != 0.5f || gCenterY != 0.5f) {
             drawable.setGradientCenter(gCenterX, gCenterY);
         }
         return drawable.mutate();
     }
 
-    private void _setgAngle(int angle) {
-        try {
-            final Field mGradientState = drawable.getClass().getDeclaredField("mGradientState");
-            mGradientState.get(drawable);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+    private GradientDrawable.Orientation _setgAngle(int angle) {
+        GradientDrawable.Orientation orientation = GradientDrawable.Orientation.LEFT_RIGHT;
+        switch (angle) {
+            case 0:
+                orientation = GradientDrawable.Orientation.LEFT_RIGHT;
+                break;
+            case 45:
+                orientation = GradientDrawable.Orientation.BL_TR;
+                break;
+            case 90:
+                orientation = GradientDrawable.Orientation.BOTTOM_TOP;
+                break;
+            case 135:
+                orientation = GradientDrawable.Orientation.BR_TL;
+                break;
+            case 180:
+                orientation = GradientDrawable.Orientation.RIGHT_LEFT;
+                break;
+            case 225:
+                orientation = GradientDrawable.Orientation.TR_BL;
+                break;
+            case 270:
+                orientation = GradientDrawable.Orientation.TOP_BOTTOM;
+                break;
+            case 315:
+                orientation = GradientDrawable.Orientation.TL_BR;
+                break;
         }
+        return orientation;
     }
 
     private float getAvailableCorner(float corner) {
