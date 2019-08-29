@@ -4,6 +4,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 
+import androidx.annotation.ColorInt;
+
+import java.lang.reflect.Field;
+
 /**
  * @author wenliqiang
  * date 2019-08-26
@@ -48,13 +52,14 @@ public class ShapeBuilder {
     /**
      * GradientDrawable.SWEEP_GRADIENT
      */
-    private int gType;
+    private int gType = GradientDrawable.LINEAR_GRADIENT;
     private float gAngle;
-    private float gCenterX;
-    private float gCenterY;
-    private float gStartColor;
-    private float gCenterColor;
-    private float gEndColor;
+    private float gCenterX = 0.5f;
+    private float gCenterY = 0.5f;
+
+    private int gStartColor;
+    private int gCenterColor;
+    private int gEndColor;
     private float gGradientRadius;
 
     private ShapeBuilder(int shape) {
@@ -70,7 +75,6 @@ public class ShapeBuilder {
     }
 
     public static ShapeBuilder line() {
-
         return new ShapeBuilder(GradientDrawable.LINE);
     }
 
@@ -88,18 +92,18 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder centerColor(float color) {
+    public ShapeBuilder centerColor(@ColorInt int color) {
         gCenterColor = color;
         return this;
     }
 
 
-    public ShapeBuilder gStartColor(float color) {
+    public ShapeBuilder gStartColor(@ColorInt int color) {
         gStartColor = color;
         return this;
     }
 
-    public ShapeBuilder gEndColor(float color) {
+    public ShapeBuilder gEndColor(@ColorInt int color) {
         gEndColor = color;
         return this;
     }
@@ -204,11 +208,10 @@ public class ShapeBuilder {
         return this;
     }
 
+
     public Drawable build() {
         drawable.setShape(shape);
         drawable.setSize(width, height);
-//        drawable.setGradientRadius(gGradientRadius);
-//        drawable.setStroke(dashGapWidth, dashColor, dashLineWidth,dashGap);
 
         drawable.setCornerRadii(new float[]{
                 getAvailableCorner(mLeftTopCornerRadius), getAvailableCorner(mLeftTopCornerRadius),
@@ -221,7 +224,30 @@ public class ShapeBuilder {
         if (dashWidth > 0) {
             drawable.setStroke(dashWidth, dashColor, dashLineWidth, dashGap);
         }
+
+        if (gCenterColor != 0) {
+            drawable.setColors(new int[]{gStartColor, gCenterColor, gEndColor});
+        } else {
+            drawable.setColors(new int[]{gStartColor, gEndColor});
+        }
+        drawable.setGradientType(gType);
+        drawable.setGradientRadius(gGradientRadius);
+
+        if (gCenterX != 0.5f || gCenterY != 0.5f) {
+            drawable.setGradientCenter(gCenterX, gCenterY);
+        }
         return drawable.mutate();
+    }
+
+    private void _setgAngle(int angle) {
+        try {
+            final Field mGradientState = drawable.getClass().getDeclaredField("mGradientState");
+            mGradientState.get(drawable);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     private float getAvailableCorner(float corner) {
