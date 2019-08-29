@@ -48,12 +48,12 @@ public class SplashActivity extends BaseActivity {
 //        lottieAnimator.setComposition(getResouce());
 //        lottieAnimator.playAnimation();
 //        lottieAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        final Drawable background = ShapeBuilder.rectangle()
+        final Drawable background = ShapeBuilder.rectangle(getApplicationContext())
                 .leftBottomCornerRadius(100)
                 .cornerRadius(200)
                 .dashColor(Color.parseColor("#FFFFFF"))
                 .dashGap(100)
-                .dashLineWidth(10)
+                .dashGapWidth(10)
                 .dashWidth(5)
                 .solidColor(Color.parseColor("#FF0034"))
                 .build();

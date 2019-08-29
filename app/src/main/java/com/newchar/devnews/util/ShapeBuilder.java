@@ -1,12 +1,15 @@
 package com.newchar.devnews.util;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.TypedValue;
+
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
 
 import androidx.annotation.ColorInt;
-
-import java.lang.reflect.Field;
 
 /**
  * @author wenliqiang
@@ -16,6 +19,7 @@ import java.lang.reflect.Field;
  */
 public class ShapeBuilder {
 
+    private static Context mContext;
     private final GradientDrawable drawable = new GradientDrawable();
     /**
      * 形状：
@@ -66,19 +70,23 @@ public class ShapeBuilder {
         this.shape = shape;
     }
 
-    public static ShapeBuilder rectangle() {
+    public static ShapeBuilder rectangle(@NonNull Context context) {
+        mContext = context.getApplicationContext();
         return new ShapeBuilder(GradientDrawable.RECTANGLE);
     }
 
-    public static ShapeBuilder ring() {
+    public static ShapeBuilder ring(@NonNull Context context) {
+        mContext = context.getApplicationContext();
         return new ShapeBuilder(GradientDrawable.RING);
     }
 
-    public static ShapeBuilder line() {
+    public static ShapeBuilder line(@NonNull Context context) {
+        mContext = context.getApplicationContext();
         return new ShapeBuilder(GradientDrawable.LINE);
     }
 
-    public static ShapeBuilder oval() {
+    public static ShapeBuilder oval(@NonNull Context context) {
+        mContext = context.getApplicationContext();
         return new ShapeBuilder(GradientDrawable.OVAL).width(1).height(1);
     }
 
@@ -118,12 +126,12 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder gCenterY(float centerY) {
+    public ShapeBuilder gCenterY(@FloatRange(from = 0.0, to = 1.0) float centerY) {
         gCenterY = centerY;
         return this;
     }
 
-    public ShapeBuilder gCenterX(float centerX) {
+    public ShapeBuilder gCenterX(@FloatRange(from = 0.0, to = 1.0) float centerX) {
         gCenterX = centerX;
         return this;
     }
@@ -149,27 +157,27 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder dashGap(float gap) {
-        dashGap = gap;
+        dashGap = dp2px(gap);
         return this;
     }
 
     public ShapeBuilder paddingTop(float padding) {
-        paddingTop = padding;
+        paddingTop = dp2px(padding);
         return this;
     }
 
     public ShapeBuilder paddingBottom(float padding) {
-        paddingBottom = padding;
+        paddingBottom = dp2px(padding);
         return this;
     }
 
     public ShapeBuilder paddingLeft(float padding) {
-        paddingLeft = padding;
+        paddingLeft = dp2px(padding);
         return this;
     }
 
     public ShapeBuilder paddingRight(float padding) {
-        paddingRight = padding;
+        paddingRight = dp2px(padding);
         return this;
     }
 
@@ -184,12 +192,12 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder dashWidth(int width) {
-        dashWidth = width;
+        dashLineWidth = dp2px(width);
         return this;
     }
 
-    public ShapeBuilder dashLineWidth(int width) {
-        dashLineWidth = width;
+    public ShapeBuilder dashGapWidth(int width) {
+        dashGap = dp2px(width);
         return this;
     }
 
@@ -198,13 +206,13 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder width(int px) {
-        this.width = px;
+    public ShapeBuilder width(int dp) {
+        this.width = dp2px(dp);
         return this;
     }
 
-    public ShapeBuilder height(int px) {
-        this.height = px;
+    public ShapeBuilder height(int dp) {
+        this.height = dp2px(dp);
         return this;
     }
 
@@ -232,14 +240,14 @@ public class ShapeBuilder {
         }
         drawable.setGradientType(gType);
         drawable.setGradientRadius(gGradientRadius);
-        drawable.setOrientation(_setgAngle(gAngle));
+        drawable.setOrientation(_parseAngle(gAngle));
         if (gCenterX != 0.5f || gCenterY != 0.5f) {
             drawable.setGradientCenter(gCenterX, gCenterY);
         }
         return drawable.mutate();
     }
 
-    private GradientDrawable.Orientation _setgAngle(int angle) {
+    private GradientDrawable.Orientation _parseAngle(int angle) {
         GradientDrawable.Orientation orientation = GradientDrawable.Orientation.LEFT_RIGHT;
         switch (angle) {
             case 0:
@@ -270,8 +278,28 @@ public class ShapeBuilder {
         return orientation;
     }
 
+    //---Public Method End---
+
+    /**
+     * 如果未设置指定圆角半径，则设置为通用圆角半径
+     *
+     * @param corner 要设置的圆角半径
+     * @return 可用的圆角半径
+     */
     private float getAvailableCorner(float corner) {
         return corner == 0.0f ? mCornerRadius : corner;
     }
 
+    /**
+     * dp转px
+     *
+     * @param dpVal dp value
+     * @return px value
+     */
+    private int dp2px(float dpVal) {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dpVal,
+                mContext.getResources().getDisplayMetrics());
+    }
 }
