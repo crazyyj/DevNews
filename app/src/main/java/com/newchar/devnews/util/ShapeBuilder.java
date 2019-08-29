@@ -156,11 +156,6 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder dashGap(float gap) {
-        dashGap = dp2px(gap);
-        return this;
-    }
-
     public ShapeBuilder paddingTop(float padding) {
         paddingTop = dp2px(padding);
         return this;
@@ -186,18 +181,23 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder dashColor(int color) {
-        dashColor = color;
+    public ShapeBuilder dashGapWidth(float gap) {
+        dashGap = dp2px(gap);
         return this;
     }
 
     public ShapeBuilder dashWidth(int width) {
+        dashWidth = dp2px(width);
+        return this;
+    }
+
+    public ShapeBuilder dashLineWidth(int width) {
         dashLineWidth = dp2px(width);
         return this;
     }
 
-    public ShapeBuilder dashGapWidth(int width) {
-        dashGap = dp2px(width);
+    public ShapeBuilder dashColor(int color) {
+        dashColor = color;
         return this;
     }
 
