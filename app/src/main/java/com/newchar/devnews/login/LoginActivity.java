@@ -140,12 +140,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         presenter.requestOSCUserInfo(osc.getAccess_token());
 
-
     }
 
     @Override
     public void onRequestOSCUserSuccess(OSCUserInfoResult userInfo) {
         RouterExecute.goMainActivity();
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
     }
 
 }

@@ -14,7 +14,7 @@ public class RouterExecute {
 
     public static void goMainActivity() {
         ARouter.getInstance().build(ARouterPath.ACTIVITY_MAIN)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .navigation();
     }
 

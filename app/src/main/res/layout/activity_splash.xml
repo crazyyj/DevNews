@@ -23,9 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="xml背景调试"
-        android:background="@drawable/aaa"
         android:textSize="50sp"
-
         android:textStyle="bold" />
 
 

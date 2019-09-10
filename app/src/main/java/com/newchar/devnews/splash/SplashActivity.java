@@ -28,7 +28,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @Override
