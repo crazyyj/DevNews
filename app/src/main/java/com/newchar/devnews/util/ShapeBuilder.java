@@ -68,8 +68,11 @@ public class ShapeBuilder {
         this.shape = shape;
     }
 
-    public static ShapeBuilder rectangle(@NonNull Context context) {
+    public static void init(Context context) {
         mContext = context.getApplicationContext();
+    }
+
+    public static ShapeBuilder rectangle() {
         return new ShapeBuilder(GradientDrawable.RECTANGLE);
     }
 
