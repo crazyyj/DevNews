@@ -18,4 +18,6 @@ public interface ConstantField {
      */
     Object NULL = null;
 
+    String PAGE_SIZE = "20";
+
 }

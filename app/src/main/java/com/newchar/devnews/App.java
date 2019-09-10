@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.MessageQueue;
 
+import com.newchar.devnews.util.ShapeBuilder;
 import com.newchar.supportlibrary.router.NavRouter;
 
 /**
@@ -19,16 +20,17 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-        Looper.myQueue().addIdleHandler(mAppInitHandler);
+//        Looper.myQueue().addIdleHandler(mAppInitHandler);
+        ShapeBuilder.init(this);
         super.onCreate();
         NavRouter.initialization(App.this);
 
     }
 
 
-    private final MessageQueue.IdleHandler mAppInitHandler = () -> {
-
-        return false;
-    };
+//    private final MessageQueue.IdleHandler mAppInitHandler = () -> {
+//        ShapeBuilder.init(this);
+//        return false;
+//    };
 
 }

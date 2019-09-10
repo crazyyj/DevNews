@@ -15,6 +15,8 @@ public interface OSCField {
 
         String CLEAR_USER_NOTIFY = "/action/openapi/clear_notice";
 
+        String NEWS_OSC = "/action/openapi/news_list";
+
 
 
     }
@@ -25,6 +27,10 @@ public interface OSCField {
     interface Params{
 
         String ACCESS_TOKEN = "access_token";
+
+        String PAGE_SIZE = "pageSize";
+
+        String PAGE_INDEX = "pageIndex";
 
         String USER = "user";
 

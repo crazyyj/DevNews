@@ -24,7 +24,7 @@
             android:value="63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask" />
 

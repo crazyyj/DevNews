@@ -28,7 +28,7 @@ import okhttp3.Response;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public class Presenter<V extends IBaseView> implements IBasePresenter {
+public class Presenter implements IBasePresenter<com.newchar.devnews.login.LoginView> {
 
     private LoginView mView;
 
@@ -36,8 +36,8 @@ public class Presenter<V extends IBaseView> implements IBasePresenter {
 
     }
 
-    public void attachView(V view) {
-        mView = (LoginView) view;
+    public void attachView(LoginView view) {
+        mView = view;
     }
 
     public void refreshOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {

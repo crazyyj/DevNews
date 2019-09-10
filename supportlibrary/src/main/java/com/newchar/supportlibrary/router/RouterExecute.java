@@ -1,5 +1,7 @@
 package com.newchar.supportlibrary.router;
 
+import android.content.Intent;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 
 /**
@@ -12,6 +14,7 @@ public class RouterExecute {
 
     public static void goMainActivity() {
         ARouter.getInstance().build(ARouterPath.ACTIVITY_MAIN)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .navigation();
     }
 

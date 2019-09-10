@@ -16,10 +16,9 @@ public class OSCChinaHttpBuild {
         return new Build(address);
     }
 
-    public static class Build{
+    public static class Build {
 
         Map<String, String> params = new HashMap<>();
-
         {
             params.put(OSCField.Params.ACCESS_TOKEN, "");
             params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);

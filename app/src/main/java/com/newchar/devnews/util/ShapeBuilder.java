@@ -6,10 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.util.TypedValue;
 
-import androidx.annotation.FloatRange;
-import androidx.annotation.NonNull;
-
 import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
 
 /**
  * @author wenliqiang
@@ -75,18 +73,15 @@ public class ShapeBuilder {
         return new ShapeBuilder(GradientDrawable.RECTANGLE);
     }
 
-    public static ShapeBuilder ring(@NonNull Context context) {
-        mContext = context.getApplicationContext();
+    public static ShapeBuilder ring() {
         return new ShapeBuilder(GradientDrawable.RING);
     }
 
-    public static ShapeBuilder line(@NonNull Context context) {
-        mContext = context.getApplicationContext();
+    public static ShapeBuilder line() {
         return new ShapeBuilder(GradientDrawable.LINE);
     }
 
-    public static ShapeBuilder oval(@NonNull Context context) {
-        mContext = context.getApplicationContext();
+    public static ShapeBuilder oval() {
         return new ShapeBuilder(GradientDrawable.OVAL).width(1).height(1);
     }
 

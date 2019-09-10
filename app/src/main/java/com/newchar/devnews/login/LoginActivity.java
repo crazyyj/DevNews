@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.newchar.devnews.MainActivity;
+import com.newchar.devnews.main.MainActivity;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.MURL;
@@ -24,6 +24,7 @@ import com.newchar.supportlibrary.constant.Login;
 import com.newchar.supportlibrary.db.DBHelper;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
+import com.newchar.supportlibrary.router.RouterExecute;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     AppCompatTextView tvOSCLoginAction;
 
     private BottomSheetBehavior<LinearLayoutCompat> bottomSheetBehavior;
-    private Presenter<LoginView> presenter;
+    private Presenter presenter;
 
     @Override
     protected void initWidgets() {
@@ -51,7 +52,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    protected void initData() {
         presenter = new Presenter();
         presenter.attachView(this);
     }
@@ -64,9 +65,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnClick({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvLoginActionLogin:
-
-                break;
+//            case R.id.tvLoginActionLogin:
+//
+//                break;
             case R.id.ivLoginTypeToggle:
                 toggleBottomLoginTypeLayout();
                 break;
@@ -144,9 +145,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void onRequestOSCUserSuccess(OSCUserInfoResult userInfo) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        RouterExecute.goMainActivity();
     }
 
 }

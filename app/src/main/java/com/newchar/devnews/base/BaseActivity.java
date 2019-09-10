@@ -35,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(layoutId);
         initWidgets();
         handlerIntent(getIntent(), savedInstanceState);
-        initProjectFromAsync(savedInstanceState);
+        initProjectFromAsync();
     }
 
     @Override
@@ -58,22 +58,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 初始化当前页数据
-     *
-     * @param savedInstanceState 保存状态数据的Bundle对象
      */
-    protected abstract void initData(Bundle savedInstanceState);
+    protected abstract void initData();
 
     /**
      * 处理被打开的Intent
      * 处理Intent 附带过来的数据
      */
-    protected void handlerIntent(Intent otherIntent, @Nullable Bundle savedInstanceState){
+    protected void handlerIntent(Intent newIntent, @Nullable Bundle savedInstanceState) {
 
     }
 
     /**
      * 设置当前Activity布局文件
      * 执行在setContentView();之前
+     *
      * @return 布局的资源Xml文件ID
      */
     protected abstract int getContentViewId();
@@ -81,13 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 填充数据时机优化, 显示第一帧 填充数据
      */
-    private void initProjectFromAsync(final Bundle savedInstanceState) {
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                initData(savedInstanceState);
-            }
-        });
+    private void initProjectFromAsync() {
+        getWindow().getDecorView().post(() -> initData());
     }
 
     public void finish(int animIn, int animOut) {
@@ -95,19 +89,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.overridePendingTransition(animIn, animOut);
     }
 
-
     /**
      * @return 当前Activity 的根View
      */
     protected View getRootView() {
-        View rootView = ((ViewGroup) (getWindow().getDecorView()
+        return ((ViewGroup) (getWindow().getDecorView()
                 .findViewById(android.R.id.content)))
                 .getChildAt(0);
-        return rootView;
     }
 
     /**
      * 控制点击EditText以外的部分 收回软键盘
+     *
      * @param ev
      * @return
      */
@@ -123,7 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private boolean isShouldHideInput(View v, MotionEvent event) {
-        if (v != null && (v instanceof EditText)) {
+        if ((v instanceof EditText)) {
             int[] leftTop = {0, 0};
             // 获取输入框当前的location位置
             v.getLocationInWindow(leftTop);
@@ -152,7 +145,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 释放资源
      */
-    public void onReleaseRes(){
+    public void onReleaseRes() {
         resReleased = true;
     }
 
