@@ -2,6 +2,8 @@ package com.newchar.devnews.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
@@ -20,7 +22,6 @@ public class MainActivity extends BaseActivity implements IView {
 
     @Override
     protected void initWidgets() {
-
     }
 
     @Override

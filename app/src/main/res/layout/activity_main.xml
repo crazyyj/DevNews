@@ -9,28 +9,21 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#ff0000"
-                android:gravity="center"
-                android:minHeight="?android:attr/actionBarSize"
-                android:text="111111111111111"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_scrollFlags="scroll|enterAlways" />
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tlMainToolBar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:actionBarSize" />
+                android:layout_height="?android:actionBarSize" >
+
+                <include layout="@layout/include_action_bar" />
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -39,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorFullWidth="false"
+            android:background="@android:color/darker_gray"
             app:tabMode="scrollable" />
 
     </com.google.android.material.appbar.AppBarLayout>
