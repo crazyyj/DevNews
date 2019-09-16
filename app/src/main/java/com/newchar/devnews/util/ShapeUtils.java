@@ -3,6 +3,8 @@ package com.newchar.devnews.util;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
+import com.newchar.devnews.util.drawable.ShapeBuilder;
+
 /**
  * @author wenliqiang
  * date 2019-09-07

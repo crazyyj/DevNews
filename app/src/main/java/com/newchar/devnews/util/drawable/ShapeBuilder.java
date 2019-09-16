@@ -1,4 +1,4 @@
-package com.newchar.devnews.util;
+package com.newchar.devnews.util.drawable;
 
 import android.content.Context;
 import android.graphics.Color;

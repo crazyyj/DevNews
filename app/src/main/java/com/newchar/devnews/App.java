@@ -2,10 +2,8 @@ package com.newchar.devnews;
 
 import android.app.Application;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.MessageQueue;
 
-import com.newchar.devnews.util.ShapeBuilder;
+import com.newchar.devnews.util.drawable.ShapeBuilder;
 import com.newchar.supportlibrary.router.NavRouter;
 
 /**
