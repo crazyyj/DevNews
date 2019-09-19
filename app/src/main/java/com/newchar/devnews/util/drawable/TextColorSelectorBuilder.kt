@@ -3,6 +3,7 @@ package com.newchar.devnews.util.drawable
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import java.util.*
 
 /**
  *  @author         wenliqiang@100tal.com
@@ -15,53 +16,51 @@ class TextColorSelectorBuilder :ISelectorBuilder{
 
     private val mSelector: ColorStateList = ColorStateList.valueOf(Color.parseColor("#000000"))
 
-    override fun press(press: Drawable): ISelectorBuilder {
-//return mSelector.withAlpha()
+    override fun press(press: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun active(active: Drawable): ISelectorBuilder {
+    override fun active(active: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun enabled(enabled: Drawable): ISelectorBuilder {
+    override fun enabled(enabled: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun focused(focused: Drawable): ISelectorBuilder {
+    override fun focused(focused: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun checked(checked: Drawable): ISelectorBuilder {
+    override fun checked(checked: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun selected(selected: Drawable): ISelectorBuilder {
+    override fun selected(selected: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun checkable(checkable: Drawable): ISelectorBuilder {
+    override fun checkable(checkable: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun longPressable(longPressable: Drawable): ISelectorBuilder {
+    override fun longPressable(longPressable: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun windowFocused(windowFocused: Drawable): ISelectorBuilder {
+    override fun windowFocused(windowFocused: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun addState(states: IntArray, drawable: Drawable): ISelectorBuilder {
+    override fun addState(states: IntArray, drawable: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun build(): Drawable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun build(): ColorStateList{
+        return mSelector
     }
 
-    override fun default(default: Drawable): ISelectorBuilder {
+    override fun default(default: Drawable): TextColorSelectorBuilder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }

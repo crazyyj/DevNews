@@ -58,7 +58,7 @@ class BgSelectorBuilder : ISelectorBuilder {
         return this
     }
 
-    override fun build(): Drawable {
+    override fun build(): Any {
         return mSelector.mutate()
     }
 

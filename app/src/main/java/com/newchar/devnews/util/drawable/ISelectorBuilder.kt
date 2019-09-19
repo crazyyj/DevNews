@@ -70,6 +70,6 @@ interface ISelectorBuilder {
 
     fun addState(states: IntArray, drawable: Drawable):ISelectorBuilder
 
-    fun build(): Drawable
+    fun build(): Any
 
 }
