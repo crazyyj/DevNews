@@ -56,7 +56,7 @@ class SelectorCreator(private val selectorBuilder: ISelectorBuilder) : ISelector
     }
 
     override fun build(): Drawable {
-        return selectorBuilder.build()
+        return selectorBuilder.build() as Drawable
     }
 
 }

@@ -1,13 +1,12 @@
 package com.newchar.devnews.splash;
 
-import androidx.appcompat.widget.AppCompatTextView;
+import android.os.Handler;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.util.ShapeUtils;
 import com.newchar.supportlibrary.router.RouterExecute;
 
-import butterknife.BindView;
+
 import butterknife.OnClick;
 
 /**
@@ -18,12 +17,24 @@ import butterknife.OnClick;
  */
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.btnClickGoMain)
-    AppCompatTextView btnClickGoMain;
+    private static final int MSG_JUMP_MAIN = 1;
+
+    private final Handler.Callback callback = msg -> {
+        switch (msg.what) {
+            case MSG_JUMP_MAIN:
+                RouterExecute.goLoginActivity();
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
+    };
+    private final Handler mHandler = new Handler(callback);
 
     @Override
     protected void initWidgets() {
-        btnClickGoMain.setBackgroundDrawable(ShapeUtils.getWitBg());
+
     }
 
     @Override
@@ -37,7 +48,7 @@ public class SplashActivity extends BaseActivity {
 
     @OnClick(R.id.btnClickGoMain)
     public void onViewClicked() {
-        RouterExecute.goLoginActivity();
+
     }
 
 }
