@@ -222,8 +222,8 @@ public class ShapeBuilder {
         drawable.setCornerRadii(new float[]{
                 getAvailableCorner(mLeftTopCornerRadius), getAvailableCorner(mLeftTopCornerRadius),
                 getAvailableCorner(mRightTopCornerRadius), getAvailableCorner(mRightTopCornerRadius),
-                getAvailableCorner(mLeftBottomCornerRadius), getAvailableCorner(mLeftBottomCornerRadius),
-                getAvailableCorner(mRightBottomCornerRadius), getAvailableCorner(mRightBottomCornerRadius)
+                getAvailableCorner(mRightBottomCornerRadius), getAvailableCorner(mRightBottomCornerRadius),
+                getAvailableCorner(mLeftBottomCornerRadius), getAvailableCorner(mLeftBottomCornerRadius)
         });
         drawable.setColor(solidColor);
 
