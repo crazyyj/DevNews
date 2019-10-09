@@ -28,7 +28,7 @@ import okhttp3.Response;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public class Presenter implements IBasePresenter<com.newchar.devnews.login.LoginView> {
+public class Presenter implements IBasePresenter<LoginView> {
 
     private LoginView mView;
 
@@ -41,12 +41,8 @@ public class Presenter implements IBasePresenter<com.newchar.devnews.login.Login
     }
 
     public void refreshOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {
-        final Map<String, String> par = new HashMap<>();
-//        if (TextUtils.equals("authorization_code", grant_type) && !TextUtils.isEmpty(oscLoginCode)) {
-            par.put("code", oscLoginCode);
-//        } else {
-//            par.put("refresh_token", oscLoginCode);
-//        }
+        Map<String, String> par = new HashMap<>();
+        par.put("code", oscLoginCode);
         par.put("client_id", client_id);
         par.put("grant_type", grant_type);
         par.put("redirect_uri", "about:blank");

@@ -96,9 +96,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
             bottomSheetBehavior = BottomSheetBehavior.from(llLoginTypeContainer);
         }
         int sheetState = bottomSheetBehavior.getState();
-        if (sheetState == BottomSheetBehavior.STATE_EXPANDED) {
+        if (sheetState == BottomSheetBehavior.STATE_EXPANDED) {         //展开变折叠
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        } else if (sheetState == BottomSheetBehavior.STATE_COLLAPSED) {
+        } else if (sheetState == BottomSheetBehavior.STATE_COLLAPSED) { //折叠变展开
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }

@@ -39,6 +39,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        mHandler.sendEmptyMessageDelayed(MSG_JUMP_MAIN,3000L);
     }
 
     @Override
@@ -47,8 +48,6 @@ public class SplashActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btnClickGoMain)
-    public void onViewClicked() {
-
-    }
+    public void onViewClicked() {}
 
 }
