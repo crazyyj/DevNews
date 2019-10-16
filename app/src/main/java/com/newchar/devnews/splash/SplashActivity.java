@@ -22,7 +22,9 @@ public class SplashActivity extends BaseActivity {
     private final Handler.Callback callback = msg -> {
         switch (msg.what) {
             case MSG_JUMP_MAIN:
-                RouterExecute.goLoginActivity();
+                if (!isStop) {//预计加入Life
+                    RouterExecute.goLoginActivity();
+                }
                 finish();
                 break;
             default:

@@ -2,6 +2,7 @@ package com.newchar.devnews.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.MURL;
 import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.OSCUserInfoResult;
+import com.newchar.devnews.util.drawable.BgSelectorBuilder;
+import com.newchar.devnews.util.drawable.ShapeBuilder;
 import com.newchar.devnews.web.WebViewActivity;
 import com.newchar.supportlibrary.constant.Login;
 import com.newchar.supportlibrary.db.DBHelper;
@@ -42,13 +45,18 @@ public class LoginActivity extends BaseActivity implements LoginView {
     LinearLayoutCompat llLoginTypeContainer;
     @BindView(R.id.tvOSCLoginAction)
     AppCompatTextView tvOSCLoginAction;
+    @BindView(R.id.tvLoginActionLogin)
+    AppCompatTextView tvLoginActionLogin;
 
     private BottomSheetBehavior<LinearLayoutCompat> bottomSheetBehavior;
     private Presenter presenter;
 
     @Override
     protected void initWidgets() {
-
+        tvLoginActionLogin.setBackgroundDrawable(new BgSelectorBuilder()
+                .press(ShapeBuilder.rectangle().solidColor(Color.BLUE).build())
+                ._default(ShapeBuilder.rectangle().solidColor(Color.YELLOW).build())
+                .build());
     }
 
     @Override

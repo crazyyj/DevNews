@@ -17,7 +17,7 @@ import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
  */
 public class SelectorBuilder {
 
-    private static StateListDrawable mSelector = new StateListDrawable();
+    private StateListDrawable mSelector ;
 
     private int[] STATE_PRESS = new int[]{ android.R.attr.state_pressed };
     private int[] STATE_PRESS_NO = new int[]{ -android.R.attr.state_pressed };
@@ -32,7 +32,7 @@ public class SelectorBuilder {
     private int[] STATE_CHECKED_NO = new int[]{ -android.R.attr.state_checked };
 
     private int[] STATE_FOCUSED = new int[]{ android.R.attr.state_focused };
-    private int[] STATE_FOCUSED_NO = new int[]{ -android.R.attr.state_window_focused };
+    private int[] STATE_FOCUSED_NO = new int[]{ -android.R.attr.state_focused };
 
     private int[] STATE_SELECTED = new int[]{ android.R.attr.state_selected };
     private int[] STATE_SELECTED_NO = new int[]{ -android.R.attr.state_selected };
@@ -46,12 +46,12 @@ public class SelectorBuilder {
     private int[] STATE_WINDOW_FOCUSED = new int[]{ android.R.attr.state_window_focused };
     private int[] STATE_WINDOW_FOCUSED_NO = new int[]{ -android.R.attr.state_window_focused };
 
-    private SelectorBuilder(int style) {
+    private SelectorBuilder() {
         mSelector = new StateListDrawable();
-
     }
-    public static SelectorBuilder getSelector(int style) {
-        return new SelectorBuilder(style);
+
+    public static SelectorBuilder getSelector() {
+        return new SelectorBuilder();
     }
 
     public SelectorBuilder checked(Drawable checked) {
@@ -94,9 +94,6 @@ public class SelectorBuilder {
         mSelector.addState(states, stateDrawable);
         return this;
     }
-
-
-
 
     public Drawable build() {
         return mSelector.mutate();

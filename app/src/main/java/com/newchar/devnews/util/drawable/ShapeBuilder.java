@@ -69,7 +69,7 @@ public class ShapeBuilder {
     }
 
     public static void init(Context context) {
-        mContext = context.getApplicationContext();
+        mContext = context;
     }
 
     public static ShapeBuilder rectangle() {
@@ -89,7 +89,7 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder cornerRadius(float corner) {
-        mCornerRadius = corner;
+        mCornerRadius = dp2px(corner);
         return this;
     }
 
@@ -135,22 +135,27 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder leftBottomCornerRadius(float corner) {
-        mLeftBottomCornerRadius = corner;
+        mLeftBottomCornerRadius = dp2px(corner);
         return this;
     }
 
     public ShapeBuilder leftTopCornerRadius(float corner) {
-        mLeftTopCornerRadius = corner;
+        mLeftTopCornerRadius = dp2px(corner);
         return this;
     }
 
     public ShapeBuilder rightTopCornerRadius(float corner) {
-        mRightTopCornerRadius = corner;
+        mRightTopCornerRadius = dp2px(corner);
         return this;
     }
 
     public ShapeBuilder rightBottomCornerRadius(float corner) {
-        mRightBottomCornerRadius = corner;
+        mRightBottomCornerRadius = dp2px(corner);
+        return this;
+    }
+
+    public ShapeBuilder dashGap(float gap) {
+        dashGap = dp2px(gap);
         return this;
     }
 
@@ -179,11 +184,20 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder dashGapWidth(float gap) {
-        dashGap = dp2px(gap);
+    public ShapeBuilder solidColor(String color) {
+        solidColor = Color.parseColor(color);
         return this;
     }
 
+    public ShapeBuilder dashColor(int color) {
+        dashColor = color;
+        return this;
+    }
+
+    /**
+     * 描边的厚度
+     * @param width 厚度
+     */
     public ShapeBuilder dashWidth(int width) {
         dashWidth = dp2px(width);
         return this;
@@ -194,8 +208,8 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder dashColor(int color) {
-        dashColor = color;
+    public ShapeBuilder dashGapWidth(int width) {
+        dashGap = dp2px(width);
         return this;
     }
 
@@ -214,7 +228,6 @@ public class ShapeBuilder {
         return this;
     }
 
-
     public Drawable build() {
         drawable.setShape(shape);
         drawable.setSize(width, height);
@@ -231,10 +244,12 @@ public class ShapeBuilder {
             drawable.setStroke(dashWidth, dashColor, dashLineWidth, dashGap);
         }
 
-        if (gCenterColor != 0) {
-            drawable.setColors(new int[]{gStartColor, gCenterColor, gEndColor});
-        } else {
-            drawable.setColors(new int[]{gStartColor, gEndColor});
+        if (gStartColor != 0 || gEndColor != 0) {
+            if (gCenterColor != 0) {
+                drawable.setColors(new int[]{gStartColor, gCenterColor, gEndColor});
+            } else {
+                drawable.setColors(new int[]{gStartColor, gEndColor});
+            }
         }
         drawable.setGradientType(gType);
         drawable.setGradientRadius(gGradientRadius);

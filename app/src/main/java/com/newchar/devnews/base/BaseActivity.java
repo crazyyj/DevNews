@@ -133,9 +133,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    protected boolean isStop;
 
     @Override
     protected void onStop() {
+        isStop = true;
         super.onStop();
         if (isFinishing()) {
             onReleaseRes();
