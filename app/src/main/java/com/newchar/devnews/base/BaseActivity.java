@@ -6,9 +6,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.newchar.devnews.util.CommonUtils;
 import com.newchar.supportlibrary.router.NavRouter;
@@ -22,7 +25,7 @@ import butterknife.Unbinder;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements LifecycleObserver , IBaseView{
 
     private Unbinder mButterKnife;
     private boolean resReleased;
@@ -31,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavRouter.injectActivity(this);
+        getLifecycle().addObserver(this);
         int layoutId = getContentViewId();
         setContentView(layoutId);
         initWidgets();
@@ -69,6 +73,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void showPagePrompt(String prompt) {
+        runOnUiThread(() -> Toast.makeText(obtainContext(), prompt, Toast.LENGTH_SHORT).show());
+
+    }
+
     /**
      * 设置当前Activity布局文件
      * 执行在setContentView();之前
@@ -97,6 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .findViewById(android.R.id.content)))
                 .getChildAt(0);
     }
+
 
     /**
      * 控制点击EditText以外的部分 收回软键盘

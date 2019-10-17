@@ -53,10 +53,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void initWidgets() {
-        tvLoginActionLogin.setBackgroundDrawable(new BgSelectorBuilder()
-                .press(ShapeBuilder.rectangle().solidColor(Color.BLUE).build())
-                ._default(ShapeBuilder.rectangle().solidColor(Color.YELLOW).build())
-                .build());
+
     }
 
     @Override
@@ -73,9 +70,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnClick({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-//            case R.id.tvLoginActionLogin:
-//
-//                break;
+            case R.id.tvLoginActionLogin:
+                WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+                break;
             case R.id.ivLoginTypeToggle:
                 toggleBottomLoginTypeLayout();
                 break;

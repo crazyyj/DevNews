@@ -3,6 +3,7 @@ package com.newchar.devnews.main;
 import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.entry.OSCNewsList;
 import com.newchar.devnews.http.entry.OSCNoticeNumber;
+import com.newchar.devnews.http.entry.OSCTweet;
 
 import java.util.List;
 
@@ -18,5 +19,11 @@ public interface IView extends IBaseView {
     void onCreateOSCNews(List<OSCNewsList.NewsItem> news);
 
     void onUpdateNoticeNumber(OSCNoticeNumber news);
+
+    /**
+     *  更新动弹列表数据
+     * @param tweetList 动弹列表数据
+     */
+    void onCreateOSCTweet(List<OSCTweet.OSCTweetItem> tweetList);
 
 }

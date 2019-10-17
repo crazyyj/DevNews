@@ -27,4 +27,8 @@ public class HttpRequest {
         OKHttpUtils.post(MURL.OSC_URL + OSCField.Address.NEWS_OSC, params, callback);
     }
 
+    public static void requestOSTweetList(Map<String, String> params, Callback callback) {
+        OKHttpUtils.post(MURL.OSC_URL + OSCField.Address.TWEET_LIST_OSC, params, callback);
+    }
+
 }

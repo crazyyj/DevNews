@@ -106,16 +106,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:behavior_peekHeight="100dp"
+        app:behavior_peekHeight="30dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLoginTypeToggle"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher" />
+            app:srcCompat="@drawable/ic_pull_up_hand" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"

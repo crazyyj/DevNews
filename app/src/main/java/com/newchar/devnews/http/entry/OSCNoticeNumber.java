@@ -1,20 +1,26 @@
 package com.newchar.devnews.http.entry;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author wenliqiang
  * date 2019-09-10
- * @since 当前版本，（以及描述）
+ * @since
  * @since 迭代版本，（以及描述）
  */
-public class OSCNoticeNumber {
+public class OSCNoticeNumber implements Parcelable {
 
-    int msgCount;
+    public OSCNoticeNumber() {
+    }
 
-    int fansCount;
+    public int msgCount;
 
-    int replyCount;
+    public int fansCount;
 
-    int referCount;
+    public int replyCount;
+
+    public int referCount;
 
     public int getMsgCount() {
         return msgCount;
@@ -46,5 +52,36 @@ public class OSCNoticeNumber {
 
     public void setReferCount(int referCount) {
         this.referCount = referCount;
+    }
+
+    protected OSCNoticeNumber(Parcel in) {
+        msgCount = in.readInt();
+        fansCount = in.readInt();
+        replyCount = in.readInt();
+        referCount = in.readInt();
+    }
+
+    public static final Creator<OSCNoticeNumber> CREATOR = new Creator<OSCNoticeNumber>() {
+        @Override
+        public OSCNoticeNumber createFromParcel(Parcel in) {
+            return new OSCNoticeNumber(in);
+        }
+
+        @Override
+        public OSCNoticeNumber[] newArray(int size) {
+            return new OSCNoticeNumber[size];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(msgCount);
+        dest.writeInt(fansCount);
+        dest.writeInt(replyCount);
+        dest.writeInt(referCount);
     }
 }

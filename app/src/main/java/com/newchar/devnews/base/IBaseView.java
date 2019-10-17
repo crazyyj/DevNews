@@ -27,4 +27,5 @@ public interface IBaseView {
      */
     Context obtainContext();
 
+    void showPagePrompt(String prompt);
 }

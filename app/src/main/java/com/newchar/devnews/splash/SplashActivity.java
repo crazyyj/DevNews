@@ -1,13 +1,11 @@
 package com.newchar.devnews.splash;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.supportlibrary.router.RouterExecute;
-
-
-import butterknife.OnClick;
 
 /**
  * @author wenliqiang@100tal.com
@@ -22,9 +20,7 @@ public class SplashActivity extends BaseActivity {
     private final Handler.Callback callback = msg -> {
         switch (msg.what) {
             case MSG_JUMP_MAIN:
-                if (!isStop) {//预计加入Life
-                    RouterExecute.goLoginActivity();
-                }
+                RouterExecute.goLoginActivity();
                 finish();
                 break;
             default:
@@ -36,12 +32,12 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initWidgets() {
-
+        mHandler.sendEmptyMessageDelayed(MSG_JUMP_MAIN, 3000L);
     }
 
     @Override
     protected void initData() {
-        mHandler.sendEmptyMessageDelayed(MSG_JUMP_MAIN,3000L);
+
     }
 
     @Override
@@ -49,7 +45,24 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-    @OnClick(R.id.btnClickGoMain)
-    public void onViewClicked() {}
+    @Override
+    public void onBackPressed() {
+        mHandler.removeCallbacksAndMessages(null);//点了返回不出发跳转到首页
+        super.onBackPressed();
+    }
 
+    @Override
+    public void onPageLoading() {
+
+    }
+
+    @Override
+    public void onPageError() {
+
+    }
+
+    @Override
+    public Context obtainContext() {
+        return this;
+    }
 }

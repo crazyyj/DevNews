@@ -17,16 +17,14 @@ import okhttp3.Request;
  */
 public class OKHttpUtils {
 
-    private static OkHttpClient.Builder builder;
     private static OkHttpClient okClient;
 
     static {
-        builder = new OkHttpClient.Builder()
+        okClient = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS);
-        okClient = builder.build();
-
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
     }
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

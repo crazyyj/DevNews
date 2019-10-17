@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="12dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivItemTweetImage"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="80dp"
+        android:maxHeight="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvItemTweetContent"
+        app:layout_constraintDimensionRatio="h, 1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvItemTweetAuthorName"
+        tools:src="@drawable/ll_splash_preview" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemTweetTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="这里是列表的title自己一行" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivItemTweetAvatar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvItemTweetTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemTweetAuthorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintStart_toEndOf="@id/ivItemTweetAvatar"
+        app:layout_constraintTop_toBottomOf="@id/tvItemTweetTitle"
+        tools:text="这里是用户的名称" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemTweetContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toStartOf="@id/ivItemTweetImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivItemTweetAvatar"
+        tools:text="这里是用户的描述描述这里是用户的描述描述这里是用户的描述描述这里是用户的描述描述这里是用户的描述描述这里是用户的描述描述这里是用户的描述描述" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemTweetDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvItemTweetContent"
+        tools:text="2019-02-02" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvItemTweetCommentNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintStart_toEndOf="@id/tvItemTweetDate"
+        app:layout_constraintTop_toTopOf="@id/tvItemTweetDate"
+        tools:text="1 评论" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

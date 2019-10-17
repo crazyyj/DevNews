@@ -17,6 +17,11 @@ public interface OSCField {
 
         String NEWS_OSC = "/action/openapi/news_list";
 
+        /**
+         *  OSC 动弹
+         */
+        String TWEET_LIST_OSC = "/action/openapi/tweet_list";
+
 
 
     }
