@@ -32,11 +32,11 @@ public class Presenter implements IBasePresenter<LoginView> {
 
     private LoginView mView;
 
-    public Presenter() {
+    Presenter() {
 
     }
 
-    public void attachView(LoginView view) {
+    void attachView(LoginView view) {
         mView = view;
     }
 

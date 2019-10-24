@@ -7,6 +7,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.SslErrorHandler;
@@ -17,6 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,9 +75,14 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         handleReceiveData(getIntent());
+        initView();
         inflateWebView();
         initWebSetting(mWebView.getSettings());
         loadWebUrl(url);
+    }
+
+    private void initView() {
+        findViewById(R.id.ivIncludeGlobalBack).setOnClickListener(v -> finish());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -94,7 +101,7 @@ public class WebViewActivity extends AppCompatActivity {
     private WebView createWebView() {
         WebView webView = WebViewFactory.getInstance().getWebView(getApplicationContext());
         webView.setWebChromeClient(createWebChromeClient());
-        webView.setWebViewClient(createWebViewClient());
+        webView.setWebViewClient(mWebViewClient);
         return webView;
     }
 
@@ -167,7 +174,11 @@ public class WebViewActivity extends AppCompatActivity {
     };
 
     private final WebChromeClient mWebChromeClient = new WebChromeClient() {
-
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            Toast.makeText(WebViewActivity.this, "" + newProgress, Toast.LENGTH_SHORT).show();
+        }
     };
 
     @Override

@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        //TODO 上次的登陆态
     }
 
     @Override

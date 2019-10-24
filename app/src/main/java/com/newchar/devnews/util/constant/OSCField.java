@@ -22,6 +22,8 @@ public interface OSCField {
          */
         String TWEET_LIST_OSC = "/action/openapi/tweet_list";
 
+        String OAUTH2_AUTHORIZE_OSC = "/action/oauth2/authorize";
+
 
 
     }
@@ -44,6 +46,13 @@ public interface OSCField {
         String FRIEND_NAME = "friend_name";
 
         String DATA_TYPE = "dataType";
+
+        /**
+         * 接口回调地址参数
+         */
+        String REDIRECT_URI = "about:blank";
+
+        String CODE = "code";
 
     }
 

@@ -1,5 +1,7 @@
 package com.newchar.devnews.http;
 
+import com.newchar.devnews.util.constant.OSCField;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,13 +18,13 @@ public class MURL {
 
     static {
         OSCAUthUrl.put("client_id", "cXe8oxW5SJSuT02qdmjh");
-        OSCAUthUrl.put("response_type", "code");
-        OSCAUthUrl.put("redirect_uri", "about:blank");
+        OSCAUthUrl.put("response_type", OSCField.Params.CODE);
+        OSCAUthUrl.put("redirect_uri", OSCField.Params.REDIRECT_URI);
         OSCAUthUrl.put("state", "");
     }
 
     public static String getOSCLoginAUthUrl() {
-        return OSC_URL + "/action/oauth2/authorize" + buildGetParamText(OSCAUthUrl);
+        return OSC_URL + OSCField.Address.OAUTH2_AUTHORIZE_OSC + buildGetParamText(OSCAUthUrl);
     }
 
     private static String buildGetParamText(Map<String, String> params) {

@@ -85,12 +85,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     private void action_LoginOSC() {
-//        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
-//        if (lastLoginRecord == null) {
-        WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
-//            return;
-//        }
-//        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
+        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
+        if (lastLoginRecord == null) {
+            WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+            return;
+        }
+        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
     }
 
     /**
