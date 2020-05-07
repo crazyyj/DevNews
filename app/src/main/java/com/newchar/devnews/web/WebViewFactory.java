@@ -3,6 +3,7 @@ package com.newchar.devnews.web;
 import android.content.Context;
 import android.os.Looper;
 import android.os.MessageQueue;
+import android.util.Log;
 import android.webkit.WebView;
 
 import java.util.Stack;
@@ -15,7 +16,7 @@ import java.util.Stack;
  */
 public class WebViewFactory {
 
-    private static final int CACHED_WEB_VIEW_MAX_NUM = 3;
+    private static final int CACHED_WEB_VIEW_MAX_NUM = 2;
 
     /**
      * 全新未用的WebView栈
@@ -35,31 +36,31 @@ public class WebViewFactory {
         private static final WebViewFactory INSTANCE = new WebViewFactory();
     }
 
-    public WebView getWebView(Context context) {
-        if (mWebViewPreStack == null || mWebViewPreStack.isEmpty()) {
-            return create(context);
-        }
+    public WebView getWebView() {
+        preCreate(appContext);
         return mWebViewPreStack.pop();
     }
 
     /**
      * 生产WebView
      */
-    public void preLoadWebView(Context context) {
-        appContext = context.getApplicationContext();
-        Looper.myQueue().addIdleHandler(idleHandler);
+    void preLoadWebView(Context context) {
+        appContext = context;
+        preCreate(appContext);
     }
 
     private WebView create(Context context) {
         return new WebView(context);
     }
 
-    private final MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
-        @Override
-        public boolean queueIdle() {
-            mWebViewPreStack.push(create(appContext));
-            return mWebViewPreStack.size() > CACHED_WEB_VIEW_MAX_NUM;
+    public void destroy() {
+        mWebViewPreStack.clear();
+    }
+
+    private void preCreate(Context context) {
+        while (mWebViewPreStack.size() < CACHED_WEB_VIEW_MAX_NUM) {
+            mWebViewPreStack.push(create(context));
         }
-    };
+    }
 
 }

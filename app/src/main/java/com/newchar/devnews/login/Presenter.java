@@ -52,6 +52,7 @@ public class Presenter implements IBasePresenter<LoginView> {
         HttpRequest.requestLoginCode(par, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
             @Override

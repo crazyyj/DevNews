@@ -3,13 +3,14 @@ package com.newchar.devnews.web;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
@@ -18,7 +19,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 import com.newchar.devnews.R;
 import com.newchar.devnews.http.MURL;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -65,7 +66,7 @@ public class WebViewActivity extends AppCompatActivity {
     private void loadWebUrl(String url) {
         try {
             mWebView.loadUrl(URLDecoder.decode(url, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -74,11 +75,24 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        handleReceiveData(getIntent());
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         initView();
+        handleReceiveData(getIntent());
         inflateWebView();
         initWebSetting(mWebView.getSettings());
         loadWebUrl(url);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleReceiveData(intent);
+        loadWebUrl(url);
+
+        setIntent(intent);
     }
 
     private void initView() {
@@ -87,22 +101,33 @@ public class WebViewActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebSetting(WebSettings webSettings) {
-        webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
+        webSettings.setSupportZoom(true);
+        webSettings.setUseWideViewPort(true);
+        javaScriptEnabled(webSettings, true);
         webSettings.setDomStorageEnabled(true);//设置适应Html5 //重点是这个设置
         webSettings.setBlockNetworkImage(false);
         webSettings.setDisplayZoomControls(true);
-        webSettings.setSupportZoom(true);
-
-        webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
-//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
     }
 
+
     private WebView createWebView() {
-        WebView webView = WebViewFactory.getInstance().getWebView(getApplicationContext());
+        WebView webView = WebViewFactory.getInstance().getWebView();
         webView.setWebChromeClient(createWebChromeClient());
-        webView.setWebViewClient(mWebViewClient);
+        webView.setWebViewClient(createWebViewClient());
         return webView;
+    }
+
+    /**
+     * 设置能够解析Javascript
+     */
+    @SuppressLint("SetJavaScriptEnabled")
+    private void javaScriptEnabled(WebSettings webSettings, boolean enable) {
+        if (webSettings.getJavaScriptEnabled() != enable) {
+            webSettings.setJavaScriptEnabled(enable);
+        }
     }
 
     private WebViewClient createWebViewClient() {
@@ -124,6 +149,19 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private final WebViewClient mWebViewClient = new WebViewClient() {
+//        @Override
+//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//            super.onPageStarted(view, url, favicon);
+//            view.getSettings().setBlockNetworkImage(true);
+//        }
+//
+//        @Override
+//        public void onLoadResource(WebView view, String url) {
+//            if (!TextUtils.isEmpty(url) || url.endsWith(".png") || url.endsWith(".ico") || url.endsWith(".jpg")) {
+//                view.getSettings().setBlockNetworkImage(false);
+//            }
+//            super.onLoadResource(view, url);
+//        }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -177,7 +215,6 @@ public class WebViewActivity extends AppCompatActivity {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-            Toast.makeText(WebViewActivity.this, "" + newProgress, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -190,10 +227,27 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (mWebView != null) {
+            javaScriptEnabled(mWebView.getSettings(), true);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if (mWebView != null) {
             mWebView.onPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mWebView != null) {
+            //屏蔽js动画后台运行耗电
+            javaScriptEnabled(mWebView.getSettings(), false);
         }
     }
 
@@ -221,12 +275,12 @@ public class WebViewActivity extends AppCompatActivity {
     private void destroyWebView() {
         if (mWebView != null) {
             mWebView.stopLoading();                          //停止加载
-            mWebView.clearCache(true);        //清除缓存
+            mWebView.clearCache(true);                      //清除缓存
             mWebView.clearHistory();                        //清除历史
 //            mWebView.removeAllViews();                      //移除webview上子view
-            mWebView.destroy();
             ViewParent parentView = mWebView.getParent();
             ((ViewGroup) parentView).removeAllViews();
+            mWebView.destroy();
             mWebView = null;
         }
     }

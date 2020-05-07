@@ -91,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
      * 填充数据时机优化, 显示第一帧 填充数据
      */
     private void initProjectFromAsync() {
-        getWindow().getDecorView().post(() -> initData());
+        getWindow().getDecorView().post(this::initData);
     }
 
     public void finish(int animIn, int animOut) {

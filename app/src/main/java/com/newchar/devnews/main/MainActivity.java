@@ -62,12 +62,7 @@ public class MainActivity extends BaseActivity implements IView {
 
     @Override
     public void onCreateOSCTweet(List<OSCTweet.OSCTweetItem> tweetList) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                oscTweetListAdapter.notifyDataSetChanged(tweetList);
-            }
-        });
+        runOnUiThread(() -> oscTweetListAdapter.notifyDataSetChanged(tweetList));
     }
 
     @Override
@@ -88,6 +83,6 @@ public class MainActivity extends BaseActivity implements IView {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(false);
+        moveTaskToBack(true);
     }
 }
