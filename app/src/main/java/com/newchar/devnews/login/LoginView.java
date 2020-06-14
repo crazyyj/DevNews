@@ -1,8 +1,8 @@
 package com.newchar.devnews.login;
 
 import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.OSCUserInfoResult;
+import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
+import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
 
 /**
  * @author wenliqiang@100tal.com
@@ -19,6 +19,11 @@ public interface LoginView extends IBaseView {
      */
     void onOSCLoginSuccess(OSCLoginCodeTokenResult osc);
 
+    /**
+     * 获取开源中国用户信息成功
+     *
+     * @param userInfo OSC用户信息
+     */
     void onRequestOSCUserSuccess(OSCUserInfoResult userInfo);
 
 }

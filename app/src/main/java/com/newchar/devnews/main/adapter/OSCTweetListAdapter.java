@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.newchar.devnews.R;
-import com.newchar.devnews.http.entry.OSCTweet;
+import com.newchar.devnews.http.entry.osc.OSCTweet;
 
 import java.util.ArrayList;
 import java.util.List;

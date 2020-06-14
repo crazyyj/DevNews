@@ -1,13 +1,15 @@
 package com.newchar.devnews.web;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
@@ -22,14 +24,15 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
-import com.newchar.devnews.http.MURL;
+import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.supportlibrary.router.ARouterPath;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
 /**
  * @author wenliqiang
@@ -37,9 +40,10 @@ import java.net.URLDecoder;
  * @since 当前版本，（以及描述）
  * @since 迭代版本，（以及描述）
  */
+@Route(path = ARouterPath.ACTIVITY_BROWSER)
 public class WebViewActivity extends AppCompatActivity {
 
-    public static final String URL = "url";
+    private static final String URL = "url";
     public static final int REQUEST_CODE = 101;
 
     public static final int RESULT_CODE_FOR_OSC_LOGIN = 201;
@@ -50,18 +54,11 @@ public class WebViewActivity extends AppCompatActivity {
      */
     private String url;
 
-    public static void actionLaunch(Activity context, String url) {
-        Intent intent = new Intent(context.getApplicationContext(), WebViewActivity.class);
-        intent.putExtra(URL, url);
-        ActivityCompat.startActivityForResult(context, intent, REQUEST_CODE, null);
-    }
-
     private void handleReceiveData(Intent intent) {
         if (intent != null) {
             url = intent.getStringExtra(URL);
         }
     }
-
 
     private void loadWebUrl(String url) {
         try {
@@ -99,6 +96,8 @@ public class WebViewActivity extends AppCompatActivity {
         findViewById(R.id.ivIncludeGlobalBack).setOnClickListener(v -> finish());
     }
 
+
+
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebSetting(WebSettings webSettings) {
         webSettings.setSupportZoom(true);
@@ -108,7 +107,6 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setBlockNetworkImage(false);
         webSettings.setDisplayZoomControls(true);
         webSettings.setLoadWithOverviewMode(true);
-
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
     }
 
@@ -121,7 +119,7 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     /**
-     * 设置能够解析Javascript
+     * 设置是否能够解析Javascript
      */
     @SuppressLint("SetJavaScriptEnabled")
     private void javaScriptEnabled(WebSettings webSettings, boolean enable) {
@@ -149,12 +147,19 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private final WebViewClient mWebViewClient = new WebViewClient() {
-//        @Override
-//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//            super.onPageStarted(view, url, favicon);
-//            view.getSettings().setBlockNetworkImage(true);
-//        }
-//
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            Log.e("WEBVIew", "onPageStarted " + url);
+            parseOSCLoginCode(url);
+//            if (parseOSCLoginCode(url)) {
+//                return;
+//            }
+
+        }
+
+
+
 //        @Override
 //        public void onLoadResource(WebView view, String url) {
 //            if (!TextUtils.isEmpty(url) || url.endsWith(".png") || url.endsWith(".ico") || url.endsWith(".jpg")) {
@@ -163,22 +168,21 @@ public class WebViewActivity extends AppCompatActivity {
 //            super.onLoadResource(view, url);
 //        }
 
+
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            Log.e("WEBVIew", "shouldOverrideUrlLoading " + request.toString());
             String overrideUrl;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 overrideUrl = request.getUrl().toString();
             } else {
                 overrideUrl = request.toString();
             }
-            if (isOSCLoginCallbackUrl(overrideUrl)) {
-                final String code = collectOAuthLoginCode(overrideUrl);
-                Intent intent = new Intent();
-                intent.putExtra("oscLoginCode", code);
-                setResult(WebViewActivity.RESULT_CODE_FOR_OSC_LOGIN, intent);
-                finish();
+            if (parseOSCLoginCode(overrideUrl)) {
                 return true;
             }
+
             if (isShouldOverrideUrl(overrideUrl)) {
                 loadWebUrl(overrideUrl);
                 return true;
@@ -186,12 +190,50 @@ public class WebViewActivity extends AppCompatActivity {
             return super.shouldOverrideUrlLoading(view, request);
         }
 
-        private boolean isOSCLoginCallbackUrl(String url) {
-            return URLUtil.isAboutUrl(url);
+        private String isOSCLoginCallbackUrl(String url) {
+            String code = null;
+
+            if (!TextUtils.isEmpty(url)) {
+                final Uri uri = Uri.parse(url);
+                if (url.startsWith(OSCField.URL.BASE_OSC_URL) && TextUtils.isEmpty(code = uri.getQueryParameter(OSCField.Params.CODE))) {
+                    return code;
+                }
+//                System.out.println("aaa  getFragment___ " + uri.getFragment());
+//                System.out.println("aaa  getUserInfo___ " + uri.getUserInfo());
+//                System.out.println("aaa  toString___ " + uri.toString());
+//                System.out.println("aaa  getEncodedUserInfo___ "  + uri.getEncodedUserInfo());
+//                System.out.println("aaa  getEncodedFragment___ " + uri.getEncodedFragment());
+//                System.out.println("aaa  getSchemeSpecificPart___ " + uri.getSchemeSpecificPart());
+//                System.out.println("aaa  getPort___ " + uri.getPort());
+//                System.out.println("aaa  getHost___ " + uri.getHost());
+//                System.out.println("aaa  getEncodedAuthority___ " + uri.getEncodedAuthority());
+//                System.out.println("aaa  getAuthority___ " + uri.getAuthority());
+//                System.out.println("aaa  getQuery___ " + uri.getQuery());
+//                System.out.println("aaa  getLastPathSegment___" + uri.getLastPathSegment());
+//                System.out.println("aaa  getPath___" + uri.getPath());
+//                System.out.println("aaa  getPathSegments" + uri.getPathSegments().toString());
+//                System.out.println("aaa  getScheme___" + uri.getScheme());
+//                System.out.println("aaa  getEncodedSchemeSpecificPart___" + uri.getEncodedSchemeSpecificPart());
+//                return false;
+            }
+            return code;
+        }
+
+        private boolean parseOSCLoginCode(String url) {
+            final String code = isOSCLoginCallbackUrl(url);
+            if (!TextUtils.isEmpty(code)) {
+//                final String code = collectOAuthLoginCode(url);
+                Intent intent = new Intent();
+                intent.putExtra("oscLoginCode", code);
+                setResult(WebViewActivity.RESULT_CODE_FOR_OSC_LOGIN, intent);
+                finish();
+                return true;
+            }
+            return false;
         }
 
         private String collectOAuthLoginCode(String url) {
-            return MURL.obtainGetUrlParams(url).get("code");
+            return Uri.parse(url).getQueryParameter("code");
         }
 
         /**
@@ -215,7 +257,10 @@ public class WebViewActivity extends AppCompatActivity {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
+            Log.e("newlq", "" + newProgress);
         }
+
+
     };
 
     @Override
@@ -229,9 +274,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mWebView != null) {
-            javaScriptEnabled(mWebView.getSettings(), true);
-        }
+
     }
 
     @Override
@@ -239,6 +282,14 @@ public class WebViewActivity extends AppCompatActivity {
         super.onPause();
         if (mWebView != null) {
             mWebView.onPause();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (mWebView != null) {
+            javaScriptEnabled(mWebView.getSettings(), true);
         }
     }
 
@@ -272,6 +323,7 @@ public class WebViewActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+
     private void destroyWebView() {
         if (mWebView != null) {
             mWebView.stopLoading();                          //停止加载
@@ -279,7 +331,7 @@ public class WebViewActivity extends AppCompatActivity {
             mWebView.clearHistory();                        //清除历史
 //            mWebView.removeAllViews();                      //移除webview上子view
             ViewParent parentView = mWebView.getParent();
-            ((ViewGroup) parentView).removeAllViews();
+            ((ViewGroup) parentView).removeView(mWebView);
             mWebView.destroy();
             mWebView = null;
         }

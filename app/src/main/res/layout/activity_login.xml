@@ -2,7 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -111,9 +112,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLoginTypeToggle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/ic_pull_up_hand" />
 
         <com.google.android.flexbox.FlexboxLayout
@@ -127,7 +127,7 @@
             <TextView
                 android:id="@+id/tvOSCLoginAction"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="@string/type_login_osc" />
 
@@ -148,58 +148,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:gravity="center"
-                android:text="微博登录" />
+                android:text="微信登录" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:gravity="center"
-                android:text="微博登录" />
-
-            <TextView
-                android:id="@+id/tv311111"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="QQ登录" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="微博登录" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="微博登录" />
-
-            <TextView
-                android:id="@+id/tv311"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="QQ登录" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="微博登录" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="微博登录" />
-
-            <TextView
-                android:id="@+id/tv31111"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="QQ登录" />
+                android:text="玩Android登录" />
 
         </com.google.android.flexbox.FlexboxLayout>
 

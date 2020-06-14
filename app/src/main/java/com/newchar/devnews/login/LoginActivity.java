@@ -2,8 +2,6 @@ package com.newchar.devnews.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -12,16 +10,13 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.newchar.devnews.main.MainActivity;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.MURL;
-import com.newchar.devnews.http.entry.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.OSCUserInfoResult;
-import com.newchar.devnews.util.drawable.BgSelectorBuilder;
-import com.newchar.devnews.util.drawable.ShapeBuilder;
+import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
+import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
+import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.devnews.web.WebViewActivity;
 import com.newchar.supportlibrary.constant.Login;
 import com.newchar.supportlibrary.db.DBHelper;
@@ -71,7 +66,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvLoginActionLogin:
-                WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+                RouterExecute.goBrowserActivity(this, MURL.getOSCLoginAUthUrl());
                 break;
             case R.id.ivLoginTypeToggle:
                 toggleBottomLoginTypeLayout();
@@ -87,7 +82,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private void action_LoginOSC() {
         LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
         if (lastLoginRecord == null) {
-            WebViewActivity.actionLaunch(this, MURL.getOSCLoginAUthUrl());
+            RouterExecute.goBrowserActivity(this, MURL.getOSCLoginAUthUrl());
             return;
         }
         presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
@@ -119,7 +114,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             if (TextUtils.isEmpty(oscLoginCode)) {
                 return;
             }
-            presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "authorization_code", oscLoginCode);
+            presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", OSCField.Params.AUTHORIZATION_CODE, oscLoginCode);
         }
     }
 
@@ -134,14 +129,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    public Context obtainContext() {
-        return this;
-    }
-
-    @Override
     public void onOSCLoginSuccess(OSCLoginCodeTokenResult osc) {
         DBHelper.getInstance(getApplicationContext()).saveLoginRecord(new LoginRecord(System.currentTimeMillis(), System.currentTimeMillis(), Login.Channel.OSC, osc.getAccess_token()));
-
 
         presenter.requestOSCUserInfo(osc.getAccess_token());
 
@@ -150,10 +139,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void onRequestOSCUserSuccess(OSCUserInfoResult userInfo) {
         RouterExecute.goMainActivity();
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
     }
 
 }

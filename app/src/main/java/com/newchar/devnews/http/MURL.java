@@ -13,18 +13,17 @@ import java.util.Map;
  */
 public class MURL {
 
-    public static final String OSC_URL = "https://www.oschina.net";
     private static Map<String, String> OSCAUthUrl = new HashMap<>();
 
     static {
         OSCAUthUrl.put("client_id", "cXe8oxW5SJSuT02qdmjh");
         OSCAUthUrl.put("response_type", OSCField.Params.CODE);
         OSCAUthUrl.put("redirect_uri", OSCField.Params.REDIRECT_URI);
-        OSCAUthUrl.put("state", "");
+//        OSCAUthUrl.put("state", "");
     }
 
     public static String getOSCLoginAUthUrl() {
-        return OSC_URL + OSCField.Address.OAUTH2_AUTHORIZE_OSC + buildGetParamText(OSCAUthUrl);
+        return OSCField.URL.BASE_OSC_URL + OSCField.Address.OAUTH2_AUTHORIZE_OSC + buildGetParamText(OSCAUthUrl);
     }
 
     private static String buildGetParamText(Map<String, String> params) {

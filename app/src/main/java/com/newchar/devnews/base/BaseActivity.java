@@ -1,5 +1,6 @@
 package com.newchar.devnews.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -162,6 +163,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
         resReleased = true;
     }
 
+    @Override
+    public Context obtainContext() {
+        return this;
+    }
 
     @Override
     protected void onDestroy() {
@@ -171,6 +176,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
         if (mButterKnife != null) {
             mButterKnife.unbind();
         }
+        getLifecycle().removeObserver(this);
         super.onDestroy();
     }
 

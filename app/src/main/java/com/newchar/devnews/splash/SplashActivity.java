@@ -38,11 +38,11 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initWidgets() {
-        mHandler.sendEmptyMessageDelayed(MSG_JUMP_LOGIN, 3000L);
     }
 
     @Override
     protected void initData() {
+        mHandler.sendEmptyMessageDelayed(MSG_JUMP_LOGIN, 1000L);
         //TODO 上次的登陆态
     }
 
@@ -52,9 +52,9 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onStop() {
         mHandler.removeCallbacksAndMessages(null);//点了返回不出发跳转到首页
-        super.onPause();
+        super.onStop();
     }
 
     @Override
@@ -74,8 +74,4 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    @Override
-    public Context obtainContext() {
-        return this;
-    }
 }

@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()//greendao
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:4.0.0'
 //        classpath "com.alibaba:arouter-register:1.0.2"
 
         //butterknife

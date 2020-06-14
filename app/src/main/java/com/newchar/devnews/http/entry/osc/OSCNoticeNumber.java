@@ -1,4 +1,4 @@
-package com.newchar.devnews.http.entry;
+package com.newchar.devnews.http.entry.osc;
 
 import android.os.Parcel;
 import android.os.Parcelable;

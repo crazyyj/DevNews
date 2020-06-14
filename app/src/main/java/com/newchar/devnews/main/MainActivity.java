@@ -1,19 +1,17 @@
 package com.newchar.devnews.main;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.http.HttpRequest;
-import com.newchar.devnews.http.entry.OSCNewsList;
-import com.newchar.devnews.http.entry.OSCNoticeNumber;
-import com.newchar.devnews.http.entry.OSCTweet;
+import com.newchar.devnews.http.entry.osc.OSCNewsList;
+import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
+import com.newchar.devnews.http.entry.osc.OSCPostList;
+import com.newchar.devnews.http.entry.osc.OSCTweet;
+import com.newchar.devnews.main.adapter.OSCPostListAdapter;
 import com.newchar.devnews.main.adapter.OSCTweetListAdapter;
 import com.newchar.supportlibrary.router.ARouterPath;
 
@@ -29,18 +27,20 @@ public class MainActivity extends BaseActivity implements IView {
     @BindView(R.id.rvMainTweetList)
     RecyclerView rvMainTweetList;
     private OSCTweetListAdapter oscTweetListAdapter;
+    private OSCPostListAdapter oscPostListAdapter;
 
     @Override
     protected void initWidgets() {
+//        oscTweetListAdapter = new OSCTweetListAdapter(this);
+        oscPostListAdapter = new OSCPostListAdapter(this);
+        rvMainTweetList.setHasFixedSize(true);
+        rvMainTweetList.setAdapter(oscPostListAdapter);
     }
 
     @Override
     protected void initData() {
-        oscTweetListAdapter = new OSCTweetListAdapter(this);
-        rvMainTweetList.setHasFixedSize(true);
-        rvMainTweetList.setAdapter(oscTweetListAdapter);
         presenter = new Presenter(this);
-        presenter.requestOSTweetList();
+        presenter.requestOSCPostList();
 
     }
 
@@ -63,6 +63,11 @@ public class MainActivity extends BaseActivity implements IView {
     @Override
     public void onCreateOSCTweet(List<OSCTweet.OSCTweetItem> tweetList) {
         runOnUiThread(() -> oscTweetListAdapter.notifyDataSetChanged(tweetList));
+    }
+
+    @Override
+    public void onCreateOSCPost(List<OSCPostList.Item> postList) {
+        runOnUiThread(() -> oscPostListAdapter.notifyDataSetChanged(postList));
     }
 
     @Override

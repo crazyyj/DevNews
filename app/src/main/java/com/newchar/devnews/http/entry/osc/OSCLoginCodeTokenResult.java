@@ -1,4 +1,4 @@
-package com.newchar.devnews.http.entry;
+package com.newchar.devnews.http.entry.osc;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,18 +11,41 @@ import android.os.Parcelable;
  */
 public class OSCLoginCodeTokenResult implements Parcelable {
 
+
     private int uid;
 
+    /**
+     * token 有效时间
+     */
     private int expires_in;
 
+    /**
+     * token类型
+     */
     private String token_type;
 
+    /**
+     * token
+     */
     private String access_token;
 
+    /**
+     * 刷新token
+     */
     private String refresh_token;
 
-    public OSCLoginCodeTokenResult() {
+    private static OSCLoginCodeTokenResult mInstance;
+
+    private OSCLoginCodeTokenResult() {
     }
+
+    public static OSCLoginCodeTokenResult getInstance() {
+        if (mInstance == null) {
+            mInstance = new OSCLoginCodeTokenResult();
+        }
+        return mInstance;
+    }
+
 
     protected OSCLoginCodeTokenResult(Parcel in) {
         uid = in.readInt();
