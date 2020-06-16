@@ -6,7 +6,7 @@ import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.entry.osc.OSCNewsList;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
 import com.newchar.devnews.http.entry.osc.OSCTweet;
-import com.newchar.devnews.http.params.ParamsBuilder;
+import com.newchar.devnews.http.params.OSCParamsBuilder;
 import com.newchar.devnews.util.constant.ConstantField;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.supportlibrary.db.DBHelper;
@@ -21,7 +21,6 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * @author wenliqiang
@@ -105,7 +104,7 @@ public class Presenter implements IBasePresenter<IView> {
     }
 
     public void requestOSCPostList() {
-        final Map<String, Object> params = ParamsBuilder.buildOSCBlogListParams(1);
+        final Map<String, Object> params = OSCParamsBuilder.buildOSCBlogListParams(1);
         HttpRequest.requestOSCPostList(params, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -117,19 +116,21 @@ public class Presenter implements IBasePresenter<IView> {
                 if (response.isSuccessful() && response.body() != null) {
                     try {
                         final String body = response.body().string();
-                        final OSCPostList postList = JsonCompat.parse(OSCPostList.class, body);
+//                        final OSCPostList postList = JsonCompat.parse(OSCPostList.class, body);
+                        final OSCPostList postList = OSCPostList.valueOf(body);
                         getView().onCreateOSCPost(postList.getPostList());
                         getView().onUpdateNoticeNumber(postList.getNotice());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        getView().showPagePrompt(response.message());
+
+                    }
                 } else {
                     getView().showPagePrompt(response.message());
                 }
             }
         });
-
     }
 
     @Override

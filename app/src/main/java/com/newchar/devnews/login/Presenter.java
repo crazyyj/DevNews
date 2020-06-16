@@ -42,7 +42,7 @@ public class Presenter implements IBasePresenter<LoginView> {
         par.put("code", oscLoginCode);
         par.put("client_id", client_id);
         par.put("grant_type", grant_type);
-        par.put("redirect_uri", "oschina");
+        par.put("redirect_uri", OSCField.Params.REDIRECT_URI);
         par.put("client_secret", client_secret);
         par.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         HttpRequest.requestLoginCode(par, new Callback() {
@@ -64,6 +64,7 @@ public class Presenter implements IBasePresenter<LoginView> {
                     OSCLoginCodeTokenResult.getInstance().setToken_type(parse.getToken_type());
                     OSCLoginCodeTokenResult.getInstance().setUid(parse.getUid());
                     getView().onOSCLoginSuccess(parse);
+
                 } else {
                     final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, response.body().string());
                     Activity context = (Activity) getView().obtainContext();

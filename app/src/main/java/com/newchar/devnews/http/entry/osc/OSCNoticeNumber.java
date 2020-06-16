@@ -3,6 +3,9 @@ package com.newchar.devnews.http.entry.osc;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * @author wenliqiang
  * date 2019-09-10
@@ -84,4 +87,25 @@ public class OSCNoticeNumber implements Parcelable {
         dest.writeInt(replyCount);
         dest.writeInt(referCount);
     }
+
+    public static OSCNoticeNumber valueOf(JSONObject jsonObject) {
+        OSCNoticeNumber notice = new OSCNoticeNumber();
+        try {
+            final JSONObject noticeJson;
+            if (jsonObject.has("notice") && (noticeJson = jsonObject.getJSONObject("notice")).length() > 0) {
+                notice = new OSCNoticeNumber();
+                notice.setReferCount(noticeJson.getInt("referCount"));
+                notice.setFansCount(noticeJson.getInt("fansCount"));
+                notice.setMsgCount(noticeJson.getInt("msgCount"));
+                notice.setReplyCount(noticeJson.getInt("replyCount"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return notice;
+    }
+
+
+
 }

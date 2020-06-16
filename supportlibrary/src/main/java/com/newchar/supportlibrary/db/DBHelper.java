@@ -1,5 +1,6 @@
 package com.newchar.supportlibrary.db;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.Nullable;
@@ -16,13 +17,14 @@ public class DBHelper {
 
     public static final String DB_NAME = "db";
 
-    private Context mContext;
+    private Context mAppContext;
     //    private final DaoSession daoSession;
     private static DBHelper mInstance;
+    private final BaseSQLiteHelper dbHelper;
 
     public DBHelper(Context context) {
-        mContext = context;
-//        daoSession = DaoMaster.newDevSession(context, DB_NAME);
+        mAppContext = context.getApplicationContext();
+        dbHelper = new BaseSQLiteHelper(mAppContext);
     }
 
     public static DBHelper getInstance(Context context) {
@@ -38,7 +40,7 @@ public class DBHelper {
      * @param record
      */
     public void saveLoginRecord(LoginRecord record) {
-//        getDaoSession().getLoginRecordDao().insert(record);
+
     }
 
     /**

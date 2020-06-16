@@ -1,6 +1,10 @@
 package com.newchar.devnews.http;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.newchar.devnews.http.entry.osc.OSCPostList;
+
+import org.json.JSONArray;
 
 /**
  * @author wenliqiang
@@ -10,9 +14,13 @@ import com.google.gson.Gson;
  */
 public class JsonCompat {
 
-    private static final Gson gson = new Gson();
+    private static final Gson gson;
 
-    
+    static {
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.registerTypeAdapter(OSCPostList.Answer.class, new OSCPostTypeAdapter());
+        gson = gsonBuilder.create();
+    }
 
     /**
      * @param clazz 字节码类型
@@ -31,6 +39,11 @@ public class JsonCompat {
      */
     public static <T> String toJson(T t) {
         return gson.toJson(t);
+    }
+
+
+    public static boolean isEmpty(JSONArray jsonArray) {
+        return jsonArray == null || jsonArray.length() < 1;
     }
 
 }

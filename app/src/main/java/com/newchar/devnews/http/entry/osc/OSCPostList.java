@@ -1,5 +1,12 @@
 package com.newchar.devnews.http.entry.osc;
 
+import com.newchar.devnews.http.JsonCompat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,9 +154,55 @@ public class OSCPostList {
     }
 
 
-    public static class Answer{
+    public static class Answer {
+
+        public Answer() {
+        }
+
+        public Answer(String name, String time) {
+            this.name = name;
+            this.time = time;
+        }
+
         public String name;
         public String time;
+    }
+
+    public static OSCPostList valueOf(String JSONString) throws JSONException {
+        OSCPostList postList = new OSCPostList();
+        JSONObject jsonString = new JSONObject(JSONString);
+        final JSONArray post_list = jsonString.getJSONArray("post_list");
+        if (!JsonCompat.isEmpty(post_list)) {
+            int length = post_list.length();
+            postList.post_list = new ArrayList<>(length);
+            Item item;
+            for (int i = 0; i < length; i++) {
+                try {
+                    final JSONObject postJsonObject = post_list.getJSONObject(i);
+                    item = new Item();
+                    item.setPortrait(postJsonObject.getString("portrait"));
+                    item.setViewCount(postJsonObject.getInt("viewCount"));
+                    item.setPubDate(postJsonObject.getString("pubDate"));
+                    item.setAuthorid(postJsonObject.getInt("authorid"));
+                    item.setAuthor(postJsonObject.getString("author"));
+                    item.setTitle(postJsonObject.getString("title"));
+                    item.setId(postJsonObject.getInt("id"));
+
+                    final JSONObject answerJson = postJsonObject.optJSONObject("answer");
+                    if (answerJson != null && answerJson.has("name") && answerJson.has("time")) {
+                        final Answer answer = new Answer(answerJson.getString("name"), answerJson.getString("time"));
+                        item.setAnswer(answer);
+                        item.setAnswerCount(postJsonObject.getInt("answerCount"));
+                    }
+                    postList.post_list.add(item);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        postList.notice = OSCNoticeNumber.valueOf(jsonString);
+        return postList;
     }
 
 }

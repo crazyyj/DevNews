@@ -1,14 +1,17 @@
 package com.newchar.devnews.main.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.newchar.devnews.R;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
 import com.newchar.devnews.http.entry.osc.OSCTweet;
@@ -43,7 +46,9 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvPostItemName.setText(postList.get(position).getTitle());
+        final OSCPostList.Item item = postList.get(position);
+        holder.tvPostItemName.setText(item.getTitle());
+        Glide.with(mContext).load(item.getPortrait()).into(holder.ivPostItemHeaderIcon);
     }
 
     @Override
@@ -52,17 +57,20 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
     }
 
     public void notifyDataSetChanged(List<OSCPostList.Item> postList) {
-        this.postList = postList;
+        this.postList.clear();
+        this.postList.addAll(postList);
         notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final AppCompatTextView tvPostItemName;
+        private final AppCompatImageView ivPostItemHeaderIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPostItemName = itemView.findViewById(R.id.tvPostItemName);
+            ivPostItemHeaderIcon = itemView.findViewById(R.id.ivPostItemHeaderIcon);
         }
     }
 
