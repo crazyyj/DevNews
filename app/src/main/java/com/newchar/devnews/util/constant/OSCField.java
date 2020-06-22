@@ -31,6 +31,11 @@ public interface OSCField {
          */
         String POST_LIST_OSC = "/action/openapi/post_list";
 
+        /**
+         * 帖子详情接口地址
+         */
+        String POST_LIST_DETAIL = "/action/openapi/post_detail";
+
         String OAUTH2_AUTHORIZE_OSC = "/action/oauth2/authorize";
 
 
@@ -42,6 +47,8 @@ public interface OSCField {
     interface Params {
 
         String AUTHORIZATION_CODE = "authorization_code";
+
+        String ID = "id";
 
         String ACCESS_TOKEN = "access_token";
 

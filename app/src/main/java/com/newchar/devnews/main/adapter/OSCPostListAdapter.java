@@ -30,7 +30,8 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
 
     private final Context mContext;
     private final LayoutInflater inflater;
-    List<OSCPostList.Item> postList = new ArrayList<>();
+    private List<OSCPostList.Item> postList = new ArrayList<>();
+    private ItemClickListener mItemClickListener;
 
     public OSCPostListAdapter(Context context) {
         this.mContext = context;
@@ -46,10 +47,24 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final OSCPostList.Item item = postList.get(position);
-        holder.tvPostItemName.setText(item.getTitle());
-        Glide.with(mContext).load(item.getPortrait()).into(holder.ivPostItemHeaderIcon);
+        final OSCPostList.Item itemData = postList.get(position);
+        holder.tvPostItemName.setText(itemData.getAuthor());
+        holder.tvPostItemTitle.setText(itemData.getTitle());
+        holder.tvPostItemPubDate.setText(itemData.getPubDate());
+        holder.tvPostItemViewCount.setText("查看数  " + itemData.getViewCount());
+        Glide.with(mContext).load(itemData.getPortrait()).into(holder.ivPostItemHeaderIcon);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(holder, itemData, position);
+            }
+        });
     }
+
+    public void setItemCLickListener(ItemClickListener l) {
+        mItemClickListener = l;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -62,17 +77,28 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final AppCompatTextView tvPostItemTitle;
         private final AppCompatTextView tvPostItemName;
+        private final AppCompatTextView tvPostItemPubDate;
+        private final AppCompatTextView tvPostItemViewCount;
         private final AppCompatImageView ivPostItemHeaderIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPostItemName = itemView.findViewById(R.id.tvPostItemName);
+            tvPostItemTitle = itemView.findViewById(R.id.tvPostItemTitle);
+            tvPostItemPubDate = itemView.findViewById(R.id.tvPostItemPubDate);
+            tvPostItemViewCount = itemView.findViewById(R.id.tvPostItemViewCount);
             ivPostItemHeaderIcon = itemView.findViewById(R.id.ivPostItemHeaderIcon);
         }
     }
 
+    public interface ItemClickListener {
+
+        void onItemClick(ViewHolder holder, OSCPostList.Item itemData, int position);
+
+    }
 
 }

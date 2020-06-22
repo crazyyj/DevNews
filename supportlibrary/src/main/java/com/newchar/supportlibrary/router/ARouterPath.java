@@ -14,6 +14,8 @@ public interface ARouterPath {
 
     String ACTIVITY_LOGIN = "/common/login";
 
+    String ACTIVITY_POST_DETAIL = "/common/postDetail";
+
     String ACTIVITY_BROWSER = "/common/webView";
 
 }

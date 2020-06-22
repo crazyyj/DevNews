@@ -1,6 +1,7 @@
 package com.newchar.devnews.main;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import com.newchar.devnews.http.entry.osc.OSCTweet;
 import com.newchar.devnews.main.adapter.OSCPostListAdapter;
 import com.newchar.devnews.main.adapter.OSCTweetListAdapter;
 import com.newchar.supportlibrary.router.ARouterPath;
+import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class MainActivity extends BaseActivity implements IView {
         oscPostListAdapter = new OSCPostListAdapter(this);
         rvMainTweetList.setHasFixedSize(true);
         rvMainTweetList.setAdapter(oscPostListAdapter);
+        oscPostListAdapter.setItemCLickListener((holder, itemData, position) -> RouterExecute.goPostDetailActivity(String.valueOf(itemData.getId())));
     }
 
     @Override
@@ -69,22 +72,6 @@ public class MainActivity extends BaseActivity implements IView {
     public void onCreateOSCPost(List<OSCPostList.Item> postList) {
         runOnUiThread(() -> oscPostListAdapter.notifyDataSetChanged(postList));
     }
-
-    @Override
-    public void onPageLoading() {
-
-    }
-
-    @Override
-    public void onPageError() {
-
-    }
-
-    @Override
-    public Context obtainContext() {
-        return this;
-    }
-
 
     @Override
     public void onBackPressed() {

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivPostItemHeaderIcon"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_splash_logo"
@@ -19,19 +20,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:text="name"
-        app:layout_constraintBottom_toTopOf="@id/tvPostItemDesc"
-        app:layout_constraintStart_toEndOf="@id/ivPostItemHeaderIcon"
-        app:layout_constraintTop_toTopOf="@id/ivPostItemHeaderIcon" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvPostItemDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="miaosu"
         app:layout_constraintBottom_toBottomOf="@id/ivPostItemHeaderIcon"
         app:layout_constraintStart_toEndOf="@id/ivPostItemHeaderIcon"
-        app:layout_constraintStart_toStartOf="@id/tvPostItemName"
-        app:layout_constraintTop_toBottomOf="@id/tvPostItemName" />
+        tools:text="作者名称" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPostItemHeaderIcon"
+        tools:text="帖子标题" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostItemPubDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPostItemTitle"
+        tools:text="帖子时间" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPostItemViewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPostItemTitle"
+        tools:text="查看数" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

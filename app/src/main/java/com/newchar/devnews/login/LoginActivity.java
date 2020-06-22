@@ -119,16 +119,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    public void onPageLoading() {
-
-    }
-
-    @Override
-    public void onPageError() {
-
-    }
-
-    @Override
     public void onOSCLoginSuccess(OSCLoginCodeTokenResult osc) {
         DBHelper.getInstance(getApplicationContext()).saveLoginRecord(new LoginRecord(System.currentTimeMillis(), System.currentTimeMillis(), Login.Channel.OSC, osc.getAccess_token()));
 

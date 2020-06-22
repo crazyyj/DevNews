@@ -25,5 +25,13 @@ public class OSCParamsBuilder {
         return params;
     }
 
+    public static Map<String, Object> buildOSCPostDetailParams(String postId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
+        params.put(OSCField.Params.ID, postId);
+        return params;
+    }
+
 
 }

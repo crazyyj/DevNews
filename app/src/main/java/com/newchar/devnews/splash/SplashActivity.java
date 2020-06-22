@@ -64,14 +64,4 @@ public class SplashActivity extends BaseActivity {
         mHandler.sendEmptyMessage(MSG_JUMP_MAIN);
     }
 
-    @Override
-    public void onPageLoading() {
-
-    }
-
-    @Override
-    public void onPageError() {
-
-    }
-
 }

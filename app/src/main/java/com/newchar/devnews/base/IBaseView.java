@@ -11,21 +11,17 @@ import android.content.Context;
 public interface IBaseView {
 
     /**
-     * 页面正在加载
-     */
-    void onPageLoading();
-
-    /**
-     * 页面加载出错
-     */
-    void onPageError();
-
-    /**
      * 拿到页面的 Context 对象
      *
      * @return Context
      */
     Context obtainContext();
 
+    /**
+     * Toast提示
+     *
+     * @param prompt 提示
+     */
     void showPagePrompt(String prompt);
+
 }

@@ -39,6 +39,15 @@ public class RouterExecute {
                 .navigation(activity, 101);
     }
 
+    /**
+     * 打开osc 帖子详情
+     */
+    public static void goPostDetailActivity(String postID) {
+        ARouter.getInstance().build(ARouterPath.ACTIVITY_POST_DETAIL)
+                .withString("postId", postID)
+                .navigation();
+    }
+
 
 
 }

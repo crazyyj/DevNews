@@ -41,4 +41,11 @@ public class HttpRequest {
         OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.POST_LIST_OSC, params, callback);
     }
 
+    /**
+     * 帖子列表
+     */
+    public static void requestOSCPostDetail(Map<String, Object> params, Callback callback) {
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.POST_LIST_DETAIL, params, callback);
+    }
+
 }
