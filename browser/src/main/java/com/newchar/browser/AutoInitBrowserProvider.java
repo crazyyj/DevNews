@@ -1,8 +1,7 @@
-package com.newchar.devnews.web;
+package com.newchar.browser;
 
 import android.content.Context;
 import android.content.pm.ProviderInfo;
-import android.util.Log;
 
 /**
  * @author wenliqiang@100tal.com

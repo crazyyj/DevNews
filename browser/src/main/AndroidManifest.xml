@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.newchar.browser">
+
+    <application android:allowBackup="false">
+        <provider
+            android:name="com.newchar.browser.AutoInitBrowserProvider"
+            android:authorities="AutoInitBrowserProvider"
+            android:exported="false" />
+    </application>
+
+</manifest>

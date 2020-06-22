@@ -1,9 +1,6 @@
-package com.newchar.devnews.web;
+package com.newchar.browser;
 
 import android.content.Context;
-import android.os.Looper;
-import android.os.MessageQueue;
-import android.util.Log;
 import android.webkit.WebView;
 
 import java.util.Stack;

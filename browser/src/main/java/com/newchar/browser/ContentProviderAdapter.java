@@ -1,4 +1,4 @@
-package com.newchar.devnews.web;
+package com.newchar.browser;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

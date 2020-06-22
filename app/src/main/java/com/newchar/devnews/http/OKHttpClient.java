@@ -36,7 +36,7 @@ public class OKHttpClient {
             if (key == null || params.get(key) == null) {
                 continue;
             }
-            builder.add(key, params.get(key).toString());
+            builder.add(key, String.valueOf(params.get(key)));
         }
         okClient.newCall(new Request.Builder().url(url).post(builder.build()).build()).enqueue(callback);
     }
