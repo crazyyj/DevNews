@@ -9,7 +9,7 @@ import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
 /**
  * @author wenliqiang
  * date 2020/6/22
- * @since 当前版本，（以及描述）
+ * @since LiveData 封装工具类
  * @since 迭代版本，（以及描述）
  */
 class ObserverPublish {
