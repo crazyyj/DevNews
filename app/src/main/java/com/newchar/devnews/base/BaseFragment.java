@@ -9,8 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author wenliqiang
@@ -26,9 +31,7 @@ public abstract class BaseFragment extends Fragment {
     protected LazyListener mLazyListener;
 
     private volatile boolean isViewInited;
-
-    private BaseFragment() {
-    }
+    private Unbinder bind;
 
     @Override
     public void onAttach(Context activity) {
@@ -60,15 +63,18 @@ public abstract class BaseFragment extends Fragment {
             errorText.setLayoutParams(errorTextLayoutParams);
             mView = errorText;
         } else {
-            mView = inflater.inflate(layoutId, null);
-            try {
-                return mView;
-            } finally {
-                initWidgets(mView);
-                isViewInited = true;
-            }
+            mView = inflater.inflate(layoutId, container,false);
         }
         return mView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.bind = ButterKnife.bind(this, view);
+        initWidgets(view);
+        isViewInited = true;
+
     }
 
     @Override
@@ -101,7 +107,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void setLazyEnable(LazyListener listener) {
+    public void setLazyListener(LazyListener listener) {
         mLazyListener = listener;
     }
 
@@ -111,6 +117,12 @@ public abstract class BaseFragment extends Fragment {
         if (fragActivity.isFinishing()) {
             onReleaseRes();
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind.unbind();
     }
 
     /**
@@ -125,7 +137,11 @@ public abstract class BaseFragment extends Fragment {
      * 参数 没有savedInstanceState 所以请求网络在此， 不处理其他信息
      * 当Frag 可见时调用
      */
-    protected abstract void onVisibility();
+    protected void onVisibility(){
+        if (mLazyListener != null) {
+            mLazyListener.onPageVisible();
+        }
+    }
 
     /**
      * 页面不可见, 隐藏后
@@ -133,6 +149,9 @@ public abstract class BaseFragment extends Fragment {
      * 当Frag 不可见时调用
      */
     protected void onInVisibility(){
+        if (mLazyListener != null) {
+            mLazyListener.onPageInvisible();
+        }
     }
 
     public void initWidgetsBefore() {

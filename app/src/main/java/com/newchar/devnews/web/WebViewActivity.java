@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
 import android.webkit.SslErrorHandler;
-import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -26,13 +25,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.newchar.browser.WebViewBuilder;
+import com.newchar.browser.WebViewFactory;
 import com.newchar.devnews.R;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.List;
 
 /**
  * @author wenliqiang
@@ -81,6 +81,7 @@ public class WebViewActivity extends AppCompatActivity {
         inflateWebView();
         initWebSetting(mWebView.getSettings());
         loadWebUrl(url);
+        Log.e("webView", url);
     }
 
     @Override
@@ -96,18 +97,8 @@ public class WebViewActivity extends AppCompatActivity {
         findViewById(R.id.ivIncludeGlobalBack).setOnClickListener(v -> finish());
     }
 
-
-
-    @SuppressLint("SetJavaScriptEnabled")
     private void initWebSetting(WebSettings webSettings) {
-        webSettings.setSupportZoom(true);
-        webSettings.setUseWideViewPort(true);
-        javaScriptEnabled(webSettings, true);
-        webSettings.setDomStorageEnabled(true);//设置适应Html5 //重点是这个设置
-        webSettings.setBlockNetworkImage(false);
-        webSettings.setDisplayZoomControls(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        WebViewBuilder.defaultWebSettings(webSettings);
     }
 
 
@@ -123,9 +114,7 @@ public class WebViewActivity extends AppCompatActivity {
      */
     @SuppressLint("SetJavaScriptEnabled")
     private void javaScriptEnabled(WebSettings webSettings, boolean enable) {
-        if (webSettings.getJavaScriptEnabled() != enable) {
-            webSettings.setJavaScriptEnabled(enable);
-        }
+        WebViewBuilder.javaScriptEnabled(webSettings, enable);
     }
 
     private WebViewClient createWebViewClient() {
@@ -152,23 +141,7 @@ public class WebViewActivity extends AppCompatActivity {
             super.onPageStarted(view, url, favicon);
             Log.e("WEBVIew", "onPageStarted " + url);
             parseOSCLoginCode(url);
-//            if (parseOSCLoginCode(url)) {
-//                return;
-//            }
-
         }
-
-
-
-//        @Override
-//        public void onLoadResource(WebView view, String url) {
-//            if (!TextUtils.isEmpty(url) || url.endsWith(".png") || url.endsWith(".ico") || url.endsWith(".jpg")) {
-//                view.getSettings().setBlockNetworkImage(false);
-//            }
-//            super.onLoadResource(view, url);
-//        }
-
-
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -192,29 +165,11 @@ public class WebViewActivity extends AppCompatActivity {
 
         private String isOSCLoginCallbackUrl(String url) {
             String code = null;
-
             if (!TextUtils.isEmpty(url)) {
                 final Uri uri = Uri.parse(url);
                 if (url.startsWith(OSCField.URL.BASE_OSC_URL) && TextUtils.isEmpty(code = uri.getQueryParameter(OSCField.Params.CODE))) {
                     return code;
                 }
-//                System.out.println("aaa  getFragment___ " + uri.getFragment());
-//                System.out.println("aaa  getUserInfo___ " + uri.getUserInfo());
-//                System.out.println("aaa  toString___ " + uri.toString());
-//                System.out.println("aaa  getEncodedUserInfo___ "  + uri.getEncodedUserInfo());
-//                System.out.println("aaa  getEncodedFragment___ " + uri.getEncodedFragment());
-//                System.out.println("aaa  getSchemeSpecificPart___ " + uri.getSchemeSpecificPart());
-//                System.out.println("aaa  getPort___ " + uri.getPort());
-//                System.out.println("aaa  getHost___ " + uri.getHost());
-//                System.out.println("aaa  getEncodedAuthority___ " + uri.getEncodedAuthority());
-//                System.out.println("aaa  getAuthority___ " + uri.getAuthority());
-//                System.out.println("aaa  getQuery___ " + uri.getQuery());
-//                System.out.println("aaa  getLastPathSegment___" + uri.getLastPathSegment());
-//                System.out.println("aaa  getPath___" + uri.getPath());
-//                System.out.println("aaa  getPathSegments" + uri.getPathSegments().toString());
-//                System.out.println("aaa  getScheme___" + uri.getScheme());
-//                System.out.println("aaa  getEncodedSchemeSpecificPart___" + uri.getEncodedSchemeSpecificPart());
-//                return false;
             }
             return code;
         }
@@ -222,7 +177,6 @@ public class WebViewActivity extends AppCompatActivity {
         private boolean parseOSCLoginCode(String url) {
             final String code = isOSCLoginCallbackUrl(url);
             if (!TextUtils.isEmpty(code)) {
-//                final String code = collectOAuthLoginCode(url);
                 Intent intent = new Intent();
                 intent.putExtra("oscLoginCode", code);
                 setResult(WebViewActivity.RESULT_CODE_FOR_OSC_LOGIN, intent);
@@ -230,10 +184,6 @@ public class WebViewActivity extends AppCompatActivity {
                 return true;
             }
             return false;
-        }
-
-        private String collectOAuthLoginCode(String url) {
-            return Uri.parse(url).getQueryParameter("code");
         }
 
         /**

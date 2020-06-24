@@ -1,4 +1,4 @@
-package com.newchar.devnews.main;
+package com.newchar.devnews.post;
 
 import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.entry.osc.OSCNewsList;

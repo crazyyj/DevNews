@@ -8,10 +8,11 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.newchar.browser.WebViewBuilder;
+import com.newchar.browser.WebViewFactory;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.entry.osc.OSCPostDetail;
-import com.newchar.devnews.web.WebViewFactory;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 /**
@@ -28,19 +29,32 @@ public class OSCPostDetailActivity extends BaseActivity implements View {
      */
     private String postId;
     public static final String DATA_POST_ID = "postId";
-    private WebView viewById;
+    private WebView postContentWebView;
     private FrameLayout webViewContainer;
 
     @Override
     protected void initWidgets() {
         webViewContainer = findViewById(R.id.webViewContainer);
-        this.viewById = WebViewFactory.getInstance().getWebView();
+        this.postContentWebView = WebViewFactory.getInstance().getWebView();
+        WebViewBuilder.defaultWebSettings(postContentWebView.getSettings());
     }
 
     @Override
     protected void handlerIntent(Intent newIntent, @Nullable Bundle savedInstanceState) {
         super.handlerIntent(newIntent, savedInstanceState);
         postId = newIntent.getStringExtra(DATA_POST_ID);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebViewBuilder.javaScriptEnabled(postContentWebView.getSettings(), true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebViewBuilder.javaScriptEnabled(postContentWebView.getSettings(), false);
     }
 
     @Override
@@ -57,8 +71,8 @@ public class OSCPostDetailActivity extends BaseActivity implements View {
     @Override
     public void onPostDetailResponse(OSCPostDetail postDetail) {
         runOnUiThread(() -> {
-            viewById.loadUrl(postDetail.getUrl());
-            webViewContainer.addView(viewById);
+            postContentWebView.loadUrl(postDetail.getUrl());
+            webViewContainer.addView(postContentWebView);
         });
     }
 

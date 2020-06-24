@@ -1,4 +1,4 @@
-package com.newchar.devnews.main.adapter;
+package com.newchar.devnews.post.adapter;
 
 import android.content.Context;
 import android.text.Html;

@@ -13,7 +13,7 @@ import java.util.Stack;
  */
 public class WebViewFactory {
 
-    private static final int CACHED_WEB_VIEW_MAX_NUM = 2;
+    private static final int CACHED_WEB_VIEW_MAX_NUM = 3;
 
     /**
      * 全新未用的WebView栈
@@ -25,11 +25,11 @@ public class WebViewFactory {
      */
     private Context appContext;
 
-    public static WebViewFactory getInstance(){
+    public static WebViewFactory getInstance() {
         return Holder.INSTANCE;
     }
 
-    private static class Holder{
+    private static class Holder {
         private static final WebViewFactory INSTANCE = new WebViewFactory();
     }
 

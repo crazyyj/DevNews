@@ -1,4 +1,4 @@
-package com.newchar.devnews.main;
+package com.newchar.devnews.post;
 
 import com.newchar.devnews.base.IBasePresenter;
 import com.newchar.devnews.http.HttpRequest;
@@ -116,7 +116,6 @@ public class Presenter implements IBasePresenter<IView> {
                 if (response.isSuccessful() && response.body() != null) {
                     try {
                         final String body = response.body().string();
-//                        final OSCPostList postList = JsonCompat.parse(OSCPostList.class, body);
                         final OSCPostList postList = OSCPostList.valueOf(body);
                         getView().onCreateOSCPost(postList.getPostList());
                         getView().onUpdateNoticeNumber(postList.getNotice());

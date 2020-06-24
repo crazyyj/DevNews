@@ -4,42 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.MainActivity">
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-<!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-<!---->
-            <!--            <androidx.appcompat.widget.Toolbar-->
-            <!--                android:id="@+id/tlMainToolBar"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="?android:actionBarSize" >-->
-
-            <!--            </androidx.appcompat.widget.Toolbar>-->
-<!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tlMainTopNavTab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            app:tabIndicatorFullWidth="false"
-            app:tabMode="scrollable" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMainTweetList"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpMainPageContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
