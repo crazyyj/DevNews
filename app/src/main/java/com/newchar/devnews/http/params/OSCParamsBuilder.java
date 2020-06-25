@@ -28,6 +28,14 @@ public class OSCParamsBuilder {
         return params;
     }
 
+    public static Map<String, Object> buildOSCBlogDetailParams(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(OSCField.Params.ID, id);
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
+        return params;
+    }
+
     public static Map<String, Object> buildOSCTweetListParams(int page) {
         Map<String, Object> params = new HashMap<>();
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());

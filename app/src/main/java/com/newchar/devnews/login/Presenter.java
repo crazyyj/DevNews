@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.newchar.devnews.base.IBasePresenter;
+import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.entry.osc.OSCHttpError;
@@ -77,6 +78,11 @@ public class Presenter implements IBasePresenter<LoginView> {
     @Override
     public LoginView getView() {
         return mView;
+    }
+
+    @Override
+    public void attachView(IBaseView view) {
+
     }
 
     public void requestOSCUserInfo(String access_token) {

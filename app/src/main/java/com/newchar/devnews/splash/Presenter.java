@@ -16,4 +16,9 @@ public class Presenter implements IBasePresenter {
     public IBaseView getView() {
         return null;
     }
+
+    @Override
+    public void attachView(IBaseView view) {
+
+    }
 }

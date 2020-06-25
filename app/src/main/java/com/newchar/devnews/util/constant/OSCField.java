@@ -19,7 +19,18 @@ public interface OSCField {
 
         String CLEAR_USER_NOTIFY = "/action/openapi/clear_notice";
 
+        String GET_TOKEN = "/action/openapi/token";
+
         String NEWS_OSC = "/action/openapi/news_list";
+
+        /**
+         * OSC博客列表
+         */
+        String BLOG_LIST = "/action/openapi/blog_list";
+        /**
+         * OSC博客列表
+         */
+        String BLOG_DETAIL = "/action/openapi/blog_detail";
 
         /**
          * OSC 动弹
@@ -37,7 +48,6 @@ public interface OSCField {
         String POST_LIST_DETAIL = "/action/openapi/post_detail";
 
         String OAUTH2_AUTHORIZE_OSC = "/action/oauth2/authorize";
-
 
     }
 

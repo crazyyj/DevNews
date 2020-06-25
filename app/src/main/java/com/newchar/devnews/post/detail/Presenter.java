@@ -1,6 +1,7 @@
 package com.newchar.devnews.post.detail;
 
 import com.newchar.devnews.base.IBasePresenter;
+import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.entry.osc.OSCPostDetail;
@@ -57,6 +58,11 @@ public class Presenter implements IBasePresenter<View> {
     @Override
     public View getView() {
         return view;
+    }
+
+    @Override
+    public void attachView(IBaseView view) {
+
     }
 
 }

@@ -8,6 +8,10 @@ package com.newchar.devnews.base;
  */
 public interface IBasePresenter<V extends IBaseView> {
 
+
+
     V getView();
+
+    void attachView(IBaseView view);
 
 }

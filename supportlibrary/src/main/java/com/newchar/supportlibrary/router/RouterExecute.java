@@ -40,6 +40,15 @@ public class RouterExecute {
     }
 
     /**
+     * 打开OSC博客详情页
+     */
+    public static void goBlogDetailActivity(int id) {
+        ARouter.getInstance().build(ARouterPath.ACTIVITY_BLOG_DETAIL)
+                .withInt("id", id)
+                .navigation();
+    }
+
+    /**
      * 打开osc 帖子详情
      */
     public static void goPostDetailActivity(String postID) {

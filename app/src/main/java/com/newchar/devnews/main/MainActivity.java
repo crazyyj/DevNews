@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
+import com.newchar.devnews.blog.OSCBlogListFragment;
 import com.newchar.devnews.post.OSCPostListFragment;
 import com.newchar.supportlibrary.router.ARouterPath;
 
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private List<Fragment> generateMainPage() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new OSCPostListFragment());
+        fragments.add(new OSCBlogListFragment());
         return fragments;
     }
 

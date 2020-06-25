@@ -16,7 +16,7 @@ public class HttpRequest {
 
 
     public static void requestLoginCode(Map<String, Object> params, Callback callback) {
-        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + "/action/openapi/token", params, callback);
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.GET_TOKEN, params, callback);
     }
 
     public static void requestOSCUser(Map<String, Object> params, Callback callback) {
@@ -28,6 +28,20 @@ public class HttpRequest {
      */
     public static void requestOSCNews(Map<String, Object> params, Callback callback) {
         OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.NEWS_OSC, params, callback);
+    }
+
+    /**
+     *
+     */
+    public static void requestOSCBlogDetail(Map<String, Object> params, Callback callback) {
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.BLOG_DETAIL, params, callback);
+    }
+
+    /**
+     *
+     */
+    public static void requestOSCBlogList(Map<String, Object> params, Callback callback) {
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.BLOG_LIST, params, callback);
     }
 
     public static void requestOSTweetList(Map<String, Object> params, Callback callback) {

@@ -18,4 +18,6 @@ public interface ARouterPath {
 
     String ACTIVITY_BROWSER = "/common/webView";
 
+    String ACTIVITY_BLOG_DETAIL = "/common/blogDetail";
+
 }
