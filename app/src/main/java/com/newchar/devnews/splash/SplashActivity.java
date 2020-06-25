@@ -53,7 +53,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onStop() {
-        mHandler.removeCallbacksAndMessages(null);//点了返回不出发跳转到首页
+        mHandler.removeCallbacksAndMessages(null);//点了返回不触发跳转到首页
         super.onStop();
     }
 
