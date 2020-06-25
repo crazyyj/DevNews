@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
-import com.newchar.devnews.http.entry.osc.OSCNewsList;
 import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
-import com.newchar.devnews.http.entry.osc.OSCTweet;
 import com.newchar.devnews.post.adapter.OSCPostListAdapter;
-import com.newchar.devnews.post.adapter.OSCTweetListAdapter;
 import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.util.List;
@@ -30,7 +27,7 @@ import butterknife.BindView;
  */
 public class OSCPostListFragment extends BaseFragment implements IView {
 
-    Presenter presenter;
+    private Presenter presenter;
 
     @BindView(R.id.rvMainTweetList)
     RecyclerView rvMainTweetList;
@@ -68,25 +65,13 @@ public class OSCPostListFragment extends BaseFragment implements IView {
     }
 
     @Override
-    public void onCreateOSCNews(List<OSCNewsList.NewsItem> news) {
-
-    }
-
-    @Override
     public void onUpdateNoticeNumber(OSCNoticeNumber news) {
 
     }
 
     @Override
-    public void onCreateOSCTweet(List<OSCTweet.OSCTweetItem> tweetList) {
-
-    }
-
-    @Override
     public void onCreateOSCPost(List<OSCPostList.Item> postList) {
-        Looper.prepare();
-        new Handler().post(() -> oscPostListAdapter.notifyDataSetChanged(postList));
-
+        new Handler(Looper.getMainLooper()).post(() -> oscPostListAdapter.notifyDataSetChanged(postList));
     }
 
     @Override
@@ -98,4 +83,5 @@ public class OSCPostListFragment extends BaseFragment implements IView {
     public void showPagePrompt(String prompt) {
 
     }
+
 }

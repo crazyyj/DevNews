@@ -1,8 +1,10 @@
 package com.newchar.devnews.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,7 +23,7 @@ import butterknife.Unbinder;
 /**
  * @author wenliqiang
  * date 2019-07-18
- * @since 当前版本，（以及描述）
+ * @since 懒加载用于适配 ViewPage2
  * @since 迭代版本，（以及描述）
  */
 public abstract class BaseFragment extends Fragment {
@@ -31,13 +34,14 @@ public abstract class BaseFragment extends Fragment {
     protected LazyListener mLazyListener;
 
     private volatile boolean isViewInited;
+    private volatile boolean isMenuVisibility;
     private Unbinder bind;
 
     @Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
         this.mContext = activity;
-        fragActivity = ((AppCompatActivity) activity);
+        fragActivity = ((FragmentActivity) activity);
         isViewInited = false;
     }
 
@@ -86,11 +90,19 @@ public abstract class BaseFragment extends Fragment {
 
     //	事务切换Fragment，需要重写方法
     @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        View fragView = getView();
-        if(fragView != null)
-            fragView.setVisibility(menuVisible ? View.VISIBLE : View.GONE);
+    public void setMenuVisibility(boolean menuVisibility) {
+        //ViewPage2 会到第2个显示到时候，第一个会返回false，到达第三个到时候 同样会回调第一个false 所以需要控制一下不能和上次到相同
+        if (isMenuVisibility != menuVisibility) {
+            if (mLazyListener != null) {
+                if (menuVisibility) {
+                    mLazyListener.onPageVisible();
+                } else {
+                    mLazyListener.onPageInvisible();
+                }
+            }
+        }
+        isMenuVisibility = menuVisibility;
+        super.setMenuVisibility(menuVisibility);
     }
 
     @Override
@@ -141,6 +153,7 @@ public abstract class BaseFragment extends Fragment {
         if (mLazyListener != null) {
             mLazyListener.onPageVisible();
         }
+        Log.e("BaseFragment", "onVisibility " + toString());
     }
 
     /**
@@ -152,6 +165,7 @@ public abstract class BaseFragment extends Fragment {
         if (mLazyListener != null) {
             mLazyListener.onPageInvisible();
         }
+        Log.e("BaseFragment", "onInVisibility " + toString());
     }
 
     public void initWidgetsBefore() {

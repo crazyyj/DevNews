@@ -46,9 +46,9 @@ public interface OSCField {
      */
     interface Params {
 
-        String AUTHORIZATION_CODE = "authorization_code";
-
         String ID = "id";
+
+        String AUTHORIZATION_CODE = "authorization_code";
 
         String ACCESS_TOKEN = "access_token";
 
@@ -70,10 +70,15 @@ public interface OSCField {
 
         String USER = "user";
 
+        /**
+         * 好友
+         */
         String FRIEND = "friend";
 
         String FRIEND_NAME = "friend_name";
-
+        /**
+         * 返回的数据类型
+         */
         String DATA_TYPE = "dataType";
 
         /**

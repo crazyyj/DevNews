@@ -17,16 +17,7 @@ import java.util.List;
 public interface IView extends IBaseView {
 
 
-    void onCreateOSCNews(List<OSCNewsList.NewsItem> news);
-
     void onUpdateNoticeNumber(OSCNoticeNumber news);
-
-    /**
-     * 更新动弹列表数据
-     *
-     * @param tweetList 动弹列表数据
-     */
-    void onCreateOSCTweet(List<OSCTweet.OSCTweetItem> tweetList);
 
     /**
      * 帖子列表

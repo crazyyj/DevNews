@@ -1,7 +1,10 @@
 package com.newchar.devnews.http.params;
 
 import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
+import com.newchar.devnews.util.constant.ConstantField;
 import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.supportlibrary.db.DBHelper;
+import com.newchar.supportlibrary.db.entry.LoginRecord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,14 +17,34 @@ import java.util.Map;
  */
 public class OSCParamsBuilder {
 
-    public static Map<String, Object> buildOSCBlogListParams(int pageSize) {
+    public static Map<String, Object> buildOSCBlogListParams(int page, String catalog) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(OSCField.Params.CATALOG, catalog);
+        params.put(OSCField.Params.PAGE_INDEX, page);
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        params.put(OSCField.Params.PAGE_SIZE, OSCField.Params.PAGE_SIZE_DEFAULT);
+        params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
+//        params.put(OSCField.Params.TAG, "3");
+        return params;
+    }
+
+    public static Map<String, Object> buildOSCTweetListParams(int page) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
+        params.put(OSCField.Params.USER, "0");
+        params.put(OSCField.Params.PAGE_SIZE, ConstantField.PAGE_SIZE);
+        params.put(OSCField.Params.PAGE_INDEX, page);
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        return params;
+    }
+
+    public static Map<String, Object> buildOSCNewsListParams(int page) {
         Map<String, Object> params = new HashMap<>();
         params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
-        params.put(OSCField.Params.CATALOG, "3");
-        params.put(OSCField.Params.PAGE_SIZE, OSCField.Params.PAGE_SIZE_DEFAULT);
-        params.put(OSCField.Params.PAGE_INDEX, pageSize);
-//        params.put(OSCField.Params.TAG, "3");
+        params.put(OSCField.Params.CATALOG, "1");
+        params.put(OSCField.Params.PAGE_SIZE, String.valueOf(page));
+        params.put(OSCField.Params.PAGE_INDEX, ConstantField.PAGE_SIZE);
         return params;
     }
 

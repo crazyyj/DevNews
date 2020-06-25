@@ -30,7 +30,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
         mMainPageAdapter.notifyDataSetChanged(generateMainPage());
     }
 
@@ -45,9 +44,9 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
     }
+
 }
