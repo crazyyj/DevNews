@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/item_bottom_13" android:visible="true" android:enabled="true">
+        <item
+            android:id="@+id/fade"
+            android:icon="@mipmap/ic_logo"
+            app:showAsAction="ifRoom"
+            android:title="@string/app_name" />
+
+        <item
+            android:id="@+id/item_bottom_2"
+            android:enabled="true"
+            android:icon="@mipmap/ic_logo"
+            android:title="选项二"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/item_bottom_3"
+            android:enabled="true"
+            android:icon="@mipmap/ic_logo"
+            android:title="选项三"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

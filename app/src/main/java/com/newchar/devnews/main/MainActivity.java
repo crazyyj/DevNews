@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.blog.OSCBlogListFragment;
+import com.newchar.devnews.main.contract.Contract;
 import com.newchar.devnews.post.OSCPostListFragment;
 import com.newchar.supportlibrary.router.ARouterPath;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 
 @Route(path = ARouterPath.ACTIVITY_MAIN)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements Contract.View {
 
     @BindView(R.id.vpMainPageContainer)
     ViewPager2 vpMainPageContainer;
