@@ -18,6 +18,9 @@ public interface ConstantField {
      */
     Object NULL = null;
 
+    /**
+     * 全局列表接口请求默认条数
+     */
     String PAGE_SIZE = "20";
 
 }

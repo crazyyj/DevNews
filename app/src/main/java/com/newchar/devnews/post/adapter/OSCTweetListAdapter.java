@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.newchar.devnews.R;
 import com.newchar.devnews.http.entry.osc.OSCTweet;
+import com.newchar.devnews.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +50,7 @@ public class OSCTweetListAdapter extends RecyclerView.Adapter<OSCTweetListAdapte
         OSCTweet.OSCTweetItem oscTweetItem = tweetItems.get(position);
         holder.tvItemTweetDate.setText(oscTweetItem.pubDate);
         holder.tvItemTweetAuthorName.setText(oscTweetItem.author);
-        holder.tvItemTweetContent.setText(Html.fromHtml(oscTweetItem.body));
-        holder.tvItemTweetTitle.setText("这里的Title叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭叭");
+        holder.tvItemTweetContent.setText(CommonUtils.getHTMLText(oscTweetItem.body));
         holder.tvItemTweetCommentNum.setText(mContext.getString(R.string.tweet_comment_num, oscTweetItem.commentCount));
 
         if (!TextUtils.isEmpty(oscTweetItem.imgSmall)) {

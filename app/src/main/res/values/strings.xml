@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">DevNews</string>
+    <string name="app_name">墨鱼头条</string>
     <!-- 登录模块 -->
     <string name="title_activity_login">登录</string>
     <string name="type_login_osc">OSC登录</string>
     <string name="type_login_jj">掘金登录</string>
+
+    <string name="main_bottom_tab_text_post">帖子</string>
+    <string name="main_bottom_tab_text_blog">博客</string>
+    <string name="main_bottom_tab_text_tweet">动弹</string>
+    <string name="main_bottom_tab_text_mine">我的</string>
 
     <string name="click_test">测试点击</string>
     <string name="tweet_comment_num">  %d 评论</string>

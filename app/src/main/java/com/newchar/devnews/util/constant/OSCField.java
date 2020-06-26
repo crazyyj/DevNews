@@ -17,16 +17,26 @@ public interface OSCField {
      */
     interface Address {
 
+        /**
+         * 清理未读消息
+         */
         String CLEAR_USER_NOTIFY = "/action/openapi/clear_notice";
 
+        /**
+         * 获取本次登陆token
+         */
         String GET_TOKEN = "/action/openapi/token";
 
+        /**
+         * 获取新闻列表
+         */
         String NEWS_OSC = "/action/openapi/news_list";
 
         /**
          * OSC博客列表
          */
         String BLOG_LIST = "/action/openapi/blog_list";
+
         /**
          * OSC博客列表
          */
@@ -47,6 +57,9 @@ public interface OSCField {
          */
         String POST_LIST_DETAIL = "/action/openapi/post_detail";
 
+        /**
+         * 登陆验证
+         */
         String OAUTH2_AUTHORIZE_OSC = "/action/oauth2/authorize";
 
     }
@@ -97,7 +110,6 @@ public interface OSCField {
         String REDIRECT_URI = "oschina";
 
         String CODE = "code";
-
 
 
     }
