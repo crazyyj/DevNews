@@ -201,7 +201,7 @@ public class OSCPostList {
             }
         }
 
-        postList.notice = OSCNoticeNumber.valueOf(jsonString);
+        postList.setNotice(OSCNoticeNumber.valueOf(jsonString));
         return postList;
     }
 

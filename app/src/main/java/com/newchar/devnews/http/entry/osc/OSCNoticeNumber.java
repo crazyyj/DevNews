@@ -89,20 +89,19 @@ public class OSCNoticeNumber implements Parcelable {
     }
 
     public static OSCNoticeNumber valueOf(JSONObject jsonObject) {
-        OSCNoticeNumber notice = new OSCNoticeNumber();
+        OSCNoticeNumber notice = null;
         try {
             final JSONObject noticeJson;
             if (jsonObject.has("notice") && (noticeJson = jsonObject.getJSONObject("notice")).length() > 0) {
                 notice = new OSCNoticeNumber();
-                notice.setReferCount(noticeJson.getInt("referCount"));
-                notice.setFansCount(noticeJson.getInt("fansCount"));
                 notice.setMsgCount(noticeJson.getInt("msgCount"));
+                notice.setFansCount(noticeJson.getInt("fansCount"));
+                notice.setReferCount(noticeJson.getInt("referCount"));
                 notice.setReplyCount(noticeJson.getInt("replyCount"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return notice;
     }
 
