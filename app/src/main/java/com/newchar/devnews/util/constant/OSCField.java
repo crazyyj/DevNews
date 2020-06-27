@@ -79,7 +79,7 @@ public interface OSCField {
 
         String PAGE_INDEX = "pageIndex";
 
-        int PAGE_SIZE_DEFAULT = 20;
+        int PAGE_SIZE_DEFAULT = ConstantField.PAGE_SIZE;
 
         /**
          * 分类

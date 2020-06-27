@@ -40,7 +40,7 @@ public class OSCParamsBuilder {
         Map<String, Object> params = new HashMap<>();
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
         params.put(OSCField.Params.USER, "0");
-        params.put(OSCField.Params.PAGE_SIZE, ConstantField.PAGE_SIZE);
+        params.put(OSCField.Params.PAGE_SIZE, OSCField.Params.PAGE_SIZE_DEFAULT);
         params.put(OSCField.Params.PAGE_INDEX, page);
         params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         return params;
@@ -52,7 +52,7 @@ public class OSCParamsBuilder {
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
         params.put(OSCField.Params.CATALOG, "1");
         params.put(OSCField.Params.PAGE_SIZE, String.valueOf(page));
-        params.put(OSCField.Params.PAGE_INDEX, ConstantField.PAGE_SIZE);
+        params.put(OSCField.Params.PAGE_INDEX, OSCField.Params.PAGE_SIZE_DEFAULT);
         return params;
     }
 
