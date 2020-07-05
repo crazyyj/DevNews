@@ -28,6 +28,7 @@ import butterknife.BindView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * @author wenliqiang@100tal.com
@@ -58,23 +59,27 @@ public class OSCBlogDetailActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    if (response.isSuccessful() && response.body() != null) {
-                        String body = null;
-                        try {
-                            body = response.body().string();
-                            Log.e(" TAG ", body);
-                            OSCBlogDetail blogDetail = JsonCompat.parse(OSCBlogDetail.class, body);
+                final ResponseBody body = response.body();
+                if (response.isSuccessful() && body != null) {
+                    String bodyJson = null;
+                    try {
+                        bodyJson = body.string();
+                        Log.e(" TAG ", bodyJson);
+                        OSCBlogDetail blogDetail = JsonCompat.parse(OSCBlogDetail.class, bodyJson);
+                        new Handler(Looper.getMainLooper()).post(() -> {
                             webView.loadUrl(blogDetail.getUrl());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            if (!TextUtils.isEmpty(body)) {
-                                OSCHttpError blogDetail = JsonCompat.parse(OSCHttpError.class, body);
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        if (!TextUtils.isEmpty(bodyJson)) {
+                            String finalBodyJson = bodyJson;
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                OSCHttpError blogDetail = JsonCompat.parse(OSCHttpError.class, finalBodyJson);
                                 Toast.makeText(OSCBlogDetailActivity.this, blogDetail.getError_description(), Toast.LENGTH_SHORT).show();
-                            }
+                            });
                         }
                     }
-                });
+                }
             }
         });
     }

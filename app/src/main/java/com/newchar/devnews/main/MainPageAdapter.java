@@ -1,12 +1,9 @@
 package com.newchar.devnews.main;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.fragment.app.FragmentManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.newchar.devnews.base.adapter.BaseViewPagerAdapter;
 
 /**
  * @author wenliqiang
@@ -14,30 +11,12 @@ import java.util.List;
  * @since App首页 Fragment 适配器
  * @since 迭代版本，（以及描述）
  */
-public class MainPageAdapter extends FragmentStateAdapter {
+public class MainPageAdapter extends BaseViewPagerAdapter {
 
-    private final List<Fragment> pageFragment;
-
-    public MainPageAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public MainPageAdapter(@NonNull FragmentManager fragmentActivity) {
         super(fragmentActivity);
-        pageFragment = new ArrayList<>();
     }
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return pageFragment.get(position);
-    }
 
-    @Override
-    public int getItemCount() {
-        return pageFragment.size();
-    }
-
-    public void notifyDataSetChanged(List<Fragment> fragments) {
-        pageFragment.clear();
-        pageFragment.addAll(fragments);
-        notifyDataSetChanged();
-    }
 
 }

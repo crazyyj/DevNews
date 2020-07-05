@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
 
     private Unbinder mButterKnife;
     private boolean resReleased;
+    protected String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

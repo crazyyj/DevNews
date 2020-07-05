@@ -1,14 +1,14 @@
 package com.newchar.devnews.main;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.blog.OSCBlogListFragment;
 import com.newchar.devnews.main.contract.Contract;
-import com.newchar.devnews.post.OSCPostListFragment;
+import com.newchar.devnews.main.index.OSCMainIndexFragment;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 import java.util.ArrayList;
@@ -20,14 +20,16 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity implements Contract.View {
 
     @BindView(R.id.vpMainPageContainer)
-    ViewPager2 vpMainPageContainer;
+    ViewPager vpMainPageContainer;
 
     private MainPageAdapter mMainPageAdapter;
 
     @Override
     protected void initWidgets() {
-        mMainPageAdapter = new MainPageAdapter(this);
+        mMainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         vpMainPageContainer.setAdapter(mMainPageAdapter);
+        //嵌套 ViewPage2 解决嵌套滚动问题
+//        vpMainPageContainer.setUserInputEnabled(false);
     }
 
     @Override
@@ -37,8 +39,8 @@ public class MainActivity extends BaseActivity implements Contract.View {
 
     private List<Fragment> generateMainPage() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new OSCPostListFragment());
-        fragments.add(new OSCBlogListFragment());
+        fragments.add(new OSCMainIndexFragment());
+        fragments.add(new OSCMainIndexFragment());
         return fragments;
     }
 

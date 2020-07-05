@@ -12,7 +12,9 @@ import android.webkit.WebView;
  */
 public class WebViewBuilder {
 
-    public WebViewBuilder() {
+    private WebView mWebView;
+    public WebViewBuilder(WebView host) {
+        mWebView = host;
     }
 
     public static void defaultWebSettings(WebSettings webSettings) {

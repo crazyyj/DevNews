@@ -33,6 +33,7 @@ public abstract class BaseFragment extends Fragment {
     protected Context mContext;
     protected Activity fragActivity;
     protected LazyListener mLazyListener;
+    protected String TAG = getClass().getSimpleName();
 
     private volatile boolean isViewInited;
     private volatile boolean isMenuVisibility;
@@ -54,21 +55,11 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = super.onCreateView(inflater, container, savedInstanceState);
         int layoutId = getContentViewId();
-        if (0 >= layoutId) {
-            TextView errorText = new TextView(mContext);
-            errorText.setText(this.getClass().getSimpleName() + "的Fragment_LayoutId出现错误");
-            errorText.setGravity(Gravity.CENTER);
-            errorText.setTextSize(30);
-            errorText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            ViewGroup.LayoutParams errorTextLayoutParams = errorText.getLayoutParams();
-            errorTextLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            errorTextLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            errorText.setLayoutParams(errorTextLayoutParams);
-            mView = errorText;
-        } else {
+        if (0 < layoutId) {
             mView = inflater.inflate(layoutId, container,false);
+        } else {
+            mView = super.onCreateView(inflater, container, savedInstanceState);
         }
         return mView;
     }
@@ -79,7 +70,6 @@ public abstract class BaseFragment extends Fragment {
         this.bind = ButterKnife.bind(this, view);
         initWidgets(view);
         isViewInited = true;
-
     }
 
     @Override
@@ -138,8 +128,8 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         bind.unbind();
+        super.onDestroyView();
     }
 
     /**
@@ -158,7 +148,6 @@ public abstract class BaseFragment extends Fragment {
         if (mLazyListener != null) {
             mLazyListener.onPageVisible();
         }
-        Log.e("BaseFragment", "onVisibility " + toString());
     }
 
     /**
@@ -170,7 +159,6 @@ public abstract class BaseFragment extends Fragment {
         if (mLazyListener != null) {
             mLazyListener.onPageInvisible();
         }
-        Log.e("BaseFragment", "onInVisibility " + toString());
     }
 
     public void initWidgetsBefore() {
