@@ -71,7 +71,7 @@ public class Presenter implements IBasePresenter<IView> {
     }
 
     @Override
-    public void attachView(IBaseView view) {
+    public void attachView(IView view) {
 
     }
 }

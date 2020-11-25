@@ -32,7 +32,7 @@ public class OSCBlogListPresenter implements IOSCBlogListContract.Presenter {
     }
 
     @Override
-    public void attachView(IBaseView view) {
+    public void attachView(IOSCBlogListContract.View view) {
         mView = (IOSCBlogListContract.View) view;
     }
 

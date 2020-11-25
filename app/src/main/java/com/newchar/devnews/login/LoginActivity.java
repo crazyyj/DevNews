@@ -1,13 +1,16 @@
 package com.newchar.devnews.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -48,7 +51,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void initWidgets() {
-
+        ClickEventInject.inject(this);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         return R.layout.activity_login;
     }
 
-    @OnClick({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
+    @ClickEvent({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvLoginActionLogin:
@@ -79,13 +82,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+
+
     private void action_LoginOSC() {
         LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
         if (lastLoginRecord == null) {
             RouterExecute.goBrowserActivity(this, MURL.getOSCLoginAUthUrl());
             return;
         }
-        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getDesc());
+        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getAccess_token());
     }
 
     /**
@@ -120,7 +125,19 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void onOSCLoginSuccess(OSCLoginCodeTokenResult osc) {
-        DBHelper.getInstance(getApplicationContext()).saveLoginRecord(new LoginRecord(System.currentTimeMillis(), System.currentTimeMillis(), Login.Channel.OSC, osc.getAccess_token()));
+        final LoginRecord loginRecord = new LoginRecord();
+        loginRecord.setAccess_token(osc.getAccess_token());
+        loginRecord.setExpires_in(osc.getExpires_in());
+        loginRecord.setId(osc.getUid());
+        loginRecord.setLoginChannel(Login.Channel.OSC);
+        loginRecord.setToken_type(osc.getToken_type());
+        loginRecord.setRefresh_token(osc.getRefresh_token());
+        if (DBHelper.getInstance(getApplicationContext()).saveLoginRecord(loginRecord)) {
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登陆存储成功", Toast.LENGTH_SHORT).show());
+            Log.e("Activity", loginRecord.toString());
+        } else {
+            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登陆存储失败了", Toast.LENGTH_SHORT).show());
+        }
 
         presenter.requestOSCUserInfo(osc.getAccess_token());
 

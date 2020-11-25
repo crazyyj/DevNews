@@ -1,7 +1,11 @@
 package com.newchar.supportlibrary.db;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.SystemClock;
 
 import androidx.annotation.Nullable;
 
@@ -20,11 +24,11 @@ public class DBHelper {
     private Context mAppContext;
     //    private final DaoSession daoSession;
     private static DBHelper mInstance;
-    private final BaseSQLiteHelper dbHelper;
+//    private final BaseSQLiteHelper dbHelper;
 
     public DBHelper(Context context) {
         mAppContext = context.getApplicationContext();
-        dbHelper = new BaseSQLiteHelper(mAppContext);
+//        dbHelper = new BaseSQLiteHelper(mAppContext);
     }
 
     public static DBHelper getInstance(Context context) {
@@ -37,10 +41,27 @@ public class DBHelper {
     /**
      * 保存登录记录
      *
-     * @param record
+     * @param record    登陆记录
      */
-    public void saveLoginRecord(LoginRecord record) {
+    public boolean saveLoginRecord(LoginRecord record) {
 
+        long index = -1;
+        final BaseSQLiteHelper dbHelper = new BaseSQLiteHelper(mAppContext);
+        SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
+//            writableDatabase.beginTransaction();
+            ContentValues sqlValue = new ContentValues();
+            sqlValue.put("uid", record.getId());
+            sqlValue.put("loginTime", SystemClock.uptimeMillis());
+            sqlValue.put("expires_in", record.getExpires_in());
+            sqlValue.put("token_type", record.getToken_type());
+            sqlValue.put("access_token", record.getAccess_token());
+            sqlValue.put("refresh_token", record.getRefresh_token());
+            sqlValue.put("loginChannel", record.getLoginChannel());
+            index = writableDatabase.insert("loginRecord", null, sqlValue);
+//            writableDatabase.endTransaction();
+//            dbHelper.close();
+//        }
+        return index != -1;
     }
 
     /**
@@ -48,6 +69,7 @@ public class DBHelper {
      */
     @Nullable
     public LoginRecord getLastLoginRecord() {
+
 //        List<LoginRecord> loginRecords = getDaoSession().getLoginRecordDao().loadAll();
 //        List<LoginRecord> loginRecords = getDaoSession().getLoginRecordDao().queryRaw("SELECT * FROM "+ LoginRecordDao.TABLENAME +" ORDER BY "+ LoginRecordDao.Properties._id +" DESC LIMIT 1");
 //        if (loginRecords != null && !loginRecords.isEmpty()) {

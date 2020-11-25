@@ -1,21 +1,18 @@
 package com.newchar.devnews.main.index;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
-import com.newchar.devnews.base.adapter.BaseViewPager2Adapter;
 import com.newchar.devnews.base.adapter.BaseViewPagerAdapter;
 import com.newchar.devnews.blog.OSCBlogListFragment;
 import com.newchar.devnews.post.OSCPostListFragment;
+import com.newchar.devnews.util.constant.GankIOField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,6 @@ public class OSCMainIndexFragment extends BaseFragment {
     private BaseViewPagerAdapter mPageAdapter;
 
     private static final String[] tabText = new String[]{"帖子", "博客"};
-    private TabLayoutMediator tabLayoutMediator;
 
     @Override
     protected void initWidgets(View frgView) {
@@ -53,11 +49,17 @@ public class OSCMainIndexFragment extends BaseFragment {
     }
 
     private void initTabLayoutItem() {
-        TabLayout.Tab tab ;
+        TabLayout.Tab tab;
         for (int i = 0; i < tabText.length; i++) {
             tab = createNewTab(i);
             tlIndexPageTopTab.addTab(tab);
         }
+    }
+
+    private TabLayout.Tab createNewTab(int position) {
+        final TabLayout.Tab tab = tlIndexPageTopTab.newTab();
+        tab.setText(tabText[position]);
+        return tab;
     }
 
     @Override
@@ -77,11 +79,6 @@ public class OSCMainIndexFragment extends BaseFragment {
         return fragments;
     }
 
-    private TabLayout.Tab createNewTab(int position) {
-        final TabLayout.Tab tab = tlIndexPageTopTab.newTab();
-        tab.setText(tabText[position]);
-        return tab;
-    }
 
     @Override
     protected int getContentViewId() {
@@ -93,11 +90,4 @@ public class OSCMainIndexFragment extends BaseFragment {
         return null;
     }
 
-    @Override
-    protected void onReleaseRes() {
-        super.onReleaseRes();
-        if (tabLayoutMediator != null) {
-            tabLayoutMediator.detach();
-        }
-    }
 }

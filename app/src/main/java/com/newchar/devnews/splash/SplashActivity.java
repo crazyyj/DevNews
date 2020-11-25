@@ -1,11 +1,17 @@
 package com.newchar.devnews.splash;
 
-import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
+import com.newchar.devnews.dao.LoginRecordDAO;
+import com.newchar.supportlibrary.db.BaseSQLiteHelper;
+import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.RouterExecute;
 
 /**
@@ -42,8 +48,18 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mHandler.sendEmptyMessageDelayed(MSG_JUMP_LOGIN, 1000L);
         //TODO 上次的登陆态
+        final LoginRecord loginRecord = LoginRecordDAO.getLoginRecord();
+        if (SystemClock.uptimeMillis() < loginRecord.getExpires_in() + loginRecord.getLoginTime()) {
+            //还没过期，去登陆，然后去首页
+            mHandler.sendEmptyMessageDelayed(MSG_JUMP_MAIN, 1000L);
+            Log.e(TAG, " 没过期了");
+        } else {
+            //过期了，给出提示，打开登陆页面
+            mHandler.sendEmptyMessageDelayed(MSG_JUMP_LOGIN, 1000L);
+            Log.e(TAG, " 过期了。cursor.getCount() ");
+        }
+
     }
 
     @Override

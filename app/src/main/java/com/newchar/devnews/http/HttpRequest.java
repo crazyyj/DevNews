@@ -62,4 +62,11 @@ public class HttpRequest {
         OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.POST_LIST_DETAIL, params, callback);
     }
 
+    /**
+     * 美图图片列表
+     */
+    public static void requestGirlList(String url, Callback callback) {
+        OKHttpClient.get(url, callback);
+    }
+
 }

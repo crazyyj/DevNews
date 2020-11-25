@@ -12,6 +12,8 @@ import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
 import com.newchar.devnews.util.constant.OSCField;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * @author wenliqiang@100tal.com
@@ -34,31 +37,33 @@ public class Presenter implements IBasePresenter<LoginView> {
 
     }
 
-    void attachView(LoginView view) {
+    @Override
+    public void attachView(LoginView view) {
         mView = view;
     }
 
     public void refreshOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {
         Map<String, Object> par = new HashMap<>();
-        par.put("code", oscLoginCode);
-        par.put("client_id", client_id);
-        par.put("grant_type", grant_type);
+        par.put(OSCField.Params.CODE, oscLoginCode);
+        par.put(OSCField.Params.CLIENT_ID, client_id);
+        par.put(OSCField.Params.GRANT_TYPE, grant_type);
         par.put("redirect_uri", OSCField.Params.REDIRECT_URI);
-        par.put("client_secret", client_secret);
+        par.put(OSCField.Params.CLIENT_SECRET, client_secret);
         par.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         HttpRequest.requestLoginCode(par, new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.body() == null) {
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                final ResponseBody body = response.body();
+                if (body == null) {
                     return;
                 }
                 if (response.isSuccessful()) {
-                    final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, response.body().string());
+                    final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, body.string());
                     OSCLoginCodeTokenResult.getInstance().setAccess_token(parse.getAccess_token());
                     OSCLoginCodeTokenResult.getInstance().setExpires_in(parse.getExpires_in());
                     OSCLoginCodeTokenResult.getInstance().setRefresh_token(parse.getRefresh_token());
@@ -67,7 +72,7 @@ public class Presenter implements IBasePresenter<LoginView> {
                     getView().onOSCLoginSuccess(parse);
 
                 } else {
-                    final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, response.body().string());
+                    final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, body.string());
                     Activity context = (Activity) getView().obtainContext();
                     context.runOnUiThread(() -> Toast.makeText(context, parse.getError_description(), Toast.LENGTH_SHORT).show());
                 }
@@ -78,11 +83,6 @@ public class Presenter implements IBasePresenter<LoginView> {
     @Override
     public LoginView getView() {
         return mView;
-    }
-
-    @Override
-    public void attachView(IBaseView view) {
-
     }
 
     public void requestOSCUserInfo(String access_token) {
@@ -116,4 +116,4 @@ public class Presenter implements IBasePresenter<LoginView> {
         });
     }
 
-}
+ }

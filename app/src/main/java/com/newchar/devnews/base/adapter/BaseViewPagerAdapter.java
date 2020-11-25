@@ -24,7 +24,6 @@ public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    @NonNull
     public void notifyDataSetChanged(List<Fragment> fragments) {
         pageFragment.clear();
         pageFragment.addAll(fragments);

@@ -9,7 +9,7 @@ import java.util.Map;
  * @since 当前版本，（以及描述）
  * @since 迭代版本，（以及描述）
  */
-public class OSCChinaHttpBuild {
+public class OSCHttp {
 
 
     public static Build build(String address) {

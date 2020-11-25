@@ -1,6 +1,7 @@
 package com.newchar.devnews.post.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.AsyncListDiffer;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -30,10 +35,13 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
     private final LayoutInflater inflater;
     private List<OSCPostList.Item> postList = new ArrayList<>();
     private ItemClickListener mItemClickListener;
+    private final AsyncListDiffer<OSCPostList.Item> listDiffer;
+
 
     public OSCPostListAdapter(Context context) {
         this.mContext = context;
         this.inflater = LayoutInflater.from(context);
+        listDiffer = new AsyncListDiffer<>(this, new RecyclerViewDataLoader());
     }
 
     @NonNull
@@ -46,6 +54,7 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final OSCPostList.Item itemData = postList.get(position);
+//        final OSCPostList.Item itemData = listDiffer.getCurrentList().get(position);
         holder.tvPostItemName.setText(itemData.getAuthor());
         holder.tvPostItemTitle.setText(itemData.getTitle());
         holder.tvPostItemPubDate.setText(itemData.getPubDate());
@@ -57,6 +66,18 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
                 mItemClickListener.onItemClick(holder, itemData, position);
             }
         });
+        final StackTraceElement[] stackElements = new Throwable().getStackTrace();
+        if (stackElements != null) {
+            System.out.println("-----------------------------------");
+            for (int i = 0; i < stackElements.length; i++) {
+                System.out.print(stackElements[i].getClassName()+"\t");
+                System.out.print(stackElements[i].getFileName()+"\t");
+                System.out.print(stackElements[i].getLineNumber()+"\t");
+                System.out.println(stackElements[i].getMethodName());
+            }
+
+        }
+
     }
 
     public void setItemCLickListener(ItemClickListener l) {
@@ -73,12 +94,26 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
         this.postList.clear();
         this.postList.addAll(postList);
         notifyDataSetChanged();
+//        listDiffer.submitList(postList);
+    }
+
+    public void notifyDataSetChanged2() {
+        notifyDataSetChanged();
+
+//        this.postList.clear();
+//        this.postList.addAll(postList);
+//        final List<OSCPostList.Item> currentList = listDiffer.getCurrentList();
+//
+//        final OSCPostList.Item item = currentList.get(0);
+//        item.setId(12312321);
+//        item.setPubDate(1111+"");
+//        notifyDataSetChanged(currentList);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final AppCompatTextView tvPostItemTitle;
         private final AppCompatTextView tvPostItemName;
+        private final AppCompatTextView tvPostItemTitle;
         private final AppCompatTextView tvPostItemPubDate;
         private final AppCompatTextView tvPostItemViewCount;
         private final AppCompatImageView ivPostItemHeaderIcon;
@@ -91,6 +126,7 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
             tvPostItemViewCount = itemView.findViewById(R.id.tvPostItemViewCount);
             ivPostItemHeaderIcon = itemView.findViewById(R.id.ivPostItemHeaderIcon);
         }
+
     }
 
     public interface ItemClickListener {
@@ -98,5 +134,20 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
         void onItemClick(ViewHolder holder, OSCPostList.Item itemData, int position);
 
     }
+
+    private static class RecyclerViewDataLoader extends DiffUtil.ItemCallback<OSCPostList.Item> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull OSCPostList.Item oldItem, @NonNull OSCPostList.Item newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull OSCPostList.Item oldItem, @NonNull OSCPostList.Item newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+    }
+
 
 }

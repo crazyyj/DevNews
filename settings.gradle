@@ -1,1 +1,2 @@
-include ':app', ':supportlibrary', ':browser'
+include ':Compiler'
+include ':app', ':supportlibrary', ':browser', ':Annotation'

@@ -1,10 +1,18 @@
 package com.newchar.devnews;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 
+import com.newchar.annotation.NewClick;
+import com.newchar.devnews.util.ContextHolder;
 import com.newchar.devnews.util.drawable.ShapeBuilder;
 import com.newchar.supportlibrary.router.NavRouter;
+
+import java.io.FileDescriptor;
+import java.util.HashSet;
 
 /**
  * @author wenliqiang@100tal.com
@@ -14,7 +22,14 @@ import com.newchar.supportlibrary.router.NavRouter;
  */
 public class App extends Application {
 
-    private static final Handler mGlobalHandler = new Handler();
+//    private static final Handler mGlobalHandler = new Handler();
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        ContextHolder.initialize(base);
+    }
 
     @Override
     public void onCreate() {
@@ -22,7 +37,6 @@ public class App extends Application {
         ShapeBuilder.init(this);
         super.onCreate();
         NavRouter.initialization(App.this);
-
     }
 
 

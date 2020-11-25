@@ -111,6 +111,12 @@ public interface OSCField {
 
         String CODE = "code";
 
+        String CLIENT_ID = "client_id";
+
+        String GRANT_TYPE = "grant_type";
+
+        String CLIENT_SECRET = "client_secret";
+
 
     }
 

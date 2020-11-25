@@ -41,5 +41,9 @@ public class OKHttpClient {
         okClient.newCall(new Request.Builder().url(url).post(builder.build()).build()).enqueue(callback);
     }
 
+    public static void get(String url, Callback callback) {
+        okClient.newCall(new Request.Builder().url(url).get().build()).enqueue(callback);
+    }
+
 
 }

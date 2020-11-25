@@ -9,7 +9,7 @@ import com.newchar.devnews.base.IBaseView;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public class Presenter implements IBasePresenter {
+public class Presenter implements IPresenter {
 
 
     @Override
@@ -21,4 +21,11 @@ public class Presenter implements IBasePresenter {
     public void attachView(IBaseView view) {
 
     }
+
+    @Override
+    public void getLoginState() {
+
+    }
+
+
 }

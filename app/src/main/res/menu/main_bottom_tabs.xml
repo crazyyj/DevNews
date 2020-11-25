@@ -3,32 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:id="@+id/main_bottom_tab_group">
+
         <item
             android:id="@+id/fade"
             android:icon="@mipmap/ic_logo"
             android:title="@string/main_bottom_tab_text_post"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="withText" />
 
         <item
             android:id="@+id/item_bottom_2"
             android:enabled="true"
             android:icon="@mipmap/ic_logo"
             android:title="@string/main_bottom_tab_text_blog"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="withText" />
 
         <item
             android:id="@+id/item_bottom_3"
             android:enabled="true"
             android:icon="@mipmap/ic_logo"
             android:title="@string/main_bottom_tab_text_tweet"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="withText" />
 
         <item
             android:id="@+id/item_bottom_4"
             android:enabled="true"
             android:icon="@mipmap/ic_logo"
             android:title="@string/main_bottom_tab_text_mine"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="withText" />
 
     </group>
 

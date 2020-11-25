@@ -1,5 +1,9 @@
 package com.newchar.supportlibrary.db.entry;
 
+import android.os.SystemClock;
+
+import com.newchar.supportlibrary.constant.Login;
+
 /**
  * @author wenliqiang@100tal.com
  * date            2019-07-17
@@ -24,18 +28,27 @@ public class LoginRecord {
     private String loginChannel;
 
     /**
-     * osc 的 token
+     * 刷新token，校验值
      */
-    private String desc;
+    private String refresh_token;
+
+    /**
+     * token
+     */
+    private String access_token;
+
+    /**
+     * token 类型
+     */
+    private String token_type;
+
+    /**
+     * token有效期还有多久
+     */
+    private long expires_in;
+
 
     public LoginRecord() {
-    }
-
-    public LoginRecord(Long _id, long loginTime, String loginChannel, String desc) {
-        this._id = _id;
-        this.loginTime = loginTime;
-        this.loginChannel = loginChannel;
-        this.desc = desc;
     }
 
     public long getId() {
@@ -58,16 +71,8 @@ public class LoginRecord {
         return this.loginChannel;
     }
 
-    public void setLoginChannel(String loginChannel) {
+    public void setLoginChannel(@Login.LoginChannel String loginChannel) {
         this.loginChannel = loginChannel;
-    }
-
-    public String getDesc() {
-        return this.desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public Long get_id() {
@@ -78,4 +83,55 @@ public class LoginRecord {
         this._id = _id;
     }
 
+    public String getRefresh_token() {
+        return refresh_token;
+    }
+
+    public void setRefresh_token(String refresh_token) {
+        this.refresh_token = refresh_token;
+    }
+
+    public String getAccess_token() {
+        return access_token;
+    }
+
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
+    }
+
+    public String getToken_type() {
+        return token_type;
+    }
+
+    public void setToken_type(String token_type) {
+        this.token_type = token_type;
+    }
+
+    public long getExpires_in() {
+        return expires_in;
+    }
+
+    public void setExpires_in(long expires_in) {
+        this.expires_in = expires_in;
+    }
+
+    /**
+     * 是否过期
+     */
+    public boolean isExpire(){
+        return SystemClock.uptimeMillis() < getExpires_in() + getLoginTime();
+    }
+
+    @Override
+    public String toString() {
+        return "LoginRecord{" +
+                "_id=" + _id +
+                ", loginTime=" + loginTime +
+                ", loginChannel='" + loginChannel + '\'' +
+                ", refresh_token='" + refresh_token + '\'' +
+                ", access_token='" + access_token + '\'' +
+                ", token_type='" + token_type + '\'' +
+                ", expires_in=" + expires_in +
+                '}';
+    }
 }

@@ -18,6 +18,9 @@ class ObserverPublish {
 
     private MutableLiveData<OSCNoticeNumber> oscNoticeLiveData = new MutableLiveData<>();
 
+    private ObserverPublish() {
+    }
+
     public static ObserverPublish getInstance() {
         if (mObserverPublish == null) {
             mObserverPublish = new ObserverPublish();
@@ -25,8 +28,12 @@ class ObserverPublish {
         return mObserverPublish;
     }
 
-    public void registerOSCNoticeData(LifecycleOwner lifecycle, Observer<? super OSCNoticeNumber> observer) {
+    public void registerOSCNoticeData(LifecycleOwner lifecycle, Observer<OSCNoticeNumber> observer) {
         oscNoticeLiveData.observe(lifecycle, observer);
+    }
+
+    public void unRegisterOSCNoticeData(Observer<OSCNoticeNumber> observer) {
+        oscNoticeLiveData.removeObserver(observer);
     }
 
 }

@@ -17,7 +17,7 @@ public class OSCLoginCodeTokenResult implements Parcelable {
     /**
      * token 有效时间
      */
-    private int expires_in;
+    private long expires_in;
 
     /**
      * token类型
@@ -49,7 +49,7 @@ public class OSCLoginCodeTokenResult implements Parcelable {
 
     protected OSCLoginCodeTokenResult(Parcel in) {
         uid = in.readInt();
-        expires_in = in.readInt();
+        expires_in = in.readLong();
         token_type = in.readString();
         access_token = in.readString();
         refresh_token = in.readString();
@@ -63,11 +63,11 @@ public class OSCLoginCodeTokenResult implements Parcelable {
         this.uid = uid;
     }
 
-    public int getExpires_in() {
+    public long getExpires_in() {
         return expires_in;
     }
 
-    public void setExpires_in(int expires_in) {
+    public void setExpires_in(long expires_in) {
         this.expires_in = expires_in;
     }
 
@@ -114,7 +114,7 @@ public class OSCLoginCodeTokenResult implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(uid);
-        dest.writeInt(expires_in);
+        dest.writeLong(expires_in);
         dest.writeString(token_type);
         dest.writeString(access_token);
         dest.writeString(refresh_token);
