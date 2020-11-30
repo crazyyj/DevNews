@@ -47,9 +47,9 @@ public class OSCPostListFragment extends BaseFragment implements IView {
         oscPostListAdapter = new OSCPostListAdapter(mContext);
         rvMainTweetList.setHasFixedSize(true);
         rvMainTweetList.setAdapter(oscPostListAdapter);
-        rvMainTweetList.addOnItemTouchListener(new ItemViewClick(rvMainTweetList, (itemView, position) -> {
-            Toast.makeText(mContext, "aaa " + position, Toast.LENGTH_SHORT).show();
-        }));
+//        rvMainTweetList.addOnItemTouchListener(new ItemViewClick(rvMainTweetList, (itemView, position) -> {
+//            Toast.makeText(mContext, "aaa " + position, Toast.LENGTH_SHORT).show();
+//        }));
         oscPostListAdapter.setItemCLickListener((holder, itemData, position) -> RouterExecute.goPostDetailActivity(String.valueOf(itemData.getId())));
 
         btnClickRefresh.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class OSCPostListFragment extends BaseFragment implements IView {
     }
 
     private void OnRefreshListClick(View view) {
-        oscPostListAdapter.notifyDataSetChanged2();
+//        oscPostListAdapter.notifyDataSetChanged2();
     }
 
     @Override

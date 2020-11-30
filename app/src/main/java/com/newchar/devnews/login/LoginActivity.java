@@ -3,26 +3,24 @@ package com.newchar.devnews.login;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
+import com.newchar.devnews.dao.LoginRecordDAO;
 import com.newchar.devnews.http.MURL;
 import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.devnews.web.WebViewActivity;
 import com.newchar.supportlibrary.constant.Login;
-import com.newchar.supportlibrary.db.DBHelper;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
 import com.newchar.supportlibrary.router.RouterExecute;
@@ -51,7 +49,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void initWidgets() {
-        ClickEventInject.inject(this);
     }
 
     @Override
@@ -65,7 +62,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         return R.layout.activity_login;
     }
 
-    @ClickEvent({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
+    @OnClick({R.id.tvLoginActionLogin, R.id.ivLoginTypeToggle, R.id.tvOSCLoginAction})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvLoginActionLogin:
@@ -82,10 +79,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
-
-
     private void action_LoginOSC() {
-        LoginRecord lastLoginRecord = DBHelper.getInstance(getApplicationContext()).getLastLoginRecord();
+        LoginRecord lastLoginRecord = LoginRecordDAO.getLastOSCLoginRecord();
         if (lastLoginRecord == null) {
             RouterExecute.goBrowserActivity(this, MURL.getOSCLoginAUthUrl());
             return;
@@ -132,7 +127,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         loginRecord.setLoginChannel(Login.Channel.OSC);
         loginRecord.setToken_type(osc.getToken_type());
         loginRecord.setRefresh_token(osc.getRefresh_token());
-        if (DBHelper.getInstance(getApplicationContext()).saveLoginRecord(loginRecord)) {
+        loginRecord.setLoginTime(System.currentTimeMillis());
+        if (LoginRecordDAO.saveLoginRecord(loginRecord)) {
             runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登陆存储成功", Toast.LENGTH_SHORT).show());
             Log.e("Activity", loginRecord.toString());
         } else {

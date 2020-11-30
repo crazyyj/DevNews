@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class OSCParamsBuilder {
 
-    public static Map<String, Object> buildOSCBlogListParams(int page, String catalog) {
+    public static Map<String, Object> buildOSCBlogListParams(int page, String catalog/*, String accessToken*/) {
         Map<String, Object> params = new HashMap<>();
         params.put(OSCField.Params.CATALOG, catalog);
         params.put(OSCField.Params.PAGE_INDEX, page);

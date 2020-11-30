@@ -1,6 +1,5 @@
 package com.newchar.supportlibrary.db.entry;
 
-import android.os.SystemClock;
 
 import com.newchar.supportlibrary.constant.Login;
 
@@ -119,7 +118,7 @@ public class LoginRecord {
      * 是否过期
      */
     public boolean isExpire(){
-        return SystemClock.uptimeMillis() < getExpires_in() + getLoginTime();
+        return System.currentTimeMillis() < (getExpires_in() * 1000) + getLoginTime();
     }
 
     @Override

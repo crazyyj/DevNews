@@ -23,16 +23,10 @@ public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
         pageFragment = new ArrayList<>(1);
     }
 
-
     public void notifyDataSetChanged(List<Fragment> fragments) {
         pageFragment.clear();
         pageFragment.addAll(fragments);
         notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemPosition(@NonNull Object object) {
-        return POSITION_NONE;
     }
 
     public List<Fragment> getPageFragments() {
