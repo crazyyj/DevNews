@@ -16,9 +16,9 @@ public class MURL {
     private static Map<String, String> OSCAUthUrl = new HashMap<>();
 
     static {
-        OSCAUthUrl.put("client_id", "cXe8oxW5SJSuT02qdmjh");
-        OSCAUthUrl.put("response_type", OSCField.Params.CODE);
-        OSCAUthUrl.put("redirect_uri", OSCField.Params.REDIRECT_URI);
+        OSCAUthUrl.put(OSCField.Params.CLIENT_ID, OSCField.Server.CLIENT_ID);
+        OSCAUthUrl.put(OSCField.Params.RESPONSE_TYPE, OSCField.Params.CODE);
+        OSCAUthUrl.put(OSCField.Params.REDIRECT_URI, OSCField.Params.OS_CHINA);
 //        OSCAUthUrl.put("state", "");
     }
 

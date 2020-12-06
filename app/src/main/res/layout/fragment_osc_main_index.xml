@@ -16,6 +16,7 @@
             android:id="@+id/ivMainTopLeftFlag"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:src="@drawable/ic_splash_logo"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -36,13 +37,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_splash_logo" />
+                android:src="@drawable/ll_splash_preview" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:hint="@string/app_name" />
+                android:hint="推荐搜索位置" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -53,10 +54,10 @@
         android:id="@+id/tlIndexPageTopTab"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
-        app:tabBackground="@drawable/ic_splash_logo"
         app:tabGravity="center"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabSelectedTextColor="@android:color/background_dark"
+        app:tabTextColor="@color/colorPrimaryDark"
         tools:background="@color/colorAccent" />
 
     <androidx.viewpager.widget.ViewPager

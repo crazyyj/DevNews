@@ -2,7 +2,6 @@ package com.newchar.devnews.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.newchar.devnews.http.entry.osc.OSCPostList;
 
 import org.json.JSONArray;
 

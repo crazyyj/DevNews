@@ -34,32 +34,13 @@ public class OSCMainIndexFragment extends BaseFragment {
 
     private BaseViewPagerAdapter mPageAdapter;
 
-    private static final String[] tabText = new String[]{"帖子", "博客"};
-
     @Override
     protected void initWidgets(View frgView) {
-        mPageAdapter = new MainIndexAdapter(getChildFragmentManager());
-        vpIndexPageContainer.setAdapter(mPageAdapter);
-        initTabLayout();
-    }
 
-    private void initTabLayout() {
         tlIndexPageTopTab.setupWithViewPager(vpIndexPageContainer);
-        initTabLayoutItem();
-    }
+        mPageAdapter = new MainIndexAdapter(getChildFragmentManager());
 
-    private void initTabLayoutItem() {
-        TabLayout.Tab tab;
-        for (int i = 0; i < tabText.length; i++) {
-            tab = createNewTab(i);
-            tlIndexPageTopTab.addTab(tab);
-        }
-    }
-
-    private TabLayout.Tab createNewTab(int position) {
-        final TabLayout.Tab tab = tlIndexPageTopTab.newTab();
-        tab.setText(tabText[position]);
-        return tab;
+        vpIndexPageContainer.setAdapter(mPageAdapter);
     }
 
     @Override
@@ -78,7 +59,6 @@ public class OSCMainIndexFragment extends BaseFragment {
         fragments.add(new OSCBlogListFragment());
         return fragments;
     }
-
 
     @Override
     protected int getContentViewId() {

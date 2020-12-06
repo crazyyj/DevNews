@@ -69,4 +69,7 @@ public class HttpRequest {
         OKHttpClient.get(url, callback);
     }
 
+    public static void requestRefreshOSCLoginCode(Map<String, Object> params, Callback callback) {
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.GET_TOKEN, params, callback);
+    }
 }

@@ -8,6 +8,7 @@ import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author wenliqiang
@@ -17,10 +18,16 @@ import okhttp3.Request;
  */
 public class OKHttpClient {
 
-    private static OkHttpClient okClient;
+    private static final OkHttpClient okClient;
 
     static {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        // 包含header、body数据
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         okClient = new OkHttpClient.Builder()
+                //http数据log，日志中打印出HTTP请求&响应数据
+                .addInterceptor(loggingInterceptor)
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -28,7 +35,6 @@ public class OKHttpClient {
     }
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
 
     public static void post(String url, Map<String, Object> params, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
@@ -38,7 +44,11 @@ public class OKHttpClient {
             }
             builder.add(key, String.valueOf(params.get(key)));
         }
-        okClient.newCall(new Request.Builder().url(url).post(builder.build()).build()).enqueue(callback);
+        final Request requestBuilder = new Request.Builder()
+                .url(url)
+                .post(builder.build())
+                .build();
+        okClient.newCall(requestBuilder).enqueue(callback);
     }
 
     public static void get(String url, Callback callback) {

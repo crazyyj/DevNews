@@ -4,18 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
-import com.newchar.devnews.base.adapter.ItemViewClick;
 import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
 import com.newchar.devnews.post.adapter.OSCPostListAdapter;
@@ -37,8 +31,6 @@ public class OSCPostListFragment extends BaseFragment implements IView {
 
     @BindView(R.id.rvMainTweetList)
     RecyclerView rvMainTweetList;
-    @BindView(R.id.btnClickRefresh)
-    Button btnClickRefresh;
 
     private OSCPostListAdapter oscPostListAdapter;
 
@@ -47,21 +39,8 @@ public class OSCPostListFragment extends BaseFragment implements IView {
         oscPostListAdapter = new OSCPostListAdapter(mContext);
         rvMainTweetList.setHasFixedSize(true);
         rvMainTweetList.setAdapter(oscPostListAdapter);
-//        rvMainTweetList.addOnItemTouchListener(new ItemViewClick(rvMainTweetList, (itemView, position) -> {
-//            Toast.makeText(mContext, "aaa " + position, Toast.LENGTH_SHORT).show();
-//        }));
+
         oscPostListAdapter.setItemCLickListener((holder, itemData, position) -> RouterExecute.goPostDetailActivity(String.valueOf(itemData.getId())));
-
-        btnClickRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnRefreshListClick(v);
-            }
-        });
-    }
-
-    private void OnRefreshListClick(View view) {
-//        oscPostListAdapter.notifyDataSetChanged2();
     }
 
     @Override

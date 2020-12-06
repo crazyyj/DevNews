@@ -12,6 +12,14 @@ public interface OSCField {
         String BASE_OSC_URL = "https://www.oschina.net";
     }
 
+    interface Server {
+
+        String CLIENT_ID = "cXe8oxW5SJSuT02qdmjh";
+
+        String CLIENT_SECRET = "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE";
+
+    }
+
     /**
      * 接口地址
      */
@@ -75,6 +83,8 @@ public interface OSCField {
 
         String ACCESS_TOKEN = "access_token";
 
+        String RESPONSE_TYPE = "response_type";
+
         String PAGE_SIZE = "pageSize";
 
         String PAGE_INDEX = "pageIndex";
@@ -107,7 +117,9 @@ public interface OSCField {
         /**
          * 接口回调地址参数
          */
-        String REDIRECT_URI = "oschina";
+        String REDIRECT_URI = "redirect_uri";
+
+        String OS_CHINA = "oschina";
 
         String CODE = "code";
 
@@ -115,8 +127,9 @@ public interface OSCField {
 
         String GRANT_TYPE = "grant_type";
 
-        String CLIENT_SECRET = "client_secret";
+        String REFRESH_TOKEN = "refresh_token";
 
+        String CLIENT_SECRET = "client_secret";
 
     }
 

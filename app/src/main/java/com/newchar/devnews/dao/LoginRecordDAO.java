@@ -36,16 +36,18 @@ public class LoginRecordDAO {
         LoginRecord record = null;
         final SQLiteDatabase database = sqLiteHelper.getReadableDatabase();
         database.beginTransaction();
-        try (Cursor cursor = database.query("loginRecord", new String[]{"loginTime", "expires_in", "access_token"}, null, null, null, null, null, "1")) {
+        try (Cursor cursor = database.query("loginRecord", new String[]{"loginTime", "expires_in", "access_token", "refresh_token"}, null, null, null, null, null)) {
             if (cursor.getCount() > 0) {
                 cursor.moveToLast();
                 final long loginTime = cursor.getLong(cursor.getColumnIndex("loginTime"));
                 final long expires_in = cursor.getLong(cursor.getColumnIndex("expires_in"));
                 final String accessToken = cursor.getString(cursor.getColumnIndex("access_token"));
+                final String refreshToken = cursor.getString(cursor.getColumnIndex("refresh_token"));
                 record = new LoginRecord();
                 record.setLoginTime(loginTime);
-                record.setAccess_token(accessToken);
                 record.setExpires_in(expires_in);
+                record.setAccess_token(accessToken);
+                record.setRefresh_token(refreshToken);
             }
             database.setTransactionSuccessful();
         } finally {

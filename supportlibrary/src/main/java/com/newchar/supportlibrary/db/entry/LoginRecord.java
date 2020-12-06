@@ -1,7 +1,10 @@
 package com.newchar.supportlibrary.db.entry;
 
 
-import com.newchar.supportlibrary.constant.Login;
+import androidx.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author wenliqiang@100tal.com
@@ -70,7 +73,7 @@ public class LoginRecord {
         return this.loginChannel;
     }
 
-    public void setLoginChannel(@Login.LoginChannel String loginChannel) {
+    public void setLoginChannel(@LoginRecord.LoginChannel String loginChannel) {
         this.loginChannel = loginChannel;
     }
 
@@ -133,4 +136,19 @@ public class LoginRecord {
                 ", expires_in=" + expires_in +
                 '}';
     }
+
+
+    public interface Channel {
+
+        String OSC = "osChina";
+
+        String JUEJIN = "jueJin";
+
+    }
+
+    @StringDef({LoginRecord.Channel.OSC, LoginRecord.Channel.JUEJIN})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface LoginChannel {
+    }
+
 }

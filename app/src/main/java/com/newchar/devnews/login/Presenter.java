@@ -42,13 +42,13 @@ public class Presenter implements IBasePresenter<LoginView> {
         mView = view;
     }
 
-    public void refreshOSChinaToken(String client_id, String client_secret, String grant_type, String oscLoginCode) {
+    public void refreshOSChinaToken(String grant_type, String oscLoginCode) {
         Map<String, Object> par = new HashMap<>();
         par.put(OSCField.Params.CODE, oscLoginCode);
-        par.put(OSCField.Params.CLIENT_ID, client_id);
         par.put(OSCField.Params.GRANT_TYPE, grant_type);
-        par.put("redirect_uri", OSCField.Params.REDIRECT_URI);
-        par.put(OSCField.Params.CLIENT_SECRET, client_secret);
+        par.put(OSCField.Params.CLIENT_ID, OSCField.Server.CLIENT_ID);
+        par.put(OSCField.Params.REDIRECT_URI, OSCField.Params.OS_CHINA);
+        par.put(OSCField.Params.CLIENT_SECRET, OSCField.Server.CLIENT_SECRET);
         par.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         HttpRequest.requestLoginCode(par, new Callback() {
             @Override
@@ -62,8 +62,9 @@ public class Presenter implements IBasePresenter<LoginView> {
                 if (body == null) {
                     return;
                 }
+                final String responseText = body.string();
                 if (response.isSuccessful()) {
-                    final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, body.string());
+                    final OSCLoginCodeTokenResult parse = JsonCompat.parse(OSCLoginCodeTokenResult.class, responseText);
                     OSCLoginCodeTokenResult.getInstance().setAccess_token(parse.getAccess_token());
                     OSCLoginCodeTokenResult.getInstance().setExpires_in(parse.getExpires_in());
                     OSCLoginCodeTokenResult.getInstance().setRefresh_token(parse.getRefresh_token());
@@ -72,7 +73,7 @@ public class Presenter implements IBasePresenter<LoginView> {
                     getView().onOSCLoginSuccess(parse);
 
                 } else {
-                    final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, body.string());
+                    final OSCHttpError parse = JsonCompat.parse(OSCHttpError.class, responseText);
                     Activity context = (Activity) getView().obtainContext();
                     context.runOnUiThread(() -> Toast.makeText(context, parse.getError_description(), Toast.LENGTH_SHORT).show());
                 }

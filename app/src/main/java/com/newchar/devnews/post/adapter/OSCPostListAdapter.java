@@ -63,17 +63,6 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
                 mItemClickListener.onItemClick(holder, itemData, position);
             }
         });
-        final StackTraceElement[] stackElements = new Throwable().getStackTrace();
-        if (stackElements != null) {
-            System.out.println("-----------------------------------");
-            for (int i = 0; i < stackElements.length; i++) {
-                System.out.print(stackElements[i].getClassName()+"\t");
-                System.out.print(stackElements[i].getFileName()+"\t");
-                System.out.print(stackElements[i].getLineNumber()+"\t");
-                System.out.println(stackElements[i].getMethodName());
-            }
-
-        }
 
     }
 

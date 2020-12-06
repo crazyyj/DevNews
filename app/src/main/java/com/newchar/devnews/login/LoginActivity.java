@@ -2,7 +2,6 @@ package com.newchar.devnews.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,9 +17,9 @@ import com.newchar.devnews.dao.LoginRecordDAO;
 import com.newchar.devnews.http.MURL;
 import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
+import com.newchar.devnews.util.NewLog;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.devnews.web.WebViewActivity;
-import com.newchar.supportlibrary.constant.Login;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
 import com.newchar.supportlibrary.router.RouterExecute;
@@ -85,7 +84,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             RouterExecute.goBrowserActivity(this, MURL.getOSCLoginAUthUrl());
             return;
         }
-        presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", "refresh_token", lastLoginRecord.getAccess_token());
+        presenter.refreshOSChinaToken(OSCField.Params.REFRESH_TOKEN, lastLoginRecord.getAccess_token());
     }
 
     /**
@@ -114,7 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             if (TextUtils.isEmpty(oscLoginCode)) {
                 return;
             }
-            presenter.refreshOSChinaToken("cXe8oxW5SJSuT02qdmjh", "63FxZHuqYzJZhMgMxVb0tuCkEyrOzjfE", OSCField.Params.AUTHORIZATION_CODE, oscLoginCode);
+            presenter.refreshOSChinaToken(OSCField.Params.AUTHORIZATION_CODE, oscLoginCode);
         }
     }
 
@@ -124,13 +123,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
         loginRecord.setAccess_token(osc.getAccess_token());
         loginRecord.setExpires_in(osc.getExpires_in());
         loginRecord.setId(osc.getUid());
-        loginRecord.setLoginChannel(Login.Channel.OSC);
+        loginRecord.setLoginChannel(LoginRecord.Channel.OSC);
         loginRecord.setToken_type(osc.getToken_type());
         loginRecord.setRefresh_token(osc.getRefresh_token());
         loginRecord.setLoginTime(System.currentTimeMillis());
         if (LoginRecordDAO.saveLoginRecord(loginRecord)) {
             runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登陆存储成功", Toast.LENGTH_SHORT).show());
-            Log.e("Activity", loginRecord.toString());
+            NewLog.e(loginRecord.toString());
         } else {
             runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登陆存储失败了", Toast.LENGTH_SHORT).show());
         }

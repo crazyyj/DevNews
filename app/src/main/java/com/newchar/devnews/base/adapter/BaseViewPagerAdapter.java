@@ -33,6 +33,11 @@ public class BaseViewPagerAdapter extends FragmentStatePagerAdapter {
         return pageFragment;
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
