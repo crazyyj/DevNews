@@ -24,7 +24,6 @@ public class OSCParamsBuilder {
         params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         params.put(OSCField.Params.PAGE_SIZE, OSCField.Params.PAGE_SIZE_DEFAULT);
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
-//        params.put(OSCField.Params.TAG, "3");
         return params;
     }
 
@@ -61,6 +60,23 @@ public class OSCParamsBuilder {
         params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         params.put(OSCField.Params.ACCESS_TOKEN, OSCLoginCodeTokenResult.getInstance().getAccess_token());
         params.put(OSCField.Params.ID, postId);
+        return params;
+    }
+
+    /**
+     * 获取刷新Token接口的参数
+     *
+     * @param oldRefreshToken 上次接口请求的 refreshToken
+     * @return Map
+     */
+    public static Map<String, Object> buildOSCRefreshTokenParams(String oldRefreshToken) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(OSCField.Params.REFRESH_TOKEN, oldRefreshToken);
+        params.put(OSCField.Params.CLIENT_ID, OSCField.Server.CLIENT_ID);
+        params.put(OSCField.Params.REDIRECT_URI, OSCField.Params.OS_CHINA);
+        params.put(OSCField.Params.GRANT_TYPE, OSCField.Params.REFRESH_TOKEN);
+        params.put(OSCField.Params.CLIENT_SECRET, OSCField.Server.CLIENT_SECRET);
+        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
         return params;
     }
 

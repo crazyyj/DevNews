@@ -10,6 +10,7 @@ import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
 import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
 import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
+import com.newchar.devnews.http.params.OSCParamsBuilder;
 import com.newchar.devnews.util.NewLog;
 import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
@@ -82,13 +83,7 @@ public class SplashPresenter implements IPresenter {
      * 登陆过期
      */
     private void dbLoginRecordIsExpire(String channel, String oldRefreshToken) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(OSCField.Params.REFRESH_TOKEN, oldRefreshToken);
-        params.put(OSCField.Params.CLIENT_ID, OSCField.Server.CLIENT_ID);
-        params.put(OSCField.Params.REDIRECT_URI, OSCField.Params.OS_CHINA);
-        params.put(OSCField.Params.GRANT_TYPE, OSCField.Params.REFRESH_TOKEN);
-        params.put(OSCField.Params.CLIENT_SECRET, OSCField.Server.CLIENT_SECRET);
-        params.put(OSCField.Params.DATA_TYPE, OSCField.DataType.JSON);
+        Map<String, Object> params = OSCParamsBuilder.buildOSCRefreshTokenParams(oldRefreshToken);
         HttpRequest.requestRefreshOSCLoginCode(params, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

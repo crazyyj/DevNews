@@ -13,6 +13,7 @@ import com.newchar.devnews.base.BaseFragment;
 import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
 import com.newchar.devnews.post.adapter.OSCPostListAdapter;
+import com.newchar.devnews.widget.CommonItemDecoration;
 import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class OSCPostListFragment extends BaseFragment implements IView {
         oscPostListAdapter = new OSCPostListAdapter(mContext);
         rvMainTweetList.setHasFixedSize(true);
         rvMainTweetList.setAdapter(oscPostListAdapter);
-
+        rvMainTweetList.addItemDecoration(new CommonItemDecoration());
         oscPostListAdapter.setItemCLickListener((holder, itemData, position) -> RouterExecute.goPostDetailActivity(String.valueOf(itemData.getId())));
     }
 
@@ -79,9 +80,5 @@ public class OSCPostListFragment extends BaseFragment implements IView {
         return mContext;
     }
 
-    @Override
-    public void showPagePrompt(String prompt) {
-
-    }
 
 }

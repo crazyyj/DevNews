@@ -1,22 +1,11 @@
 package com.newchar.devnews.post;
 
 import com.newchar.devnews.base.IBasePresenter;
-import com.newchar.devnews.base.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
-import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCNewsList;
 import com.newchar.devnews.http.entry.osc.OSCPostList;
-import com.newchar.devnews.http.entry.osc.OSCTweet;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
-import com.newchar.devnews.util.constant.ConstantField;
-import com.newchar.devnews.util.constant.OSCField;
-import com.newchar.supportlibrary.db.DBHelper;
-import com.newchar.supportlibrary.db.entry.LoginRecord;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;

@@ -77,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
 
     @Override
     public void showPagePrompt(String prompt) {
-        runOnUiThread(() -> Toast.makeText(obtainContext(), prompt, Toast.LENGTH_SHORT).show());
+        runOnUiThread(() -> Toast.makeText(obtainContext(), prompt, Toast.LENGTH_LONG).show());
 
     }
 
