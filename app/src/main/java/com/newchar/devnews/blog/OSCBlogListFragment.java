@@ -14,6 +14,7 @@ import com.newchar.devnews.base.BaseFragment;
 import com.newchar.devnews.blog.contract.IOSCBlogListContract;
 import com.newchar.devnews.blog.contract.OSCBlogListPresenter;
 import com.newchar.devnews.http.entry.osc.OSCBlogList;
+import com.newchar.devnews.widget.CommonItemDecoration;
 import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class OSCBlogListFragment extends BaseFragment implements IOSCBlogListCon
     @Override
     protected void initWidgets(View frgView) {
         rvMainBlogList.setHasFixedSize(true);
+        rvMainBlogList.addItemDecoration(new CommonItemDecoration());
         listAdapter = new OSCBlogListAdapter();
         listAdapter.setItemCLickListener((holder, itemData, position) -> {
             RouterExecute.goBlogDetailActivity(itemData.getId());

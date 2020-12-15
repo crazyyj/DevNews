@@ -3,14 +3,14 @@ package com.newchar.devnews.main.girl
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.newchar.devnews.R
 import com.newchar.devnews.base.BaseFragment
 import com.newchar.devnews.http.HttpRequest
 import com.newchar.devnews.http.JsonCompat
 import com.newchar.devnews.http.entry.gankio.Girl
 import com.newchar.devnews.http.params.GankIOParamsBuilder
-import com.newchar.devnews.util.constant.GankIOField
-import kotlinx.android.synthetic.main.activity_osc_post_detail.*
 import kotlinx.android.synthetic.main.fragment_gankio_girl_list.*
 import okhttp3.Call
 import okhttp3.Response
@@ -37,7 +37,7 @@ class GankIOGirlFragment : BaseFragment(), Contract.IView {
 
     override fun initData(savedInstanceState: Bundle?) {
 
-        val girlImageUrl: String = GankIOParamsBuilder.buildGirlImageList( 1, 20)
+        val girlImageUrl: String = GankIOParamsBuilder.buildGirlImageList(1, 20)
         HttpRequest.requestGirlList(girlImageUrl, object : okhttp3.Callback {
             override fun onFailure(call: Call, e: IOException) {
 

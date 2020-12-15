@@ -25,4 +25,11 @@ public interface IView extends IBaseView {
      * @param postList 帖子列表
      */
     void onCreateOSCPost(List<OSCPostList.Item> postList);
+
+    /**
+     * 加载更多帖子数据
+     *
+     * @param postList 帖子列表
+     */
+    void onLoadMoreOSCPost(List<OSCPostList.Item> postList);
 }

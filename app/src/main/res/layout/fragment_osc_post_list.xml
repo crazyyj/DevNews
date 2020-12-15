@@ -6,12 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMainTweetList"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@id/smart_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F8F8F8"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_height="match_parent">
+
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMainTweetList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_list"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

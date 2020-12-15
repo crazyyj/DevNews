@@ -2,7 +2,9 @@ package com.newchar.devnews.main.index;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,6 +15,9 @@ import com.newchar.devnews.base.adapter.BaseViewPagerAdapter;
 import com.newchar.devnews.blog.OSCBlogListFragment;
 import com.newchar.devnews.post.OSCPostListFragment;
 import com.newchar.devnews.util.constant.GankIOField;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +27,7 @@ import butterknife.BindView;
 /**
  * @author wenliqiang
  * date 2020/7/5
- * @since 当前版本，（以及描述）
+ * @since 首页Fragment
  * @since 迭代版本，（以及描述）
  */
 public class OSCMainIndexFragment extends BaseFragment {
@@ -41,6 +46,7 @@ public class OSCMainIndexFragment extends BaseFragment {
         mPageAdapter = new MainIndexAdapter(getChildFragmentManager());
 
         vpIndexPageContainer.setAdapter(mPageAdapter);
+
     }
 
     @Override

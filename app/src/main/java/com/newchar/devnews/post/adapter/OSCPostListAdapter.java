@@ -81,6 +81,10 @@ public class OSCPostListAdapter extends RecyclerView.Adapter<OSCPostListAdapter.
         this.postList.addAll(postList);
         notifyDataSetChanged();
     }
+    public void notifyDataMoreChanged(List<OSCPostList.Item> postList) {
+        this.postList.addAll(postList);
+        notifyDataSetChanged();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
