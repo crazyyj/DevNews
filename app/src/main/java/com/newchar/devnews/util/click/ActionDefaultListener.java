@@ -1,6 +1,5 @@
 package com.newchar.devnews.util.click;
 
-import android.os.Handler;
 import android.view.View;
 
 /**

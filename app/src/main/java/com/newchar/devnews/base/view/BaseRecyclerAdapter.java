@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.LayoutInflaterCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public class BaseRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>  extends RecyclerView.Adapter<VH> {
+public class BaseRecyclerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     private List<T> adapterData;
     private LayoutInflater mLayoutInflater;
@@ -45,8 +44,13 @@ public class BaseRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>  extends
         return adapterData.size();
     }
 
-    public void notifyDataSetChanged(List<T> data){
+    public void notifyDataSetChanged(List<T> data) {
         adapterData.clear();
+        adapterData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void notifyMoreDataSetChanged(List<T> data) {
         adapterData.addAll(data);
         notifyDataSetChanged();
     }

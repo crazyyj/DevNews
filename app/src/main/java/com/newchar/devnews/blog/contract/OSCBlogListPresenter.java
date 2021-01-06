@@ -2,12 +2,10 @@ package com.newchar.devnews.blog.contract;
 
 import android.text.TextUtils;
 
-import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.blog.contract.IOSCBlogListContract;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCBlogList;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
+import com.newchar.oscrepository.entry.OSCBlogList;
 
 import java.io.IOException;
 import java.util.Map;
@@ -62,7 +60,6 @@ public class OSCBlogListPresenter implements IOSCBlogListContract.Presenter {
         });
 
     }
-
 
 
 }

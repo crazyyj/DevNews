@@ -1,27 +1,22 @@
 package com.newchar.devnews.main;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.View;
 
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.main.contract.Contract;
-import com.newchar.devnews.main.girl.GankIOGirlFragment;
-import com.newchar.devnews.main.index.OSCMainIndexFragment;
+import com.newchar.devnews.base.IBaseContract;
 import com.newchar.supportlibrary.router.ARouterPath;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 @Route(path = ARouterPath.ACTIVITY_MAIN)
-public class MainActivity extends BaseActivity implements Contract.View {
+public class MainActivity extends BaseActivity implements IBaseContract.IBaseView {
 
     @BindView(R.id.vpMainPageContainer)
     ViewPager vpMainPageContainer;
@@ -39,21 +34,16 @@ public class MainActivity extends BaseActivity implements Contract.View {
 
     @Override
     protected void initData() {
-        mMainPageAdapter.notifyDataSetChanged(generateMainPage());
+
     }
 
-    private List<Fragment> generateMainPage() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new OSCMainIndexFragment());
-        fragments.add(new GankIOGirlFragment());
-        return fragments;
-    }
 
     @Override
     protected int getContentViewId() {
         return R.layout.activity_main;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick({R.id.llMainBottomTab1, R.id.llMainBottomTab2, R.id.llMainBottomTab3, R.id.llMainBottomTab4})
     public void onBottomTabClick(View view) {
         final int id = view.getId();
@@ -65,10 +55,10 @@ public class MainActivity extends BaseActivity implements Contract.View {
                 onGirlTabClick();
                 break;
             case R.id.llMainBottomTab3:
-
+                onGirlTabClick();
                 break;
             case R.id.llMainBottomTab4:
-
+                onMineTabClick();
                 break;
             default:
                 break;
@@ -89,9 +79,33 @@ public class MainActivity extends BaseActivity implements Contract.View {
         vpMainPageContainer.setCurrentItem(1, false);
     }
 
+    /**
+     * 图片列表tab选中
+     */
+    private void onThreeTabClick() {
+        vpMainPageContainer.setCurrentItem(2, false);
+    }
+
+    /**
+     * 我的页面被选中
+     */
+    private void onMineTabClick() {
+        vpMainPageContainer.setCurrentItem(3, false);
+    }
+
     @Override
     public void onBackPressed() {
+//        super.onBackPressed();
         moveTaskToBack(true);
     }
 
+    @Override
+    public Context obtainContext() {
+        return null;
+    }
+
+    @Override
+    public void showPagePrompt(String prompt) {
+
+    }
 }

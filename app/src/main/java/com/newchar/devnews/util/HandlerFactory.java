@@ -17,7 +17,7 @@ public final class HandlerFactory {
     private static final String THREAD_NAME = "ACTION_THREAD";
 
     static {
-        looperThread = new HandlerThread(THREAD_NAME, Process.THREAD_PRIORITY_BACKGROUND);
+        looperThread = new InnerHandlerThread(THREAD_NAME, Process.THREAD_PRIORITY_BACKGROUND);
         looperThread.start();
     }
 
@@ -47,6 +47,26 @@ public final class HandlerFactory {
      */
     private static Looper getLooper() {
         return looperThread.getLooper();
+    }
+
+    /**
+     * 全局用于生产 HandlerThread Looper。
+     */
+    private final static class InnerHandlerThread extends HandlerThread {
+
+        public InnerHandlerThread(String name, int priority) {
+            super(name, priority);
+        }
+
+        @Override
+        protected void onLooperPrepared() {
+            super.onLooperPrepared();
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -8,19 +8,23 @@ import java.lang.ref.WeakReference
  *  @since 当前版本，（以及描述）
  *  @since 迭代版本，（以及描述）
  */
-open class BasePresenter : IBasePresenter<IBaseView> {
+open class BasePresenter(iBaseView: IBaseContract.IBaseView) : IBaseContract.IBasePresenter<IBaseContract.IBaseView> {
 
     /**
      * IView引用
      */
-    lateinit var viewRef: WeakReference<IBaseView>
+    val viewRef: WeakReference<IBaseContract.IBaseView>
 
-    override fun getView(): IBaseView? {
+    init {
+        viewRef = WeakReference(iBaseView)
+    }
+
+    override fun getView(): IBaseContract.IBaseView? {
         return viewRef.get()
     }
 
-    override fun attachView(view: IBaseView) {
-        viewRef = WeakReference(view)
+    override fun attachView(view: IBaseContract.IBaseView?) {
+
     }
 
 }

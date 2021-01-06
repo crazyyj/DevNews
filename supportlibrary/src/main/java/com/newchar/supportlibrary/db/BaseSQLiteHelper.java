@@ -1,11 +1,9 @@
 package com.newchar.supportlibrary.db;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -33,17 +31,17 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper {
 //        manager.create(db);
 //        try {
 //            db.beginTransaction();
-            db.execSQL(
-                    "CREATE TABLE loginRecord(" +
+        db.execSQL(
+                "CREATE TABLE loginRecord(" +
 //                    "_id integer primary key, " +
-                    "uid long, " +
-                    "loginTime long, " +
-                    "expires_in long, " +
-                    "token_type varchar(16), " +
-                    "access_token varchar(16), " +
-                    "refresh_token varchar(16), " +
-                    "loginChannel varchar(16))"
-            );
+                        "uid long, " +
+                        "loginTime long, " +
+                        "expires_in long, " +
+                        "token_type varchar(16), " +
+                        "access_token varchar(16), " +
+                        "refresh_token varchar(16), " +
+                        "loginChannel varchar(16))"
+        );
 //        } finally {
 //            db.endTransaction();
 //            db.close();

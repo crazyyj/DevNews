@@ -2,25 +2,12 @@ package com.newchar.devnews.main.index;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
-import com.newchar.devnews.base.adapter.BaseViewPagerAdapter;
-import com.newchar.devnews.blog.OSCBlogListFragment;
-import com.newchar.devnews.post.OSCPostListFragment;
-import com.newchar.devnews.util.constant.GankIOField;
-import com.scwang.smart.refresh.layout.SmartRefreshLayout;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -37,7 +24,7 @@ public class OSCMainIndexFragment extends BaseFragment {
     @BindView(R.id.tlIndexPageTopTab)
     TabLayout tlIndexPageTopTab;
 
-    private BaseViewPagerAdapter mPageAdapter;
+    private MainIndexAdapter mPageAdapter;
 
     @Override
     protected void initWidgets(View frgView) {
@@ -51,19 +38,11 @@ public class OSCMainIndexFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mPageAdapter.notifyDataSetChanged(generateMainPage());
     }
 
     @Override
     protected void initListener() {
 
-    }
-
-    private List<Fragment> generateMainPage() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new OSCPostListFragment());
-        fragments.add(new OSCBlogListFragment());
-        return fragments;
     }
 
     @Override

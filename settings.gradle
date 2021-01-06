@@ -1,2 +1,8 @@
+include ':repository',
+        ':oscrepository'
+
 include ':Compiler'
-include ':app', ':supportlibrary', ':browser', ':Annotation'
+include ':app',
+        ':supportlibrary',
+        ':browser',
+        ':Annotation'

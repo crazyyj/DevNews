@@ -5,8 +5,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.newchar.devnews.util.CommonUtils;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 

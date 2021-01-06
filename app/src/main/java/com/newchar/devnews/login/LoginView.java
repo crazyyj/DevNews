@@ -1,8 +1,8 @@
 package com.newchar.devnews.login;
 
-import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
+import com.newchar.devnews.base.IBaseContract.IBaseView;
+import com.newchar.oscrepository.entry.OSCLoginCodeTokenResult;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
 
 /**
  * @author wenliqiang@100tal.com

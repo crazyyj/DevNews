@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +12,8 @@ import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
 import com.newchar.devnews.blog.contract.IOSCBlogListContract;
 import com.newchar.devnews.blog.contract.OSCBlogListPresenter;
-import com.newchar.devnews.http.entry.osc.OSCBlogList;
 import com.newchar.devnews.widget.CommonItemDecoration;
+import com.newchar.oscrepository.entry.OSCBlogList;
 import com.newchar.supportlibrary.router.RouterExecute;
 
 import java.util.List;
@@ -27,7 +26,7 @@ import butterknife.BindView;
  * @since osc 博客列表
  * @since 迭代版本描述
  */
-public class OSCBlogListFragment extends BaseFragment implements IOSCBlogListContract.View{
+public class OSCBlogListFragment extends BaseFragment implements IOSCBlogListContract.View {
 
     @BindView(R.id.rvMainBlogList)
     RecyclerView rvMainBlogList;

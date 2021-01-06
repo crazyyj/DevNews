@@ -10,8 +10,9 @@ public class SystemUtils {
 
     /**
      * 获取Application 节点下meta-data/value数据
-     * @param key   取值的key
-     * @return  value
+     *
+     * @param key 取值的key
+     * @return value
      */
     public static String getAppMetaData(String key) {
         return key;
@@ -19,8 +20,9 @@ public class SystemUtils {
 
     /**
      * 获取Activity 节点下meta-data/value数据
-     * @param key   取值的key
-     * @return  value
+     *
+     * @param key 取值的key
+     * @return value
      */
     public static String getActivityMetaData(String key) {
         return key;

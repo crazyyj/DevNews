@@ -1,10 +1,7 @@
 package com.newchar.devnews.http.params;
 
-import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
-import com.newchar.devnews.util.constant.ConstantField;
-import com.newchar.devnews.util.constant.OSCField;
-import com.newchar.supportlibrary.db.DBHelper;
-import com.newchar.supportlibrary.db.entry.LoginRecord;
+import com.newchar.oscrepository.OSCField;
+import com.newchar.oscrepository.entry.OSCLoginCodeTokenResult;
 
 import java.util.HashMap;
 import java.util.Map;

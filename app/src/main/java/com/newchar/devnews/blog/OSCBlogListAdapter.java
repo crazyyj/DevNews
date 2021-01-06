@@ -10,9 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.newchar.devnews.R;
-import com.newchar.devnews.http.entry.osc.OSCBlogList;
-import com.newchar.devnews.http.entry.osc.OSCPostList;
-import com.newchar.devnews.post.adapter.OSCPostListAdapter;
+import com.newchar.oscrepository.entry.OSCBlogList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ public class OSCBlogListAdapter extends RecyclerView.Adapter<OSCBlogListAdapter.
         return adapterData.size();
     }
 
-    public void notifyDataSetChanged(List<OSCBlogList.Item> data){
+    public void notifyDataSetChanged(List<OSCBlogList.Item> data) {
         adapterData.clear();
         adapterData.addAll(data);
         notifyDataSetChanged();

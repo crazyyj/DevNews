@@ -1,20 +1,15 @@
 package com.newchar.devnews.base;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -57,7 +52,11 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int layoutId = getContentViewId();
         if (0 < layoutId) {
-            mView = inflater.inflate(layoutId, container,false);
+            if (mView == null) {
+                mView = inflater.inflate(layoutId, container, false);
+            } else {
+                return mView;
+            }
         } else {
             mView = super.onCreateView(inflater, container, savedInstanceState);
         }
@@ -110,7 +109,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void setLazyListener(LazyListener listener) {
+    protected void setLazyListener(LazyListener listener) {
         mLazyListener = listener;
     }
 
@@ -134,17 +133,19 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 释放关键资源，非关键资源可以 ↓
+     *
      * @see #onStop()
      */
-    protected void onReleaseRes(){
+    protected void onReleaseRes() {
 
     }
+
     /**
      * 加载页面可见,显示
      * 参数 没有savedInstanceState 所以请求网络在此， 不处理其他信息
      * 当Frag 可见时调用
      */
-    protected void onVisibility(){
+    protected void onVisibility() {
         if (mLazyListener != null) {
             mLazyListener.onPageVisible();
         }
@@ -155,7 +156,7 @@ public abstract class BaseFragment extends Fragment {
      * 回收可在屏幕不可见时, 回收资源操作
      * 当Frag 不可见时调用
      */
-    protected void onInVisibility(){
+    protected void onInVisibility() {
         if (mLazyListener != null) {
             mLazyListener.onPageInvisible();
         }
@@ -168,6 +169,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 操作本地数据 例如 恢复状态 恢复数据
+     *
      * @param savedInstanceState 恢复数据
      */
     protected abstract void initData(Bundle savedInstanceState);

@@ -21,7 +21,7 @@ public class StateLayout extends FrameLayout {
 
     /**
      * key ： layoutId
-     *
+     * <p>
      * Value ：StateView
      */
     private SparseArrayCompat<View> stateViews = new SparseArrayCompat<>();
@@ -48,7 +48,6 @@ public class StateLayout extends FrameLayout {
     public void switchStateLayout(int state) {
 
     }
-
 
 
 }

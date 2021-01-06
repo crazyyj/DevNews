@@ -28,7 +28,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.newchar.browser.WebViewBuilder;
 import com.newchar.browser.WebViewFactory;
 import com.newchar.devnews.R;
-import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.oscrepository.OSCField;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 import java.io.IOException;

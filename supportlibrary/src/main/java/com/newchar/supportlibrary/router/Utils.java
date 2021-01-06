@@ -1,7 +1,5 @@
 package com.newchar.supportlibrary.router;
 
-import android.os.Build;
-
 import com.newchar.supportlibrary.BuildConfig;
 
 /**

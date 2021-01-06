@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseFragment;
-import com.newchar.devnews.http.entry.osc.OSCNoticeNumber;
-import com.newchar.devnews.http.entry.osc.OSCPostList;
-import com.newchar.devnews.main.index.OSCMainIndexFragment;
 import com.newchar.devnews.post.adapter.OSCPostListAdapter;
 import com.newchar.devnews.widget.CommonItemDecoration;
+import com.newchar.oscrepository.entry.OSCNoticeNumber;
+import com.newchar.oscrepository.entry.OSCPostList;
 import com.newchar.supportlibrary.router.RouterExecute;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -34,13 +32,13 @@ import butterknife.BindView;
  */
 public class OSCPostListFragment extends BaseFragment implements IView {
 
-    private Presenter presenter;
 
     @BindView(R.id.rvMainTweetList)
     RecyclerView rvMainTweetList;
-
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout refreshLayout;
+
+    private Presenter presenter;
     private OSCPostListAdapter oscPostListAdapter;
 
     @Override
@@ -94,7 +92,9 @@ public class OSCPostListFragment extends BaseFragment implements IView {
     public void onCreateOSCPost(List<OSCPostList.Item> postList) {
         new Handler(Looper.getMainLooper()).post(() -> {
             oscPostListAdapter.notifyDataSetChanged(postList);
-            refreshLayout.finishRefresh(20);
+            if (refreshLayout != null) {
+                refreshLayout.finishRefresh(20);
+            }
         });
 
     }
@@ -103,7 +103,9 @@ public class OSCPostListFragment extends BaseFragment implements IView {
     public void onLoadMoreOSCPost(List<OSCPostList.Item> postList) {
         new Handler(Looper.getMainLooper()).post(() -> {
             oscPostListAdapter.notifyDataMoreChanged(postList);
-            refreshLayout.finishLoadMore();
+            if (refreshLayout != null) {
+                refreshLayout.finishLoadMore();
+            }
         });
 
     }

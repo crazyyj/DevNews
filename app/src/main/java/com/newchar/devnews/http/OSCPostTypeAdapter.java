@@ -1,17 +1,12 @@
 package com.newchar.devnews.http;
 
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.newchar.devnews.http.entry.osc.OSCPostList;
-
-import org.json.JSONTokener;
+import com.newchar.oscrepository.entry.OSCPostList;
 
 import java.io.IOException;
 

@@ -1,15 +1,16 @@
 package com.newchar.devnews.splash;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
+import com.newchar.devnews.util.HandlerFactory;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
+import com.newchar.supportlibrary.router.RouterExecute;
+
 import static com.newchar.devnews.contract.SplashContract.IPresenter;
 import static com.newchar.devnews.contract.SplashContract.IView;
-
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
-import com.newchar.devnews.util.HandlerFactory;
-import com.newchar.supportlibrary.router.RouterExecute;
 
 /**
  * @author wenliqiang@100tal.com
@@ -90,4 +91,13 @@ public class SplashActivity extends BaseActivity implements IView {
         mHandler.sendEmptyMessage(MSG_JUMP_MAIN);
     }
 
+    @Override
+    public Context obtainContext() {
+        return null;
+    }
+
+    @Override
+    public void showPagePrompt(String prompt) {
+
+    }
 }

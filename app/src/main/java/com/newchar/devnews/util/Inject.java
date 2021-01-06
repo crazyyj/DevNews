@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import com.newchar.annotation.NewClick;
 import com.newchar.annotation.ReceiveData;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 
 /**
  * @author wenliqiang
@@ -64,7 +62,7 @@ public class Inject {
                 }
             }
         }
-        
+
     }
 
 

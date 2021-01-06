@@ -161,7 +161,7 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
      * @param dx             x 轴上滑动的距离, 相对于上一次事件, 不是相对于 down事件的 那个距离
      * @param dy             y 轴上滑动的距离
      * @param consumed       一个数组, 可以传 一个空的 数组,  表示 x 方向 或 y 方向的事件 是否有被消费
-     * @param offsetInWindow 支持嵌套滑动到额父View 消费 滑动事件后 导致 本 View 的移动距离
+     * @param offsetInWindow 支持嵌套滑动到额父View 消费 滑动事件后 导致 本 IView 的移动距离
      * @return 支持的嵌套的父View 是否处理了 滑动事件
      */
     @Override

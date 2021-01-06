@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/ifvMineQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:src="@drawable/ic_arrow_left_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/sivMineSearchBg"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@android:color/holo_blue_bright"
+        app:layout_constraintEnd_toStartOf="@+id/ifvMineNightMode"
+        app:layout_constraintStart_toEndOf="@id/ifvMineQRCode"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/ifvMineSearchIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/ic_arrow_left_white"
+        app:layout_constraintBottom_toBottomOf="@id/sivMineSearchBg"
+        app:layout_constraintEnd_toStartOf="@+id/ifvMineSearchTextHint"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/sivMineSearchBg"
+        app:layout_constraintTop_toTopOf="@id/sivMineSearchBg" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/ifvMineSearchTextHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="ffffffffffff"
+        app:layout_constraintBottom_toBottomOf="@id/sivMineSearchBg"
+        app:layout_constraintEnd_toEndOf="@id/sivMineSearchBg"
+        app:layout_constraintStart_toEndOf="@id/ifvMineSearchIcon"
+        app:layout_constraintTop_toTopOf="@id/sivMineSearchBg" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/ifvMineNightMode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/ifvMineSettingIcon"
+        app:layout_constraintStart_toEndOf="@+id/sivMineSearchBg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/ifvMineSettingIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

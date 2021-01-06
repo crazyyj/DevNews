@@ -1,18 +1,15 @@
 package com.newchar.devnews.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.newchar.devnews.util.CommonUtils;
 import com.newchar.supportlibrary.router.NavRouter;
@@ -26,7 +23,7 @@ import butterknife.Unbinder;
  * @since 当前版本描述，
  * @since 迭代版本描述
  */
-public abstract class BaseActivity extends AppCompatActivity implements LifecycleObserver , IBaseView{
+public abstract class BaseActivity extends AppCompatActivity implements LifecycleObserver {
 
     private Unbinder mButterKnife;
     private boolean resReleased;
@@ -72,12 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
      * 处理Intent 附带过来的数据
      */
     protected void handlerIntent(Intent newIntent, @Nullable Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void showPagePrompt(String prompt) {
-        runOnUiThread(() -> Toast.makeText(obtainContext(), prompt, Toast.LENGTH_LONG).show());
 
     }
 
@@ -162,11 +153,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Lifecycl
      */
     public void onReleaseRes() {
         resReleased = true;
-    }
-
-    @Override
-    public Context obtainContext() {
-        return this;
     }
 
     @Override

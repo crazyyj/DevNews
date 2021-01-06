@@ -24,7 +24,7 @@ public class CommonUtils {
     }
 
 
-    public static String getText(TextView tv){
+    public static String getText(TextView tv) {
         return tv.getText().toString().trim();
     }
 
@@ -41,10 +41,9 @@ public class CommonUtils {
 
     /**
      * 弹出软键盘
-     * @param editText
-     *            输入框
-     * @param context
-     *            上下文
+     *
+     * @param editText 输入框
+     * @param context  上下文
      */
     public static void openKeybord(EditText editText, Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -54,12 +53,10 @@ public class CommonUtils {
 
     /**
      * 关闭软键盘
-     * @param v
-     *            当前Activity 的焦点View ，通常为正在编辑的EditText
-     * @param context
-     *            上下文
-     * @category
-     * 			使用方法 CommonUtils.closeKeybord(this.getCurrentFocus(),this);
+     *
+     * @param v       当前Activity 的焦点View ，通常为正在编辑的EditText
+     * @param context 上下文
+     * @category 使用方法 CommonUtils.closeKeybord(this.getCurrentFocus(),this);
      */
     public static void closeKeybord(View v, Context context) {
         InputMethodManager imm = (InputMethodManager)

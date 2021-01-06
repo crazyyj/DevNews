@@ -1,8 +1,8 @@
 package com.newchar.devnews.blog.contract;
 
-import com.newchar.devnews.base.IBasePresenter;
-import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.http.entry.osc.OSCBlogList;
+import com.newchar.devnews.base.IBaseContract.IBasePresenter;
+import com.newchar.devnews.base.IBaseContract.IBaseView;
+import com.newchar.oscrepository.entry.OSCBlogList;
 
 import java.util.List;
 

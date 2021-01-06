@@ -9,26 +9,14 @@
         android:layout_height="wrap_content"
         android:minHeight="?actionBarSize">
 
-        <VideoView
-            android:id="@+id/video"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorAccent" />
-
         <FrameLayout
             android:id="@+id/webViewContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:background="@color/cardview_dark_background"  />
+            android:background="@color/cardview_dark_background"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        android:background="@color/colorPrimaryDark" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

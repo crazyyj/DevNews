@@ -1,9 +1,11 @@
 package com.newchar.devnews.post;
 
-import com.newchar.devnews.base.IBasePresenter;
+import com.newchar.devnews.base.IBaseContract;
+import com.newchar.devnews.base.IBaseContract.IBasePresenter;
+import com.newchar.devnews.base.IBaseContract.IBaseView;
 import com.newchar.devnews.http.HttpRequest;
-import com.newchar.devnews.http.entry.osc.OSCPostList;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
+import com.newchar.oscrepository.entry.OSCPostList;
 
 import java.io.IOException;
 import java.util.Map;
@@ -18,7 +20,7 @@ import okhttp3.Response;
  * @since 当前版本，（以及描述）
  * @since 迭代版本，（以及描述）
  */
-public class Presenter implements IBasePresenter<IView> {
+public class Presenter implements IBasePresenter<IBaseContract.IBaseView> {
 
     private IView mView;
     /**
@@ -35,7 +37,7 @@ public class Presenter implements IBasePresenter<IView> {
         HttpRequest.requestOSCPostList(params, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                getView().showPagePrompt(e.getMessage());
+//                getView().showPagePrompt(e.getMessage());
             }
 
             @Override
@@ -92,7 +94,8 @@ public class Presenter implements IBasePresenter<IView> {
     }
 
     @Override
-    public void attachView(IView view) {
+    public void attachView(IBaseView view) {
 
     }
+
 }

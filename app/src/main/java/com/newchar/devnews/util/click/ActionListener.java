@@ -12,14 +12,14 @@ public interface ActionListener {
 
     /**
      * 在执行之前的回调
+     *
      * @param view 事件View
      */
     boolean onActionBefore(View view);
 
     /**
-     *
      * @param view 事件View
-     * @return  是否执行后续的方法
+     * @return 是否执行后续的方法
      */
     boolean onAction(View view);
 

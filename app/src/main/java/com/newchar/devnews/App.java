@@ -2,17 +2,10 @@ package com.newchar.devnews;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
-import com.newchar.annotation.NewClick;
 import com.newchar.devnews.util.ContextHolder;
 import com.newchar.devnews.util.drawable.ShapeBuilder;
 import com.newchar.supportlibrary.router.NavRouter;
-
-import java.io.FileDescriptor;
-import java.util.HashSet;
 
 /**
  * @author wenliqiang@100tal.com

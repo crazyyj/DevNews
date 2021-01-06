@@ -1,7 +1,6 @@
 package com.newchar.devnews.post.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.newchar.devnews.R;
-import com.newchar.devnews.http.entry.osc.OSCTweet;
 import com.newchar.devnews.util.CommonUtils;
+import com.newchar.oscrepository.entry.OSCTweet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class OSCTweetListAdapter extends RecyclerView.Adapter<OSCTweetListAdapte
 
     private final Context mContext;
     private final LayoutInflater inflater;
-    private List<OSCTweet.OSCTweetItem> tweetItems ;
+    private List<OSCTweet.OSCTweetItem> tweetItems;
 
     public OSCTweetListAdapter(Context context) {
         inflater = LayoutInflater.from(context);
@@ -73,7 +72,7 @@ public class OSCTweetListAdapter extends RecyclerView.Adapter<OSCTweetListAdapte
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private AppCompatTextView tvItemTweetTitle;
         private AppCompatImageView ivItemTweetImage;

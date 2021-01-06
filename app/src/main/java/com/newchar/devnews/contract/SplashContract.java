@@ -1,8 +1,7 @@
 package com.newchar.devnews.contract;
 
-import com.newchar.devnews.base.IBasePresenter;
-import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
+import com.newchar.devnews.base.IBaseContract;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
 
 /**
  * @author newChar
@@ -12,7 +11,7 @@ import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
  */
 public interface SplashContract {
 
-    interface IView extends IBaseView {
+    interface IView extends IBaseContract.IBaseView {
 
         /**
          * 数据库中没有登陆记录信息
@@ -37,7 +36,7 @@ public interface SplashContract {
         void onRefreshLoginSuccess(OSCUserInfoResult userInfo);
     }
 
-    interface IPresenter extends IBasePresenter<IView> {
+    interface IPresenter extends IBaseContract.IBasePresenter<IView> {
         /**
          * 获取登陆状态
          */

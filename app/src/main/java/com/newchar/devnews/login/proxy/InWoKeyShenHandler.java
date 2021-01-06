@@ -35,7 +35,7 @@ public class InWoKeyShenHandler implements InvocationHandler {
         this.mProxy1 = mProxy1;
     }
 
-    public class AAA{
+    public class AAA {
         public AAA() {
         }
     }

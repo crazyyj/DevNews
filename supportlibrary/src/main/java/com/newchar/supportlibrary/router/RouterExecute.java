@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
-import java.util.ArrayList;
-
 /**
  * @author wenliqiang@100tal.com
  * date            2019-07-16
@@ -35,7 +33,7 @@ public class RouterExecute {
     /**
      * 打开WebActivity
      */
-    public static void goBrowserActivity(Activity activity,  String url) {
+    public static void goBrowserActivity(Activity activity, String url) {
         ARouter.getInstance().build(ARouterPath.ACTIVITY_BROWSER)
                 .withString("url", url)
                 .navigation(activity, 101);
@@ -52,13 +50,13 @@ public class RouterExecute {
 
     /**
      * 打开osc 帖子详情
+     * Key : postId
      */
     public static void goPostDetailActivity(String postID) {
         ARouter.getInstance().build(ARouterPath.ACTIVITY_POST_DETAIL)
                 .withString("postId", postID)
                 .navigation();
     }
-
 
 
 }

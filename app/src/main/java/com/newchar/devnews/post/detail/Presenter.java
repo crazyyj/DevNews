@@ -1,11 +1,10 @@
 package com.newchar.devnews.post.detail;
 
-import com.newchar.devnews.base.IBasePresenter;
-import com.newchar.devnews.base.IBaseView;
+import com.newchar.devnews.base.IBaseContract.IBasePresenter;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCPostDetail;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
+import com.newchar.oscrepository.entry.OSCPostDetail;
 
 import java.io.IOException;
 import java.util.Map;

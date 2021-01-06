@@ -120,7 +120,7 @@ public class LoginRecord {
     /**
      * 是否过期
      */
-    public boolean isExpire(){
+    public boolean isExpire() {
         return System.currentTimeMillis() < (getExpires_in() * 1000) + getLoginTime();
     }
 

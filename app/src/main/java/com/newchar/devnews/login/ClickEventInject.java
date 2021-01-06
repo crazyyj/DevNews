@@ -3,13 +3,10 @@ package com.newchar.devnews.login;
 import android.app.Activity;
 import android.view.View;
 
-import com.newchar.devnews.main.contract.Contract;
-
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.TypeVariable;
 
 /**
  * @author newChar
@@ -57,7 +54,7 @@ public class ClickEventInject {
         public void onClick(View v) {
             try {
                 final Method method = mMethod.get();
-                if (method != null && mActivity.get() != null ) {
+                if (method != null && mActivity.get() != null) {
                     method.invoke(mActivity.get(), v);
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {

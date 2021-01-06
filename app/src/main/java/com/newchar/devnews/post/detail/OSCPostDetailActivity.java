@@ -1,5 +1,6 @@
 package com.newchar.devnews.post.detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -12,7 +13,7 @@ import com.newchar.browser.WebViewBuilder;
 import com.newchar.browser.WebViewFactory;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
-import com.newchar.devnews.http.entry.osc.OSCPostDetail;
+import com.newchar.oscrepository.entry.OSCPostDetail;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 /**
@@ -76,4 +77,13 @@ public class OSCPostDetailActivity extends BaseActivity implements View {
         });
     }
 
+    @Override
+    public Context obtainContext() {
+        return null;
+    }
+
+    @Override
+    public void showPagePrompt(String prompt) {
+
+    }
 }

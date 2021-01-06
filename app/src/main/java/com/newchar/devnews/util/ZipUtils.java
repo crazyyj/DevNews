@@ -20,21 +20,23 @@ import java.util.zip.ZipOutputStream;
  * @time: 09:22
  */
 public class ZipUtils {
-    public static final String TAG="ZIP";
-    public ZipUtils(){
+    public static final String TAG = "ZIP";
+
+    public ZipUtils() {
 
     }
 
     /**
      * 解压zip到指定的路径
-     * @param zipFileString  ZIP的名称
-     * @param outPathString   要解压缩路径
+     *
+     * @param zipFileString ZIP的名称
+     * @param outPathString 要解压缩路径
      * @throws Exception
      */
     public static void UnZipFolder(String zipFileString, String outPathString) throws Exception {
         ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
         ZipEntry zipEntry;
-        String  szName = "";
+        String szName = "";
         while ((zipEntry = inZip.getNextEntry()) != null) {
             szName = zipEntry.getName();
             if (zipEntry.isDirectory()) {
@@ -43,9 +45,9 @@ public class ZipUtils {
                 File folder = new File(outPathString + File.separator + szName);
                 folder.mkdirs();
             } else {
-                Log.e(TAG,outPathString + File.separator + szName);
+                Log.e(TAG, outPathString + File.separator + szName);
                 File file = new File(outPathString + File.separator + szName);
-                if (!file.exists()){
+                if (!file.exists()) {
                     Log.e(TAG, "Create the file:" + outPathString + File.separator + szName);
                     file.getParentFile().mkdirs();
                     file.createNewFile();
@@ -66,10 +68,10 @@ public class ZipUtils {
         inZip.close();
     }
 
-    public static void UnZipFolder(String zipFileString, String outPathString,String  szName) throws Exception {
+    public static void UnZipFolder(String zipFileString, String outPathString, String szName) throws Exception {
         ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
         ZipEntry zipEntry;
-         while ((zipEntry = inZip.getNextEntry()) != null) {
+        while ((zipEntry = inZip.getNextEntry()) != null) {
             //szName = zipEntry.getName();
             if (zipEntry.isDirectory()) {
                 //获取部件的文件夹名
@@ -77,9 +79,9 @@ public class ZipUtils {
                 File folder = new File(outPathString + File.separator + szName);
                 folder.mkdirs();
             } else {
-                Log.e(TAG,outPathString + File.separator + szName);
+                Log.e(TAG, outPathString + File.separator + szName);
                 File file = new File(outPathString + File.separator + szName);
-                if (!file.exists()){
+                if (!file.exists()) {
                     Log.e(TAG, "Create the file:" + outPathString + File.separator + szName);
                     file.getParentFile().mkdirs();
                     file.createNewFile();
@@ -102,17 +104,18 @@ public class ZipUtils {
 
     /**
      * 压缩文件和文件夹
-     * @param srcFileString   要压缩的文件或文件夹
-     * @param zipFileString   解压完成的Zip路径
+     *
+     * @param srcFileString 要压缩的文件或文件夹
+     * @param zipFileString 解压完成的Zip路径
      * @throws Exception
      */
-    public static void ZipFolder(String srcFileString, String zipFileString)throws Exception {
+    public static void ZipFolder(String srcFileString, String zipFileString) throws Exception {
         //创建ZIP
         ZipOutputStream outZip = new ZipOutputStream(new FileOutputStream(zipFileString));
         //创建文件
         File file = new File(srcFileString);
         //压缩
-        ZipFiles(file.getParent()+File.separator, file.getName(), outZip);
+        ZipFiles(file.getParent() + File.separator, file.getName(), outZip);
         //完成和关闭
         outZip.finish();
         outZip.close();
@@ -120,51 +123,51 @@ public class ZipUtils {
 
     /**
      * 压缩文件
+     *
      * @param folderString
      * @param fileString
      * @param zipOutputSteam
      * @throws Exception
      */
-    private static void ZipFiles(String folderString, String fileString, ZipOutputStream zipOutputSteam)throws Exception{
-        if(zipOutputSteam == null)
+    private static void ZipFiles(String folderString, String fileString, ZipOutputStream zipOutputSteam) throws Exception {
+        if (zipOutputSteam == null)
             return;
-        File file = new File(folderString+fileString);
+        File file = new File(folderString + fileString);
         if (file.isFile()) {
-            ZipEntry zipEntry =  new ZipEntry(fileString);
+            ZipEntry zipEntry = new ZipEntry(fileString);
             FileInputStream inputStream = new FileInputStream(file);
             zipOutputSteam.putNextEntry(zipEntry);
             int len;
             byte[] buffer = new byte[4096];
-            while((len=inputStream.read(buffer)) != -1)
-            {
+            while ((len = inputStream.read(buffer)) != -1) {
                 zipOutputSteam.write(buffer, 0, len);
             }
             zipOutputSteam.closeEntry();
-        }
-        else {
+        } else {
             //文件夹
             String fileList[] = file.list();
             //没有子文件和压缩
             if (fileList.length <= 0) {
-                ZipEntry zipEntry =  new ZipEntry(fileString+File.separator);
+                ZipEntry zipEntry = new ZipEntry(fileString + File.separator);
                 zipOutputSteam.putNextEntry(zipEntry);
                 zipOutputSteam.closeEntry();
             }
             //子文件和递归
             for (int i = 0; i < fileList.length; i++) {
-                ZipFiles(folderString, fileString+ File.separator+fileList[i], zipOutputSteam);
+                ZipFiles(folderString, fileString + File.separator + fileList[i], zipOutputSteam);
             }
         }
     }
 
     /**
      * 返回zip的文件输入流
-     * @param zipFileString  zip的名称
-     * @param fileString     ZIP的文件名
+     *
+     * @param zipFileString zip的名称
+     * @param fileString    ZIP的文件名
      * @return InputStream
      * @throws Exception
      */
-    public static InputStream UpZip(String zipFileString, String fileString)throws Exception {
+    public static InputStream UpZip(String zipFileString, String fileString) throws Exception {
         ZipFile zipFile = new ZipFile(zipFileString);
         ZipEntry zipEntry = zipFile.getEntry(fileString);
         return zipFile.getInputStream(zipEntry);
@@ -172,13 +175,14 @@ public class ZipUtils {
 
     /**
      * 返回ZIP中的文件列表（文件和文件夹）
-     * @param zipFileString     ZIP的名称
-     * @param bContainFolder    是否包含文件夹
-     * @param bContainFile      是否包含文件
+     *
+     * @param zipFileString  ZIP的名称
+     * @param bContainFolder 是否包含文件夹
+     * @param bContainFile   是否包含文件
      * @return
      * @throws Exception
      */
-    public static List<File> GetFileList(String zipFileString, boolean bContainFolder, boolean bContainFile)throws Exception {
+    public static List<File> GetFileList(String zipFileString, boolean bContainFolder, boolean bContainFile) throws Exception {
         List<File> fileList = new ArrayList<File>();
         ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
         ZipEntry zipEntry;

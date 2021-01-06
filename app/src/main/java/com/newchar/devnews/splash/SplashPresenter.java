@@ -8,11 +8,11 @@ import android.widget.Toast;
 import com.newchar.devnews.dao.LoginRecordDAO;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
 import com.newchar.devnews.util.NewLog;
-import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.oscrepository.OSCField;
+import com.newchar.oscrepository.entry.OSCLoginCodeTokenResult;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 
 import java.io.IOException;

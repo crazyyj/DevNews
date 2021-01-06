@@ -3,7 +3,6 @@ package com.newchar.devnews.util.drawable
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import java.util.*
 
 /**
  *  @author         wenliqiang@100tal.com
@@ -12,7 +11,7 @@ import java.util.*
  *  @since          当前版本描述，
  *  @since          迭代版本描述
  */
-class TextColorSelectorBuilder :ISelectorBuilder{
+class TextColorSelectorBuilder : ISelectorBuilder {
 
     private val mSelector: ColorStateList = ColorStateList.valueOf(Color.parseColor("#000000"))
 
@@ -56,7 +55,7 @@ class TextColorSelectorBuilder :ISelectorBuilder{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun build(): ColorStateList{
+    override fun build(): ColorStateList {
         return mSelector
     }
 

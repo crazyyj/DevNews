@@ -1,7 +1,7 @@
 package com.newchar.devnews.post.detail;
 
-import com.newchar.devnews.base.IBaseView;
-import com.newchar.devnews.http.entry.osc.OSCPostDetail;
+import com.newchar.devnews.base.IBaseContract;
+import com.newchar.oscrepository.entry.OSCPostDetail;
 
 /**
  * @author wenliqiang
@@ -9,7 +9,7 @@ import com.newchar.devnews.http.entry.osc.OSCPostDetail;
  * @since 当前版本，（以及描述）
  * @since 迭代版本，（以及描述）
  */
-interface View extends IBaseView {
+interface View extends IBaseContract.IBaseView {
 
     void onPostDetailResponse(OSCPostDetail postDetail);
 

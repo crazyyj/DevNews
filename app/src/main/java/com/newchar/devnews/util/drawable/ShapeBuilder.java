@@ -196,6 +196,7 @@ public class ShapeBuilder {
 
     /**
      * 描边的厚度
+     *
      * @param width 厚度
      */
     public ShapeBuilder dashWidth(int width) {

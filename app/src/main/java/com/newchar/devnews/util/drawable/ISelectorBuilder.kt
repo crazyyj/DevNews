@@ -28,7 +28,7 @@ interface ISelectorBuilder {
         val STATE_CHECKED = intArrayOf(android.R.attr.state_checked)
 //        val STATE_CHECKED_NO  = intArrayOf(-android.R.attr.state_checked)
 
-        val STATE_FOCUSED  = intArrayOf(android.R.attr.state_focused)
+        val STATE_FOCUSED = intArrayOf(android.R.attr.state_focused)
 //        val STATE_FOCUSED_NO  = intArrayOf(-android.R.attr.state_window_focused)
 
         val STATE_SELECTED = intArrayOf(android.R.attr.state_selected)
@@ -45,30 +45,30 @@ interface ISelectorBuilder {
 
     }
 
-    fun default(default: Drawable):ISelectorBuilder
+    fun default(default: Drawable): ISelectorBuilder
 
     /**
      * 按下
      */
-    fun press(press: Drawable):ISelectorBuilder
+    fun press(press: Drawable): ISelectorBuilder
 
-    fun active(active: Drawable):ISelectorBuilder
+    fun active(active: Drawable): ISelectorBuilder
 
-    fun enabled(enabled: Drawable):ISelectorBuilder
+    fun enabled(enabled: Drawable): ISelectorBuilder
 
-    fun focused(focused: Drawable):ISelectorBuilder
+    fun focused(focused: Drawable): ISelectorBuilder
 
-    fun checked(checked: Drawable):ISelectorBuilder
+    fun checked(checked: Drawable): ISelectorBuilder
 
-    fun selected(selected: Drawable):ISelectorBuilder
+    fun selected(selected: Drawable): ISelectorBuilder
 
-    fun checkable(checkable: Drawable):ISelectorBuilder
+    fun checkable(checkable: Drawable): ISelectorBuilder
 
-    fun longPressable(longPressable: Drawable):ISelectorBuilder
+    fun longPressable(longPressable: Drawable): ISelectorBuilder
 
-    fun windowFocused(windowFocused: Drawable):ISelectorBuilder
+    fun windowFocused(windowFocused: Drawable): ISelectorBuilder
 
-    fun addState(states: IntArray, drawable: Drawable):ISelectorBuilder
+    fun addState(states: IntArray, drawable: Drawable): ISelectorBuilder
 
     fun build(): Any
 

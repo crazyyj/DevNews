@@ -1,5 +1,6 @@
 package com.newchar.devnews.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,12 +15,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.dao.LoginRecordDAO;
-import com.newchar.devnews.http.MURL;
-import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
 import com.newchar.devnews.util.NewLog;
-import com.newchar.devnews.util.constant.OSCField;
 import com.newchar.devnews.web.WebViewActivity;
+import com.newchar.oscrepository.MURL;
+import com.newchar.oscrepository.OSCField;
+import com.newchar.oscrepository.entry.OSCLoginCodeTokenResult;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
 import com.newchar.supportlibrary.db.entry.LoginRecord;
 import com.newchar.supportlibrary.router.ARouterPath;
 import com.newchar.supportlibrary.router.RouterExecute;
@@ -143,4 +144,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
         RouterExecute.goMainActivity();
     }
 
+    @Override
+    public Context obtainContext() {
+        return null;
+    }
+
+    @Override
+    public void showPagePrompt(String prompt) {
+
+    }
 }

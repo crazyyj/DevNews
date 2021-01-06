@@ -16,9 +16,9 @@ import com.newchar.devnews.R;
 import com.newchar.devnews.base.BaseActivity;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCBlogDetail;
-import com.newchar.devnews.http.entry.osc.OSCHttpError;
 import com.newchar.devnews.http.params.OSCParamsBuilder;
+import com.newchar.oscrepository.entry.OSCBlogDetail;
+import com.newchar.oscrepository.entry.OSCHttpError;
 import com.newchar.supportlibrary.router.ARouterPath;
 
 import java.io.IOException;

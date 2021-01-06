@@ -3,14 +3,13 @@ package com.newchar.devnews.login;
 import android.app.Activity;
 import android.widget.Toast;
 
-import com.newchar.devnews.base.IBasePresenter;
-import com.newchar.devnews.base.IBaseView;
+import com.newchar.devnews.base.IBaseContract.IBasePresenter;
 import com.newchar.devnews.http.HttpRequest;
 import com.newchar.devnews.http.JsonCompat;
-import com.newchar.devnews.http.entry.osc.OSCHttpError;
-import com.newchar.devnews.http.entry.osc.OSCLoginCodeTokenResult;
-import com.newchar.devnews.http.entry.osc.OSCUserInfoResult;
-import com.newchar.devnews.util.constant.OSCField;
+import com.newchar.oscrepository.OSCField;
+import com.newchar.oscrepository.entry.OSCHttpError;
+import com.newchar.oscrepository.entry.OSCLoginCodeTokenResult;
+import com.newchar.oscrepository.entry.OSCUserInfoResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -117,4 +116,4 @@ public class Presenter implements IBasePresenter<LoginView> {
         });
     }
 
- }
+}

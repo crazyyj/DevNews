@@ -26,14 +26,29 @@ public class NewLog {
         }
     }
 
+    /**
+     * 获取调用者的 全类名 + 方法名
+     *
+     * @return 全类名+方法名
+     */
+    public static String getTopMethod() {
+        final StackTraceElement[] stackElements = new Throwable().getStackTrace();
+        if (stackElements.length > 3) {
+            final StackTraceElement stackElement = stackElements[2];
+            return stackElement.getClassName() + "." + stackElement.getMethodName();
+        }
+        return null;
+    }
+
+
     public void methodDes() {
         final StackTraceElement[] stackElements = new Throwable().getStackTrace();
         if (stackElements != null) {
             System.out.println("-----------------------------------");
             for (int i = 0; i < stackElements.length; i++) {
-                System.out.print(stackElements[i].getClassName()+"\t");
-                System.out.print(stackElements[i].getFileName()+"\t");
-                System.out.print(stackElements[i].getLineNumber()+"\t");
+                System.out.print(stackElements[i].getClassName() + "\t");
+                System.out.print(stackElements[i].getFileName() + "\t");
+                System.out.print(stackElements[i].getLineNumber() + "\t");
                 System.out.println(stackElements[i].getMethodName());
             }
         }

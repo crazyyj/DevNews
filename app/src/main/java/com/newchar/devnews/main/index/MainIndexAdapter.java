@@ -1,10 +1,12 @@
 package com.newchar.devnews.main.index;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.newchar.devnews.base.adapter.BaseViewPagerAdapter;
+import com.newchar.devnews.blog.OSCBlogListFragment;
+import com.newchar.devnews.post.OSCPostListFragment;
 
 /**
  * @author wenliqiang
@@ -20,10 +22,24 @@ class MainIndexAdapter extends BaseViewPagerAdapter {
         super(fragment);
     }
 
-    @Nullable
+    @Override
+    protected Fragment generateMainPage(int position) {
+        switch (position) {
+            case 0:
+                return new OSCPostListFragment();
+            case 1:
+            default:
+                return new OSCBlogListFragment();
+        }
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return tabText[position];
     }
 
+    @Override
+    public int getCount() {
+        return 2;
+    }
 }

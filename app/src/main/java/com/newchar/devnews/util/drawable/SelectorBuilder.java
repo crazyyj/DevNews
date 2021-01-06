@@ -1,13 +1,7 @@
 package com.newchar.devnews.util.drawable;
 
-import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.StateListDrawable;
-
-import androidx.appcompat.graphics.drawable.DrawableWrapper;
-
-import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
 
 /**
  * @author wenliqiang
@@ -17,34 +11,34 @@ import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat;
  */
 public class SelectorBuilder {
 
-    private StateListDrawable mSelector ;
+    private StateListDrawable mSelector;
 
-    private int[] STATE_PRESS = new int[]{ android.R.attr.state_pressed };
-    private int[] STATE_PRESS_NO = new int[]{ -android.R.attr.state_pressed };
+    private int[] STATE_PRESS = new int[]{android.R.attr.state_pressed};
+    private int[] STATE_PRESS_NO = new int[]{-android.R.attr.state_pressed};
 
-    private int[] STATE_ACTIVE= new int[]{ android.R.attr.state_active };
-    private int[] STATE_ACTIVE_NO = new int[]{ -android.R.attr.state_active};
+    private int[] STATE_ACTIVE = new int[]{android.R.attr.state_active};
+    private int[] STATE_ACTIVE_NO = new int[]{-android.R.attr.state_active};
 
-    private int[] STATE_ENABLED = new int[]{ android.R.attr.state_enabled };
-    private int[] STATE_ENABLED_NO = new int[]{ -android.R.attr.state_enabled };
+    private int[] STATE_ENABLED = new int[]{android.R.attr.state_enabled};
+    private int[] STATE_ENABLED_NO = new int[]{-android.R.attr.state_enabled};
 
-    private int[] STATE_CHECKED = new int[]{ android.R.attr.state_checked };
-    private int[] STATE_CHECKED_NO = new int[]{ -android.R.attr.state_checked };
+    private int[] STATE_CHECKED = new int[]{android.R.attr.state_checked};
+    private int[] STATE_CHECKED_NO = new int[]{-android.R.attr.state_checked};
 
-    private int[] STATE_FOCUSED = new int[]{ android.R.attr.state_focused };
-    private int[] STATE_FOCUSED_NO = new int[]{ -android.R.attr.state_focused };
+    private int[] STATE_FOCUSED = new int[]{android.R.attr.state_focused};
+    private int[] STATE_FOCUSED_NO = new int[]{-android.R.attr.state_focused};
 
-    private int[] STATE_SELECTED = new int[]{ android.R.attr.state_selected };
-    private int[] STATE_SELECTED_NO = new int[]{ -android.R.attr.state_selected };
+    private int[] STATE_SELECTED = new int[]{android.R.attr.state_selected};
+    private int[] STATE_SELECTED_NO = new int[]{-android.R.attr.state_selected};
 
-    private int[] STATE_CHECKABLE = new int[]{ android.R.attr.state_checkable };
-    private int[] STATE_CHECKABLE_NO = new int[]{ -android.R.attr.state_checkable };
+    private int[] STATE_CHECKABLE = new int[]{android.R.attr.state_checkable};
+    private int[] STATE_CHECKABLE_NO = new int[]{-android.R.attr.state_checkable};
 
-    private int[] STATE_LONG_PRESSABLE = new int[]{ android.R.attr.state_long_pressable };
-    private int[] STATE_LONG_PRESSABLE_NO = new int[]{ -android.R.attr.state_long_pressable };
+    private int[] STATE_LONG_PRESSABLE = new int[]{android.R.attr.state_long_pressable};
+    private int[] STATE_LONG_PRESSABLE_NO = new int[]{-android.R.attr.state_long_pressable};
 
-    private int[] STATE_WINDOW_FOCUSED = new int[]{ android.R.attr.state_window_focused };
-    private int[] STATE_WINDOW_FOCUSED_NO = new int[]{ -android.R.attr.state_window_focused };
+    private int[] STATE_WINDOW_FOCUSED = new int[]{android.R.attr.state_window_focused};
+    private int[] STATE_WINDOW_FOCUSED_NO = new int[]{-android.R.attr.state_window_focused};
 
     private SelectorBuilder() {
         mSelector = new StateListDrawable();

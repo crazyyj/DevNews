@@ -1,6 +1,7 @@
 package com.newchar.devnews.http;
 
-import com.newchar.devnews.util.constant.OSCField;
+
+import com.newchar.oscrepository.OSCField;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class HttpRequest {
     }
 
     public static void requestOSCUser(Map<String, Object> params, Callback callback) {
-        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + "/action/openapi/user", params, callback);
+        OKHttpClient.post(OSCField.URL.BASE_OSC_URL + OSCField.Address.GET_USER, params, callback);
     }
 
     /**

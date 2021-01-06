@@ -11,7 +11,6 @@ import android.view.View;
 public class LoadingState implements IMultiState {
 
 
-
     @Override
     public int getStateType() {
         return 0;

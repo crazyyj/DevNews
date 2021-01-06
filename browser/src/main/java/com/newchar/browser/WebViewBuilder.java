@@ -13,6 +13,7 @@ import android.webkit.WebView;
 public class WebViewBuilder {
 
     private WebView mWebView;
+
     public WebViewBuilder(WebView host) {
         mWebView = host;
     }
